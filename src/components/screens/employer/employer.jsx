@@ -4,7 +4,7 @@ import UpdateScreen from "./update/update";
 import PortalScreen from "./portal/portal";
 // import UpdateScreen from "../portal copy/update/update";
 
-const CandidatesScreen = ({ currentUser, session, setCurrentUser }) => {
+const EmployerScreen = ({ currentUser, session, setCurrentUser }) => {
   const [currentScreen, setCurrentScreen] = useState("loading");
 
   const updateScreen = () => {
@@ -40,4 +40,4 @@ const CandidatesScreen = ({ currentUser, session, setCurrentUser }) => {
   );
 };
 
-export default CandidatesScreen;
+export default EmployerScreen;

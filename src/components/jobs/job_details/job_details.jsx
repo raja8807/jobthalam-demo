@@ -43,7 +43,7 @@ const JobDetails = ({
             </div>
             <div className={styles.name}>
               <h4>{job?.title}</h4>
-              <p>at {job?.company?.name}</p>
+              <p>at {job?.company}</p>
             </div>
           </div>
 
@@ -137,7 +137,8 @@ const JobDetails = ({
                 <h6>Contact</h6>
                 <div className={styles.box3}>
                   <strong>
-                    <Person/> &nbsp;{job?.employer.first_name} {job?.employer.last_name}
+                    <Person /> &nbsp;{job?.employer.first_name}{" "}
+                    {job?.employer.last_name}
                   </strong>
                   <div>
                     <EnvelopeAt /> &nbsp;<small>{job?.employer.email}</small>

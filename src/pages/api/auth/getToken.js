@@ -49,7 +49,7 @@ const handler = async (req, res) => {
     const token = await getAuth(firebaseAdmin).createCustomToken(
       req?.body?.mobile,
       {
-        role: "candidate",
+        role: "employer",
       }
     );
 

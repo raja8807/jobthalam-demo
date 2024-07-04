@@ -1,9 +1,7 @@
-import MainFrame from "@/components/ui/main_frame/main_frame";
 import React, { useState } from "react";
 import styles from "./update.module.scss";
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
 import { auth } from "@/libs/firebase/firebase";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { createUser } from "@/libs/firebase/user/user";
@@ -18,6 +16,8 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
           first_name: "",
           last_name: "",
           email: "",
+          company_name: "",
+          company_type: "",
         }
   );
 
@@ -87,8 +87,23 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
         }}
         value={values.phone_number}
       />
-
-      <CustomSkillSelector />
+      <CustomInput
+        placeHolder="Company Name"
+        type="text"
+        required
+        onChange={(e, value) => {
+          setValues((prev) => ({ ...prev, company_name: value }));
+        }}
+        value={values.company_name}
+      />
+      <CustomInput
+        placeHolder="Industry Type"
+        required
+        onChange={(e, value) => {
+          setValues((prev) => ({ ...prev, company_type: value }));
+        }}
+        value={values.company_type}
+      />
 
       <CustomButton
         wFull

@@ -14,6 +14,8 @@ const JobPreviewRow = ({
 }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
+  console.log(job);
+
   return (
     <div
       className={styles.JobPreviewRow}
@@ -53,12 +55,9 @@ const JobPreviewRow = ({
                   <p className={styles.job_location}>
                     <GeoAlt /> {job.location}
                   </p>
-                  {job.min_salary > 0 && (
+                  {job.salary  && (
                     <p className={styles.job_salary}>
-                      <CurrencyRupee /> {job.min_salary}{" "}
-                      {job.max_salary &&
-                        job.max_salary !== job.min_salary &&
-                        `- ${job.max_salary}`}
+                      <CurrencyRupee /> {job.salary}
                     </p>
                   )}
                 </div>

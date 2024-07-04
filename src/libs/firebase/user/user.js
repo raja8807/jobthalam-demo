@@ -3,7 +3,7 @@ import { db, updateData } from "../firebase";
 
 export const createUser = async (data, id) => {
   try {
-    const res = await setDoc(doc(db, "Candidate", id), data);
+    const res = await setDoc(doc(db, "Employer", id), data);
 
     return {
       id,
@@ -16,7 +16,7 @@ export const createUser = async (data, id) => {
 
 export const updateUser = async (data) => {
   try {
-    await updateData("Candidate", data, data.id);
+    await updateData("Employer", data, data.id);
     return data;
   } catch (err) {
     throw new Error(err);

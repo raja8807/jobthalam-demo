@@ -1,11 +1,11 @@
-import CandidatesScreen from "@/components/screens/candidates/candidates";
+import EmployerScreen from "@/components/screens/employer/employer";
+import PortalScreen from "@/components/screens/employer/portal/portal";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { auth } from "@/libs/firebase/firebase";
-// import { auth } from "firebase-admin";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const Candidates = ({ currentUser, session, setCurrentUser }) => {
+const EmployerPage = ({ currentUser, session, setCurrentUser }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -18,14 +18,14 @@ const Candidates = ({ currentUser, session, setCurrentUser }) => {
 
   if (session) {
     return (
-      <CandidatesScreen
+      <EmployerScreen
         currentUser={currentUser}
         session={session}
         setCurrentUser={setCurrentUser}
       />
     );
   }
-  return <LoadingScreen/>;
+  return <LoadingScreen />;
 };
 
-export default Candidates;
+export default EmployerPage;

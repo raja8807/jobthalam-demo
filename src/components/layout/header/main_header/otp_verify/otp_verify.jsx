@@ -40,7 +40,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
 
       // console.log(session);
       if (session) {
-        router.push("/candidate");
+        router.push("/employer");
       }
       setShowLogin(false);
     } catch (err) {

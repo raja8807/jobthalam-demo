@@ -91,11 +91,12 @@ export const generateUid = function () {
 };
 
 export const addData = async (collectionName, data, id) => {
-  console.log("ok");
+  console.log("xxxxx");
   try {
-    const res = await setDoc(doc(db, collectionName, id), data);
+    const res =  await setDoc(doc(db, collectionName, id), data);
     return data;
   } catch (err) {
+    console.log(err);
     throw new Error(err);
   }
 };
@@ -193,7 +194,7 @@ export const getDataByQuery = async (collectionName, queryArray) => {
 
 export const getLoggedInUser = async (phone_number) => {
   try {
-    const user = await getData("Candidate", [
+    const user = await getData("Employer", [
       "phone_number",
       "==",
       phone_number,
