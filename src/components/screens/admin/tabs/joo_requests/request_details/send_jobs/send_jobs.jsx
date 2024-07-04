@@ -42,6 +42,7 @@ const SendJobs = ({
 
       if (updateRes) {
         setShow((prev) => ({ ...prev, jobs_sent: allSent.length }));
+        setNewJobs([])
       }
     } catch (error) {
       console.log(error);
