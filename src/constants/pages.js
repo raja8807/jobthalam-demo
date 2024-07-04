@@ -4,8 +4,8 @@ const PAGES = [
     href: "/",
   },
   {
-    name: "Candidate",
-    href: "/candidate",
+    name: "Admin",
+    href: "/admin",
     isPortal: true,
   },
   {

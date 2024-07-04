@@ -3,10 +3,10 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import styles from "./otp_verify.module.scss";
-import { Pencil, X } from "react-bootstrap-icons";
-import axios from "axios";
+import { X } from "react-bootstrap-icons";
+
 import { auth } from "@/libs/firebase/firebase";
-import { signInWithCustomToken } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/router";
 
 const OtpVerify = ({ showLogin, setShowLogin }) => {
@@ -17,51 +17,23 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
 
   const router = useRouter();
 
-  const sendOtp = async () => {
+  const login = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post("/api/auth/otp/send", {
-        mobile,
-      });
-      setOtpSent(true);
-    } catch (error) {
-      console.log(error?.response?.data);
-    }
-    setIsLoading(false);
-  };
-
-  const loginWithGoogleToken = async () => {
-    setIsLoading(true);
-    try {
-      const token = await axios.post("/api/auth/getToken", {
-        mobile,
-      });
-      const session = await signInWithCustomToken(auth, token.data.token);
+      const session = await signInWithEmailAndPassword(
+        auth,
+        "yora8807+a1@gmail.com",
+        "admin@123"
+      );
 
       // console.log(session);
       if (session) {
-        router.push("/candidate");
+        router.push("/admin");
       }
       setShowLogin(false);
     } catch (err) {
       console.log(err.data);
     }
-    setIsLoading(false);
-  };
-
-  const verifyOtpAndLogin = async () => {
-    setIsLoading(true);
-    try {
-      //   const res = await axios.post("/api/auth/otp/verify", {
-      //     otp,
-      //   });
-      //   if (res?.data?.valid) {
-      await loginWithGoogleToken();
-      //   }
-    } catch (error) {
-      console.log(error?.response?.data);
-    }
-
     setIsLoading(false);
   };
 
@@ -90,67 +62,20 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
           }}
           className={styles.x}
         />
-        <div className={styles.body}>
-          <h5>{otpSent ? "Enter OTP" : "Enter Your Mobile Number"}</h5>
-          {otpSent ? (
-            <>
-              <small>
-                we have sent OTP to <strong>+91 {mobile}</strong>
-                &nbsp;
-                <Pencil
-                  className={styles.edit}
-                  onClick={() => {
-                    setOtpSent(false);
-                  }}
-                />
-              </small>
-              <div>
-                <CustomInput
-                  placeHolder="OTP"
-                  onChange={(e, v) => {
-                    setOtp(v);
-                  }}
-                  value={otp}
-                />
-              </div>
-              <small>
-                Didn&apos;t get otp? <span onClick={sendOtp}>Resend</span>
-              </small>
-            </>
-          ) : (
-            <>
-              <div>
-                <p>+91 </p>
-                <CustomInput
-                  placeHolder="Eg: 7894561230"
-                  value={mobile}
-                  onChange={(e, v) => {
-                    setMobile(v);
-                  }}
-                  maxLength={10}
-                />
-              </div>
-              <small>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Cupiditate, nihil.
-              </small>
-            </>
-          )}
-          <hr />
-          <CustomButton
-            onClick={async () => {
-              if (otpSent) {
-                verifyOtpAndLogin();
-              } else {
-                sendOtp();
-              }
-            }}
-            isLoading={isLoading}
-            disabled={getDisabled()}
-          >
-            {otpSent ? "Verify OTP" : "Next"}{" "}
-          </CustomButton>
-        </div>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+
+            await login();
+          }}
+        >
+          <div className={styles.body}>
+            <h5>Admin Login</h5>
+            <CustomInput label="Email" />
+            <CustomInput label="Password" type="password" />
+            <CustomButton isLoading={isLoading}>Login</CustomButton>
+          </div>
+        </form>
       </Modal.Body>
     </Modal>
   );

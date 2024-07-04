@@ -12,13 +12,16 @@ const JobRequests = () => {
   const [requests, setRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [allJobs, setAllJobs] = useState([]);
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
   const fetchJobRequests = async () => {
     setIsLoading(true);
     try {
       const res = await getAllData("Request");
+      const jobs = await getAllData("Job");
       setRequests(res);
+      setAllJobs(jobs);
     } catch (err) {
       console.log("job request error", err);
     }
@@ -39,6 +42,7 @@ const JobRequests = () => {
             request={showDetailsFor}
             setShow={setShowDetailsFor}
             setIsLoading={setIsLoading}
+            allJobs={allJobs}
           />
         ) : (
           <CustomTable

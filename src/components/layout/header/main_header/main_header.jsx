@@ -22,25 +22,11 @@ const MainHeader = ({ currentUser, session }) => {
             {!currentUser && !session && (
               <>
                 <CustomButton
-                  variant={4}
-                  onClick={async () => {
-                    signInWithEmailAndPassword(
-                      auth,
-                      "yora8807+a1@gmail.com",
-                      "admin@123"
-                    )
-                      .then((u) => console.log(u))
-                      .catch((err) => console.log(err.message));
-                  }}
-                >
-                  Employer Login
-                </CustomButton>
-                <CustomButton
                   onClick={() => {
                     setShowLogin(true);
                   }}
                 >
-                  Candidate Login
+                  Admin Login
                 </CustomButton>
               </>
             )}
@@ -53,7 +39,7 @@ const MainHeader = ({ currentUser, session }) => {
                 Logout
               </CustomButton>
             )}
-            {session && currentUser && <User currentUser={currentUser} />}
+            
             {/* {currentUser ? (
               <User currentUser={currentUser} />
             ) : (

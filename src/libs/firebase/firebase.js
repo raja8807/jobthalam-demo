@@ -8,6 +8,7 @@ import {
   getDocs,
   getDoc,
   collection,
+  writeBatch,
   query,
   where,
 } from "firebase/firestore";
@@ -21,6 +22,7 @@ import {
 } from "firebase/storage";
 
 import { getAuth } from "firebase/auth";
+import { v4 } from "uuid";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -30,7 +32,6 @@ export const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
-
 
 const firebaseApp = !getApps().length
   ? initializeApp(firebaseConfig)
@@ -97,6 +98,21 @@ export const addData = async (collectionName, data, id) => {
     return data;
   } catch (err) {
     throw new Error(err);
+  }
+};
+
+export const addMultipleData = async function (collectionName, documents = []) {
+  try {
+    var docsToUpload = documents.map((d) => ({ id: v4(), ...d }));
+
+    docsToUpload.forEach(async (document) => {
+      await setDoc(doc(db, collectionName, document.id), document);
+    });
+
+    return docsToUpload;
+  } catch (err) {
+    throw new Error(err);
+
   }
 };
 

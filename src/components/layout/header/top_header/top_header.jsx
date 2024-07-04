@@ -17,12 +17,12 @@ const TopHeader = ({ session }) => {
               if (session) {
                 return (
                   <li
-                    key={'portal'}
+                    key={"portal"}
                     className={`${styles.item} ${
                       router.pathname === p.href ? styles.active : ""
                     }`}
                   >
-                    <Link href={"/candidate"}>Candidate</Link>
+                    <Link href={"/admin"}>Admin</Link>
                   </li>
                 );
               }
