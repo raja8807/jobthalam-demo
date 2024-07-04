@@ -1,5 +1,4 @@
 import CustomContainer from "@/components/ui/custom_container/custom_container";
-import MainFrame from "@/components/ui/main_frame/main_frame";
 import Tabs from "@/components/ui/tabs/tabs";
 import React, { useEffect, useState } from "react";
 import {
@@ -11,11 +10,37 @@ import {
 import Jobs from "./jobs/jobs";
 import { useRouter } from "next/router";
 import JobRequests from "./request/request";
+import { getData, getDataByQuery } from "@/libs/firebase/firebase";
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
 
+  const [allJobs, setAllJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const tabIndex = router.query.t;
+
+  const getJobs = async () => {
+    setIsLoading(true);
+    try {
+      const res = await getDataByQuery("Featured", [
+        "candidate_id",
+        "==",
+        currentUser.id,
+      ]);
+      setAllJobs(res);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getJobs();
+  }, []);
+
+  // console.log(allJobs);
 
   const tabs = [
     {
@@ -23,7 +48,12 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       title: "Find Jobs",
       icon: <Briefcase />,
       component: (
-        <Jobs currentUser={currentUser} setCurrentUser={setCurrentUser} />
+        <Jobs
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          allJobs={allJobs}
+          isLoading={isLoading}
+        />
       ),
     },
 
@@ -40,22 +70,26 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
     },
   ];
 
-  const [currentTab, setCurrentTab] = useState(tabs[tabIndex || 0]);
+  const [currentTabIndex, setCurrentTabIndex] = useState(tabIndex || 0);
+
+  const currentTab = tabs[currentTabIndex];
 
   useEffect(() => {
     if (tabIndex == 2) {
-      setCurrentTab(tabs[tabIndex]);
+      setCurrentTabIndex(tabIndex);
     }
   }, [tabIndex]);
 
   return (
     <div>
       <CustomContainer>
+        {isLoading && <LoadingScreen />}
         <Tabs
           tabs={tabs}
           currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
+          // setCurrentTab={setCurrentTab}
           onTabChange={(tab, i) => {
+            setCurrentTabIndex(i);
             router.push(
               {
                 pathname: "/candidate",

@@ -26,7 +26,7 @@ const handler = async (req, res) => {
     const jsonData = JSON.stringify(data, null, 2);
 
     // Define the file path
-    const filePath = path.join(__dirname, "data.json");
+    // const filePath = path.join(__dirname, "data.json");
 
     // console.log(filePath);
 
