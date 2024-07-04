@@ -1,0 +1,22 @@
+.candidate_details {
+  border-bottom: 1px solid $color_g2;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  @include respond-above(lg){
+    border-right: 1px solid $color_g2;
+    border-bottom: none;
+  }
+
+  h5 {
+    margin-bottom: 16px;
+  }
+
+  .row {
+    display: flex;
+    margin-bottom: 8px;
+    > div {
+      width: 100px;
+    }
+  }
+}

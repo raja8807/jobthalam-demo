@@ -1,0 +1,21 @@
+.MainFrame {
+  padding: 20px;
+  width: 100%;
+  height: calc(100dvh - 178px);
+  overflow-y: auto;
+  // background-color: red;
+  // height: 100vh;
+}
+
+.head {
+  h3 {
+    font-size: 25px;
+  }
+  p {
+    color: $color_g3;
+    font-size: 15px;
+  }
+
+  // margin: 0 20px 20px 20px;
+  margin-bottom: 20px;
+}

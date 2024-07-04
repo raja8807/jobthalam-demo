@@ -1,0 +1,85 @@
+.UpdateScreen {
+  background-color: $color_g1;
+  .LoginScreen {
+    height: calc(100dvh - 111px);
+    @include flexCenter;
+
+    .name {
+      display: flex;
+      gap: 10px;
+    }
+
+    .box {
+      width: 400px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+
+      @include respond-below(sm){
+        width: 90%;
+      }
+
+      .create {
+        span {
+          color: $color_p1;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+
+      .forgot {
+        font-size: 14px;
+        //   background-color: red;
+        display: block;
+        width: fit-content;
+        margin: 2px 0 0 auto;
+        color: $color_link_blue;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .select {
+        background-color: $color_g1;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 14px;
+
+        > div {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 8px;
+
+          > p {
+            font-size: 13px;
+            cursor: pointer;
+            background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+            padding: 5px 20px;
+            border-radius: 5px;
+            svg {
+              font-size: 12px;
+              margin-bottom: 3px;
+              margin-right: 4px;
+              transition-duration: 0s;
+            }
+
+            &:hover {
+              background-color: $color_g2;
+            }
+
+            &.active {
+              background-color: $color_p2;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

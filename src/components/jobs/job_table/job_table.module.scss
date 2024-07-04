@@ -1,0 +1,29 @@
+.JobTable {
+  .title {
+    p {
+      span {
+        color: $color_g2;
+        font-size: 13px;
+        margin-left: 2px;
+      }
+    }
+  }
+  .tHead {
+    background-color: $color_g1;
+    color: $color_g3;
+    border-radius: 3px;
+    margin: 10px 0;
+    position: sticky;
+    top: -12px;
+    // border-bottom: 1px solid $color_g3;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    P {
+      font-size: 14px;
+      padding: 5px 10px;
+    }
+
+    @include respond-below(md) {
+      display: none;
+    }
+  }
+}

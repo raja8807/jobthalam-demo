@@ -1,0 +1,32 @@
+.top_nav {
+  background-color: $color_g1;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    .item {
+      padding: 8px 0;
+      font-size: 16px;
+      font-weight: 500;
+      a {
+        color: $color_g2;
+      }
+
+      &.active {
+        a {
+          color: $color_p1 !important;
+        }
+        border-bottom: 3px solid $color_p1;
+      }
+
+      &:hover {
+        a {
+          color: $color_p1 !important;
+        }
+      }
+    }
+  }
+}

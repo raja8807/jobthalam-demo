@@ -1,0 +1,86 @@
+.LeftMenu {
+  border-right: 1px solid $color_g2;
+  height: calc(100dvh - 115px);
+  overflow-x: hidden;
+  width: 50px;
+  z-index: 100;
+  background-color: white;
+  position: relative;
+  transition: 0.5s;
+
+  &.expanded {
+    width: 280px;
+    @include respond-below(lg) {
+      position: absolute;
+    }
+  }
+  .head {
+    padding: 10px 0px 10px 13px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > p {
+      color: $color_g2;
+      font-size: 13px;
+      font-weight: 500;
+      margin-right: 20px;
+    }
+
+    svg {
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .list {
+      width: 28px;
+      height: 28px;
+      color: $color_p1;
+    }
+
+    .chevron {
+      color: $color_p2;
+      margin-right: 16px;
+      font-size: 15px;
+    }
+  }
+  height: calc(100dvh - 115px);
+  // background-color: blue;
+
+  .wrap {
+    height: 100% !important;
+    // height: auto;
+    .item {
+      padding: 7px 13px 7px 13px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      color: $color_g3;
+
+      > span {
+        svg {
+          margin: 0 10px 4px 0;
+        }
+      }
+
+      &:hover {
+        color: black;
+        background-color: $color_g1;
+        transform: translate(5px, 0);
+      }
+
+      &.active {
+        background-color: #ea205315;
+        border-color: $color_p1;
+        color: $color_p1;
+        transform: translate(5px, 0);
+      }
+    }
+
+    .logout {
+      position: absolute;
+      bottom: 20px;
+    }
+  }
+}

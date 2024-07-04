@@ -1,0 +1,25 @@
+.user {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  .bell {
+    position: relative;
+    cursor: pointer;
+
+    .bubble {
+      position: absolute;
+      background-color: $color_p1;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      top: 0;
+      right: -1px;
+    }
+    svg {
+      font-size: 22px;
+    }
+  }
+
+ 
+}

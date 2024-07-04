@@ -1,0 +1,87 @@
+.BannerSection {
+  background-color: $color_g1;
+  padding-bottom: 50px;
+
+  .wrap {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .left {
+      padding: 80px 50px 0 0;
+      width: 100%;
+
+      h1 {
+        font-size: 65px;
+        font-weight: 600;
+        color: $color_p2;
+      }
+
+      p {
+        color: $color_g2;
+        margin: 20px 0;
+      }
+    }
+
+    .right {
+      width: 800px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .card_wrap {
+    display: flex;
+  }
+
+  @include respond-below(lg) {
+    .wrap {
+      flex-direction: column;
+
+      .left {
+        padding: 50px 0 0 0;
+        text-align: center;
+        h1 {
+          font-size: 45px;
+        }
+      }
+
+      .right {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.BCard {
+  background-color: white;
+  margin-bottom: 16px;
+  display: flex;
+  padding: 20px;
+  gap: 16px;
+  border-radius: 4px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+  .c_left {
+    background-color: $color_p1_mild;
+    height: 50px;
+    width: 50px;
+    border-radius: inherit;
+    @include flexCenter;
+    color: $color_p1;
+    font-size: 30px;
+  }
+
+  .c_right {
+    p {
+      font-weight: 600;
+    }
+
+    small {
+      color: $color_g2;
+    }
+  }
+}

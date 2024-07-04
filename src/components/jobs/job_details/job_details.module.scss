@@ -1,0 +1,178 @@
+.JobDetailsModal {
+  border-radius: 0;
+
+  div[class*="modal-content"] {
+    border-radius: 2px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .modalHead {
+    border-radius: 0;
+    padding: 10px;
+    color: $color_g3;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 100;
+
+    .head {
+      background-color: white;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+
+      background-color: white;
+      padding: 10px;
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .logo {
+          border-radius: 50%;
+          overflow: hidden;
+        }
+
+        .name {
+          h4 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 600;
+          }
+
+          p {
+            color: $color_g3;
+            font-size: 15px;
+          }
+        }
+      }
+
+      svg {
+        position: absolute;
+        right: -15px;
+        top: -15px;
+        font-size: 24px;
+        background-color: $color_g1;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .modalBody {
+    .box {
+      border: 1px solid $color_g1;
+      padding: 16px;
+    }
+
+    .wrap {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 20px;
+
+      .top {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .box1 {
+          display: flex;
+          justify-content: space-between;
+          // align-items: center;
+
+          svg {
+            color: $color_p1;
+          }
+
+          > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            h5 {
+              font-size: 16px;
+              margin: 0;
+              color: $color_g3;
+            }
+
+            p {
+              font-size: 16px;
+            }
+
+            small {
+              color: $color_g3;
+            }
+          }
+
+          hr {
+            background-color: $color_g1;
+            // height: 50px;
+            width: 1px;
+            margin: 0;
+            opacity: 1;
+            border: none;
+          }
+        }
+
+        .box2 {
+          display: flex;
+          flex-wrap: wrap;
+          // justify-content: space-between;
+          gap: 20px;
+
+          > div {
+            width: fit-content;
+            margin-right: 20px;
+            margin: 10px 20px 0 0;
+
+            svg {
+              color: $color_p1;
+              font-size: 20px;
+            }
+
+            p {
+              font-size: 13px;
+              color: $color_g2;
+              margin-top: 4px;
+            }
+
+            span {
+              font-size: 14px;
+            }
+          }
+        }
+
+        .box3{
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          
+        }
+      }
+
+      .bottom {
+        width: 60%;
+
+        h6 {
+          font-size: 18px;
+          // font-weight: bold;
+        }
+
+        p {
+          color: $color_g3;
+        }
+      }
+      @include respond-below(xl) {
+        flex-direction: column;
+        .top,
+        .bottom {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

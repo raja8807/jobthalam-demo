@@ -1,0 +1,81 @@
+.HowItWorks {
+  padding: 50px 0;
+  background-color: $color_g1;
+
+  h1 {
+    text-align: center;
+  }
+}
+
+.HCard {
+  text-align: center;
+  position: relative;
+
+  //   max-width: 250px;
+  margin: 20px auto;
+  //   width: 100%;
+  padding: 30px;
+  border-radius: 10px;
+  p {
+    margin: 10px 0;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  small {
+    color: $color_g3;
+  }
+  svg {
+    background-color: white;
+    height: 60px;
+    width: 60px;
+    padding: 10px;
+    border-radius: 50%;
+    color: $color_p1;
+  }
+
+  &.white {
+    background-color: white;
+    svg {
+      background-color: $color_p1;
+      color: white;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: -10px;
+    left: 220px;
+    width: 200px;
+    z-index: 10;
+
+    opacity: 0.8;
+    &.two {
+      transform: rotateX(180deg);
+      top: -80px;
+    }
+  }
+
+  @include respond-below(md) {
+    img {
+      &.two {
+        display: none;
+      }
+    }
+  }
+  @include respond-below(sm) {
+    img {
+      transform: rotate(90deg);
+      left: unset;
+      right: 30px;
+      top: unset;
+
+      &.two {
+        display: initial;
+        left: 30px;
+        transform: rotate(-90deg) scaleX(-1);
+        top: 160px;
+      }
+    }
+  }
+}

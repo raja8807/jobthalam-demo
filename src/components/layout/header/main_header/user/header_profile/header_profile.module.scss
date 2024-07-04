@@ -1,0 +1,75 @@
+.HeaderProfile {
+  position: relative;
+  .dp {
+    background-color: $color_p1;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    font-size: 20px;
+    @include flexCenter;
+    color: white;
+    cursor: pointer;
+  }
+
+  .popup {
+    position: absolute;
+    background-color: white;
+    right: 0;
+    z-index: 100;
+    border-radius: 5px;
+    width: 250px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    .top {
+      height: 70px;
+      background-color: $color_g1;
+      position: relative;
+
+      .dpl {
+        position: absolute;
+        bottom: 0;
+        background-color: $color_p1;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        left: 50%;
+        @include flexCenter;
+        color: white;
+        font-size: 25px;
+        transform: translate(-50%, 50%);
+        border: 2px solid white;
+      }
+
+      svg {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+    }
+
+    .bottom {
+      padding: 24px 16px 16px 16px;
+      text-align: center;
+
+      .name {
+        font-size: 18px;
+      }
+
+      small {
+        color: $color_g3;
+      }
+
+      a {
+        color: $color_link_blue;
+
+        svg {
+          font-size: 14px;
+          margin-bottom: 2px;
+        }
+      }
+    }
+  }
+}

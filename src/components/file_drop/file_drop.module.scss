@@ -1,0 +1,20 @@
+.CloudUpload {
+  background-color: $color_g1;
+  border: 3px dashed $color_g2;
+  border-radius: 10px;
+  min-height: 100px;
+  @include flexCenter;
+  cursor: pointer;
+
+  svg {
+    font-size: 40px;
+    color: $color_g3;
+  }
+
+  &:hover {
+    border-color: $color_g3;
+    svg {
+      color: black;
+    }
+  }
+}
