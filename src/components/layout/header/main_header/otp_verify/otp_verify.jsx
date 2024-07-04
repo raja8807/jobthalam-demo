@@ -10,19 +10,27 @@ import { signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/router";
 
 const OtpVerify = ({ showLogin, setShowLogin }) => {
-  const [otpSent, setOtpSent] = useState(true);
+  const [otpSent, setOtpSent] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [mobile, setMobile] = useState("9876543210");
-  const [otp, setOtp] = useState("123456");
+  const [mobile, setMobile] = useState("");
+  const [otp, setOtp] = useState("");
+
+  const [tempOtp, setTempOtp] = useState(null);
 
   const router = useRouter();
 
   const sendOtp = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post("/api/auth/otp/send", {
-        mobile,
-      });
+      // const res = await axios.post("/api/auth/otp/send", {
+      //   mobile,
+      // });
+      const newOtp = (Math.floor(Math.random() * 10000) + 10000)
+        .toString()
+        .substring(1);
+
+      setTempOtp(newOtp);
+
       setOtpSent(true);
     } catch (error) {
       console.log(error?.response?.data);
@@ -36,15 +44,18 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
       const token = await axios.post("/api/auth/getToken", {
         mobile,
       });
-      const session = await signInWithCustomToken(auth, token.data.token);
 
-      // console.log(session);
+      // console.log(token);
+
+      const session = await signInWithCustomToken(auth, token?.data?.token);
+
       if (session) {
         router.push("/employer");
       }
       setShowLogin(false);
+      setOtpSent(false);
     } catch (err) {
-      console.log(err.data);
+      console.log(err.message);
     }
     setIsLoading(false);
   };
@@ -52,13 +63,16 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
   const verifyOtpAndLogin = async () => {
     setIsLoading(true);
     try {
+      if (otp === tempOtp) {
+        await loginWithGoogleToken();
+      }
       //   const res = await axios.post("/api/auth/otp/verify", {
       //     otp,
       //   });
       //   if (res?.data?.valid) {
-      await loginWithGoogleToken();
       //   }
     } catch (error) {
+      console.log(error.message);
       console.log(error?.response?.data);
     }
 
@@ -67,7 +81,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
 
   const getDisabled = () => {
     if (otpSent) {
-      if (otp.length !== 6) {
+      if (otp.length !== 4) {
         return true;
       }
     }
@@ -116,6 +130,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
               <small>
                 Didn&apos;t get otp? <span onClick={sendOtp}>Resend</span>
               </small>
+              <p>opt is {tempOtp}</p>
             </>
           ) : (
             <>
