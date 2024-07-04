@@ -44,16 +44,18 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
       const token = await axios.post("/api/auth/getToken", {
         mobile,
       });
-      const session = await signInWithCustomToken(auth, token.data.token);
 
-      // console.log(session);
+      // console.log(token);
+
+      const session = await signInWithCustomToken(auth, token?.data?.token)
+
       if (session) {
         router.push("/candidate");
       }
       setShowLogin(false);
       setOtpSent(false);
     } catch (err) {
-      console.log(err.data);
+      console.log(err.message);
     }
     setIsLoading(false);
   };
@@ -70,6 +72,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
       //   if (res?.data?.valid) {
       //   }
     } catch (error) {
+      console.log(error.message);
       console.log(error?.response?.data);
     }
 
