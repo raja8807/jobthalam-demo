@@ -16,7 +16,8 @@ const handler = async (req, res) => {
       client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
       auth_uri: process.env.NEXT_PUBLIC_AUTH_URI,
       token_uri: process.env.NEXT_PUBLIC_TOKEN_URI,
-      auth_provider_x509_cert_url: process.env.NEXT_PUBLIC_AUTH_PROVIDER__CERT_URL,
+      auth_provider_x509_cert_url:
+        process.env.NEXT_PUBLIC_AUTH_PROVIDER__CERT_URL,
       client_x509_cert_url: process.env.NEXT_PUBLIC_CLIENT_CERT_URL,
       universe_domain: process.env.NEXT_PUBLIC_UNIVERSAL_DOMAIN,
     };
@@ -27,22 +28,20 @@ const handler = async (req, res) => {
     // Define the file path
     const filePath = path.join(__dirname, "data.json");
 
-    console.log(filePath);
+    // console.log(filePath);
 
-    // Write JSON string to a file
-    fs.writeFile(filePath, jsonData, (err) => {
-      if (err) {
-        console.error("Error writing file", err);
-      } else {
-        console.log("File written successfully at:", filePath);
-      }
-    });
+    // // Write JSON string to a file
+    // fs.writeFile(filePath, jsonData, (err) => {
+    //   if (err) {
+    //     console.error("Error writing file", err);
+    //   } else {
+    //     console.log("File written successfully at:", filePath);
+    //   }
+    // });
 
     const firebaseAdmin = !getApps().length
       ? admin.initializeApp({
-          credential: admin.credential.cert(
-            filePath
-          ),
+          credential: admin.credential.cert(jsonData),
         })
       : getApp();
 

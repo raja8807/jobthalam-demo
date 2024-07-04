@@ -12,6 +12,7 @@ const CustomButton = ({
   disabled,
   isLoading,
   href,
+  target
 }) => {
   if (type === "submit") {
     return (
@@ -28,7 +29,7 @@ const CustomButton = ({
   }
 
   if (href) {
-   return <Link href={href}>
+   return <Link href={href} target={target}>
       <button
         className={`${styles.customButton} ${styles[`v${variant}`]} ${
           wFull ? styles.wFull : ""

@@ -22,16 +22,9 @@ const MainHeader = ({ currentUser, session }) => {
             {!currentUser && !session && (
               <>
                 <CustomButton
+                  href="https://jobthalam-employer.vercel.app/"
                   variant={4}
-                  onClick={async () => {
-                    signInWithEmailAndPassword(
-                      auth,
-                      "yora8807+a1@gmail.com",
-                      "admin@123"
-                    )
-                      .then((u) => console.log(u))
-                      .catch((err) => console.log(err.message));
-                  }}
+                  target="_blank"
                 >
                   Employer Login
                 </CustomButton>
