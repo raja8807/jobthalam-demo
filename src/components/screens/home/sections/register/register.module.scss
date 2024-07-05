@@ -1,0 +1,44 @@
+.RegisterSection {
+  padding: 100px 0 50px 0;
+  .card {
+    padding: 20px;
+    margin-bottom: 50px;
+    border-radius: 16px;
+
+    h2 {
+      margin: 0;
+      font-weight: 600;
+      color: $color_p1;
+
+    }
+
+    p {
+      margin: 20px 0;
+      font-size: 15px;
+      width: 300px;
+    }
+
+    &.card1 {
+      background-image: url("/assets/jpg/candidate_bg.jpg");
+
+      h2 {
+        color: $color_p1;
+      }
+
+      p {
+        color: white;
+      }
+    }
+    &.card2 {
+      background-image: url("/assets/jpg/employer-bg.jpg");
+
+      p {
+        // color: $color_p1;
+        font-weight: 600;
+        background-color: rgba(128, 128, 128, 0.1);
+      }
+    }
+    background-size: cover;
+    background-position: top left;
+  }
+}
