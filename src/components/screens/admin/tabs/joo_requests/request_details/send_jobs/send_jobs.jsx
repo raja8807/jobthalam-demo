@@ -8,6 +8,9 @@ import styles from "./send_jobs.module.scss";
 import JobTable from "@/components/jobs/job_table/job_table";
 import { addData, addMultipleData, updateData } from "@/libs/firebase/firebase";
 import JobCard from "@/components/ui/job/job_card/job_card";
+import EmployerJobsTab from "./employer_jobs_tab/employer_jobs_tab";
+import Tabs from "@/components/ui/tabs/tabs";
+import AdminJobsTab from "./admin_jobs_tab/admin_jobs_tab";
 
 const SendJobs = ({
   setShow,
@@ -16,6 +19,7 @@ const SendJobs = ({
   request,
   featuredJobs,
   setFeaturedJobs,
+  allAdminJobs,
 }) => {
   const [newJobs, setNewJobs] = useState([]);
   const [availableJobs, setAvailableJobs] = useState(allJobs);
@@ -51,7 +55,37 @@ const SendJobs = ({
     setIsLoading(false);
   };
 
-  console.log(request);
+  const tabs = [
+    {
+      id: "emp",
+      title: "Employer Jobs",
+      component: (
+        <EmployerJobsTab
+          availableJobs={availableJobs}
+          featuredJobs={featuredJobs}
+          newJobs={newJobs}
+          request={request}
+          setNewJobs={setNewJobs}
+        />
+      ),
+    },
+    {
+      id: "adm",
+      title: "Admin Jobs",
+      component: (
+        <AdminJobsTab
+          availableJobs={allAdminJobs}
+          featuredJobs={featuredJobs}
+          newJobs={newJobs}
+          request={request}
+          setNewJobs={setNewJobs}
+        />
+      ),
+    },
+  ];
+
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const currentTab = tabs[currentTabIndex];
 
   return (
     <div className={styles.SendJobs}>
@@ -77,13 +111,6 @@ const SendJobs = ({
           {
             title: "Action",
           },
-
-          //   {
-          //     title: "Experience",
-          //   },
-          //   {
-          //     title: "Education",
-          //   },
         ]}
         title="Jobs To Send"
         count={`${newJobs.length}/${request.count - request.jobs_sent}`}
@@ -120,64 +147,15 @@ const SendJobs = ({
       <br />
       <br />
       <h5>Available Jobs</h5>
-
-      <Row>
-        {availableJobs
-          .filter((j) => {
-            return !(
-              newJobs.some((nj) => nj.id == j.id) ||
-              featuredJobs.some((nj) => nj.id == j.id)
-            );
-          })
-          .map((job) => {
-            return (
-              <JobCard
-                key={job.id}
-                job={job}
-                actionButton={
-                  !(request.count - request.jobs_sent <= newJobs.length) && (
-                    <CustomButton
-                      onClick={() => {
-                        setNewJobs((prev) => [job, ...prev]);
-                      }}
-                    >
-                      Add
-                    </CustomButton>
-                  )
-                }
-              />
-              // <Col key={job.id} xs={12} md={4} lg={3} className={styles.job}>
-              //   <div>{job.title}</div>
-              //   <div>Employer &nbsp;: Data Com</div>
-              //   <div>Experience : {job.experience}</div>
-              //   <br />
-              //   <div>
-              //     <CustomButton variant={2}>Details</CustomButton>
-              //     &nbsp;
-              //     <CustomButton
-              //       onClick={() => {
-              //         setNewJobs((prev) => [job, ...prev]);
-              //       }}
-              //       disabled={
-              //         request.count - request.jobs_sent <= newJobs.length
-              //       }
-              //     >
-              //       Add
-              //     </CustomButton>
-              //   </div>
-              //   {/* <div></div> */}
-              // </Col>
-            );
-          })}
-      </Row>
-
-      {/* <JobTable
-        jobs={allJobs}
-        actionBtnText='Send'
-        onActionClick={(job) => {
-          setNewJobs((prev) => [job, ...prev]);
+      <Tabs
+        currentTab={currentTab}
+        tabs={tabs}
+        stayTop
+        onTabChange={(t, i) => {
+          setCurrentTabIndex(i);
         }}
-      /> */}
+      />
+      {currentTab.component}
     </div>
   );
 };

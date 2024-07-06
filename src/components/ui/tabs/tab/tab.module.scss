@@ -4,6 +4,7 @@
   font-size: 15px;
   border-bottom: 3px solid $color_g1;
   color: $color_g3;
+  
 
   &:hover {
     background-color: $color_g1;
@@ -22,14 +23,16 @@
     background-color: transparent;
   }
 
-  @include respond-below(md) {
-    p {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 13px;
-      svg{
-        font-size: 25px;
+  &.bottom {
+    @include respond-below(md) {
+      p {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 13px;
+        svg {
+          font-size: 25px;
+        }
       }
     }
   }

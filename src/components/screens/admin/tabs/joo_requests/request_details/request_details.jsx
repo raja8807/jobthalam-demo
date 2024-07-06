@@ -7,8 +7,9 @@ import styles from "./request_details.module.scss";
 import { Col, Row } from "react-bootstrap";
 import SendJobs from "./send_jobs/send_jobs";
 import JobTable from "@/components/jobs/job_table/job_table";
+import JobCard from "@/components/ui/job/job_card/job_card";
 
-const RequestDetails = ({ request, setShow, allJobs }) => {
+const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
   const [candidate, setCandidate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showSendFor, setShowSendFor] = useState(null);
@@ -132,7 +133,13 @@ const RequestDetails = ({ request, setShow, allJobs }) => {
             </Row>
           )}
 
-          <JobTable title="Previously sent jobs" jobs={featuredJobs} />
+          <Row>
+            {
+              featuredJobs.map((fj)=>{
+                return <JobCard key={fj.id} job={fj} />
+              })
+            }
+          </Row>
         </div>
       ) : (
         <SendJobs
@@ -142,6 +149,7 @@ const RequestDetails = ({ request, setShow, allJobs }) => {
           request={request}
           featuredJobs={featuredJobs}
           setFeaturedJobs={setFeaturedJobs}
+          allAdminJobs={allAdminJobs}
         />
       )}
     </>

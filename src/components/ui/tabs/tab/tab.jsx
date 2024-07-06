@@ -1,10 +1,19 @@
 import React from "react";
 import styles from "./tab.module.scss";
 
-const Tab = ({ tab, isActive, setCurrentTab, onTabChange, index }) => {
+const Tab = ({
+  tab,
+  isActive,
+  setCurrentTab,
+  onTabChange,
+  index,
+  goBottom,
+}) => {
   return (
     <div
-      className={`${styles.tab} ${isActive ? styles.active : ""}`}
+      className={`${styles.tab} ${isActive ? styles.active : ""} ${
+        goBottom ? styles.bottom : ""
+      }`}
       onClick={() => {
         onTabChange(tab, index);
         setCurrentTab(tab);

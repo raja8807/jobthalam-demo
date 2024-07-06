@@ -2,10 +2,16 @@ import React from "react";
 import Tab from "./tab/tab";
 import styles from "./tabs.module.scss";
 
-const Tabs = ({ tabs = [], currentTab, setCurrentTab=()=>{},onTabChange=()=>{} }) => {
+const Tabs = ({
+  tabs = [],
+  currentTab,
+  setCurrentTab = () => {},
+  onTabChange = () => {},
+  stayTop,
+}) => {
   return (
-    <div className={styles.tabs}>
-      {tabs.map((tab,index) => {
+    <div className={`${styles.tabs} ${!stayTop ? styles.goBottom : ""}`}>
+      {tabs.map((tab, index) => {
         return (
           <Tab
             key={tab.title}
@@ -14,6 +20,7 @@ const Tabs = ({ tabs = [], currentTab, setCurrentTab=()=>{},onTabChange=()=>{} }
             index={index}
             isActive={currentTab?.title === tab?.title}
             onTabChange={onTabChange}
+            goBottom={!stayTop}
           />
         );
       })}

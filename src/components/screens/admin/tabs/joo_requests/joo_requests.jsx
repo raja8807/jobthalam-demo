@@ -8,41 +8,25 @@ import React, { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import RequestDetails from "./request_details/request_details";
 
-const JobRequests = () => {
-  const [requests, setRequests] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [allJobs, setAllJobs] = useState([]);
+const JobRequests = ({
+  allJobs,
+  setAllJobs,
+  setIsLoading,
+  requests,
+  allAdminJobs,
+}) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
-
-  const fetchJobRequests = async () => {
-    setIsLoading(true);
-    try {
-      const res = await getAllData("Request");
-      const jobs = await getAllData("Job");
-      setRequests(res);
-      setAllJobs(jobs);
-    } catch (err) {
-      console.log("job request error", err);
-    }
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchJobRequests();
-  }, []);
 
   return (
     <MainFrame head="Job Requests">
       <div>
-        {isLoading && <LoadingScreen />}
-
         {showDetailsFor ? (
           <RequestDetails
             request={showDetailsFor}
             setShow={setShowDetailsFor}
             setIsLoading={setIsLoading}
             allJobs={allJobs}
+            allAdminJobs={allAdminJobs}
           />
         ) : (
           <CustomTable

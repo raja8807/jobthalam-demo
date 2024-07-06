@@ -120,7 +120,7 @@ export const updateData = async (collectionName, data, id) => {
   try {
     const updateRef = doc(db, collectionName, id);
     const res = await updateDoc(updateRef, data);
-    return res || true;
+    return data ;
   } catch (err) {
     throw new Error(err);
   }
