@@ -7,12 +7,10 @@ const VCard = ({ data }) => {
   const { title, positions } = data;
 
   return (
-    <Col xs={6} md={3}>
-      <div className={styles.VCard}>
-        <p>{title}</p>
-        <small>{positions} Open Positions</small>
-      </div>
-    </Col>
+    <div className={styles.VCard}>
+      <p>{title}</p>
+      <small>{positions} Open Positions</small>
+    </div>
   );
 };
 
@@ -47,11 +45,22 @@ const VacanciesSection = () => {
           <h1>Most Popular Vacancies</h1>
         </div>
         <br />
-        <Row>
-          {vCards.map((c) => (
-            <VCard key={c.id} data={c} />
-          ))}
-        </Row>
+        <div className={styles.scroller}>
+          <div className={styles.scrollHolder}>
+            {vCards.map((c) => (
+              <VCard key={c.id} data={c} />
+            ))}
+            {vCards.map((c) => (
+              <VCard key={`${c.id}+1`} data={c} />
+            ))}
+            {vCards.map((c) => (
+              <VCard key={`${c.id}+2`} data={c} />
+            ))}
+            {vCards.map((c) => (
+              <VCard key={`${c.id}+3`} data={c} />
+            ))}
+          </div>
+        </div>
       </CustomContainer>
     </div>
   );

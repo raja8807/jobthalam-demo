@@ -15,6 +15,10 @@
         font-size: 65px;
         font-weight: 600;
         color: $color_p2;
+
+        span{
+          color: $color_p1;
+        }
       }
 
       p {

@@ -58,7 +58,11 @@ const BannerSection = () => {
       <CustomContainer>
         <div className={styles.wrap}>
           <div className={styles.left}>
-            <h1>Find the job that suits your interest and skills</h1>
+            {/* <h1>Find the job that suits your interest and skills</h1> */}
+            <h1>
+              The Easy Way To Get
+              Your <span>New Job</span>
+            </h1>
 
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste
@@ -67,7 +71,7 @@ const BannerSection = () => {
             </p>
 
             <div>
-              <CustomButton href="/portal">Get Started</CustomButton>
+              <CustomButton>Get Started</CustomButton>
               &nbsp; &nbsp; &nbsp; &nbsp;
               <CustomButton variant={2}>Know More</CustomButton>
             </div>

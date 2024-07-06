@@ -4,6 +4,7 @@
 
 .VCard {
   margin-bottom: 20px;
+  min-width: 180px;
   p {
     font-size: 15px;
     font-weight: 600;
@@ -12,5 +13,37 @@
   small {
     font-size: 13px;
     color: $color_g3;
+  }
+}
+
+.scroller {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+
+  .scrollHolder {
+    display: flex;
+    align-items: center;
+    // padding: 50px 0;
+    animation: scroll 60s linear infinite;
+    margin-top: 0px;
+  }
+
+  &:hover {
+    overflow-x: auto;
+    .scrollHolder {
+      animation-play-state: paused;
+    }
+  }
+}
+
+
+@keyframes scroll {
+  from {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translate(-100%);
   }
 }

@@ -1,7 +1,7 @@
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import React from "react";
 import styles from "./how_it_works.module.scss";
-import { Pencil, PersonAdd, Whatsapp } from "react-bootstrap-icons";
+import { Briefcase, CurrencyRupee, Pencil, PersonAdd, Whatsapp } from "react-bootstrap-icons";
 import { Col, Image, Row } from "react-bootstrap";
 
 const HCard = ({ data, isWhite, isLast, isTwo }) => {
@@ -29,23 +29,23 @@ const HowItWorks = () => {
   const hCards = [
     {
       id: "1",
-      title: "Create Account",
+      title: "Create Account & Update Your Profile",
       icon: <PersonAdd />,
       caption:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, rem.",
     },
     {
       id: "2",
-      title: "Update Your Profile",
-      icon: <Pencil />,
+      title: "Get Personalized Job Posting For Free",
+      icon: <Briefcase />,
       caption:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, rem.",
       //   isWhite: true,
     },
     {
       id: "3",
-      title: "Complete Payment",
-      icon: <PersonAdd />,
+      title: "Complete Payment Starting at Just 99/-",
+      icon: <CurrencyRupee />,
       caption:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, rem.",
     },
