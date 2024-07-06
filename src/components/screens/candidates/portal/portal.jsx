@@ -3,15 +3,17 @@ import Tabs from "@/components/ui/tabs/tabs";
 import React, { useEffect, useState } from "react";
 import {
   Briefcase,
+  CheckCircle,
   ClipboardCheck,
-  ClipboardPlus,
+  Paperclip,
   PersonCircle,
 } from "react-bootstrap-icons";
 import Jobs from "./jobs/jobs";
 import { useRouter } from "next/router";
 import JobRequests from "./request/request";
-import { getData, getDataByQuery } from "@/libs/firebase/firebase";
+import {  getDataByQuery } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
+import ApplicationsTab from "./applications/applications";
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
@@ -61,8 +63,8 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
     {
       id: "2",
       title: "Applications",
-      icon: <ClipboardCheck />,
-      component: <JobRequests currentUser={currentUser} />,
+      icon: <CheckCircle />,
+      component: <ApplicationsTab currentUser={currentUser} />,
     },
     {
       id: "3",

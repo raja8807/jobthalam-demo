@@ -23,6 +23,8 @@
   }
 
   @include respond-below(md) {
+  padding: 5px 10px;
+
     p {
       display: flex;
       flex-direction: column;
