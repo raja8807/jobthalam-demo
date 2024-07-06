@@ -11,6 +11,7 @@ import JobCard from "@/components/ui/job/job_card/job_card";
 import EmployerJobsTab from "./employer_jobs_tab/employer_jobs_tab";
 import Tabs from "@/components/ui/tabs/tabs";
 import AdminJobsTab from "./admin_jobs_tab/admin_jobs_tab";
+import { v4 } from "uuid";
 
 const SendJobs = ({
   setShow,
@@ -29,10 +30,13 @@ const SendJobs = ({
     setIsLoading(true);
     try {
       const jobsToSend = newJobs.map((job) => {
+        const id = v4();
         return {
           candidate_id: candidate.id,
           request_id: request.id,
+          job_id: job?.id,
           ...job,
+          id,
         };
       });
       const res = await addMultipleData("Featured", jobsToSend);

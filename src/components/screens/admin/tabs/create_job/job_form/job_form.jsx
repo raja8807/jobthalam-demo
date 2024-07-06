@@ -11,8 +11,9 @@ import { X } from "react-bootstrap-icons";
 import ControlLabel from "@/components/ui/contol_label/control_label";
 
 const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
+  const currentJob = showNewJob
   const initialValues = isUpdate
-    ? { ...showNewJob }
+    ? { ...currentJob }
     : {
         // Company ------
         company_name: "",
@@ -42,8 +43,8 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
       if (isUpdate) {
         const res = await updateData(
           "Admin_job",
-          { ...showNewJob, ...values },
-          showNewJob?.id
+          { ...currentJob, ...values },
+          currentJob?.id
         );
 
         setAllJobs((prev) => {
