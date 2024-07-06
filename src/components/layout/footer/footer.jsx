@@ -47,7 +47,7 @@ const Footer = () => {
         <Row>
           <Col xs={12} md={6} lg={5}>
             <div className={`${styles.sec} ${styles.sec1}`}>
-              <Image src="/logo/logo_f_v.jpg" alt="logo" width={250} />
+              <Image src="/logo/logo_f_v.png" alt="logo" width={250} className={styles.logo}/>
               <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
                 ad quos ratione asperiores qui molestiae itaque amet et
