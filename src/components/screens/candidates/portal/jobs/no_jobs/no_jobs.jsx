@@ -33,7 +33,6 @@ const NoJobs = ({ currentUser, setCurrentUser }) => {
         const updatedUser = await updateUser({
           ...currentUser,
           free_requested: true,
-          request_count: 2,
         });
 
         setIsRequested(true);
@@ -44,8 +43,6 @@ const NoJobs = ({ currentUser, setCurrentUser }) => {
     }
     setIsLoading(false);
   };
-
-  //   console.log(currentUser);
 
   return (
     <div className={styles.NoJobs}>
