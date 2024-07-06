@@ -30,13 +30,27 @@ const JobRequests = ({ currentUser }) => {
     fetchJobRequests();
   }, []);
 
+  const getPendingRequests = ()=>{
+    let totalRequests = 0
+    let jobsSent = 0
+
+    requests.forEach((req)=>{
+      totalRequests = totalRequests += req.count
+      jobsSent = jobsSent += req.jobs_sent
+    })
+
+    return totalRequests - jobsSent
+  }
+
+  console.log(requests);
+
   return (
     <MainFrame
       head="Job Requests"
       caption="Here is your history of Job requests and payments"
     >
       {isLoading && <LoadingScreen noBg />}
-      <h4>Pending Requests: {currentUser?.request_count || 0}</h4>
+      <h4>Pending Requests: {getPendingRequests()}</h4>
       <br />
     
       <AllJobRequests requests={requests} />
