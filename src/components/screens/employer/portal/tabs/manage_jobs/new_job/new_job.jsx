@@ -2,7 +2,7 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import React from "react";
 import JobForm from "../job_form/job_form";
 
-const NewJob = ({ setShowNewJob, currentUser, setAllJobs }) => {
+const NewJob = ({ setShowNewJob, currentUser, setAllJobs, isUpdate,showNewJob }) => {
   return (
     <div>
       <CustomButton
@@ -14,7 +14,12 @@ const NewJob = ({ setShowNewJob, currentUser, setAllJobs }) => {
       </CustomButton>
       <br />
       <br />
-      <JobForm currentUser={currentUser} setAllJobs={setAllJobs} />
+      <JobForm
+        currentUser={currentUser}
+        setAllJobs={setAllJobs}
+        isUpdate={isUpdate}
+        showNewJob={showNewJob}
+      />
     </div>
   );
 };

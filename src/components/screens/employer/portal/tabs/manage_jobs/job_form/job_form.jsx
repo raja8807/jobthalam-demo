@@ -9,8 +9,8 @@ import { v4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
 
-const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
-  const initialValues = {
+const JobForm = ({ isUpdate, currentUser, setAllJobs,showNewJob }) => {
+  const initialValues = isUpdate ? {...showNewJob} : {
     title: "",
     role: "",
     experience: "",
@@ -195,7 +195,7 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
         </Row>
         <br />
         <CustomButton value={values.description} isLoading={isLoading}>
-          Post Job
+          {isUpdate ? "Update" : "Post"} Job
         </CustomButton>
       </form>
     </div>

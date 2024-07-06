@@ -13,16 +13,11 @@ import {
   X,
 } from "react-bootstrap-icons";
 
-const JobDetails = ({
-  job,
-  setJob,
-  actionBtnText,
-
-  onActionClick = () => {},
-}) => {
+const JobDetails = ({ job, setJob, actionButton }) => {
   const close = () => {
     setJob(null);
   };
+
   return (
     <Modal
       show={!!job}
@@ -36,30 +31,18 @@ const JobDetails = ({
           <div className={styles.left}>
             <div className={styles.logo}>
               <Image
-                src={job?.logoUrl || "/company_logo_placeholder.png"}
+                src={job?.company_logo || "/company_logo_placeholder.png"}
                 alt="logo"
                 height={70}
               />
             </div>
             <div className={styles.name}>
               <h4>{job?.title}</h4>
-              <p>at {job?.company}</p>
+              <p>at {job?.company_name}</p>
             </div>
           </div>
 
-          {actionBtnText && (
-            <div className={styles.right}>
-              {
-                <CustomButton
-                  onClick={() => {
-                    onActionClick(job);
-                  }}
-                >
-                  {actionBtnText}
-                </CustomButton>
-              }
-            </div>
-          )}
+          <div>{actionButton}</div>
           <X
             onClick={(e) => {
               e.preventDefault();
@@ -74,18 +57,11 @@ const JobDetails = ({
           <div className={styles.top}>
             <div className={styles.box}>
               <div className={styles.box1}>
-                {job?.min_salary > 0 && (
-                  <div>
-                    <h5>Salary (INR)</h5>
-                    <p>
-                      &#8377; {job?.min_salary}{" "}
-                      {job?.max_salary &&
-                        job?.max_salary !== job?.min_salary &&
-                        `- ${job?.max_salary}`}
-                    </p>
-                    <small>Per Month</small>
-                  </div>
-                )}
+                <div>
+                  <h5>Salary (INR)</h5>
+                  <p>{job?.salary}</p>
+                  <small>Per Month</small>
+                </div>
                 <hr />
                 <div>
                   <GeoAlt />
@@ -119,10 +95,7 @@ const JobDetails = ({
                 <div>
                   <CalendarDate />
                   <p>EXPERIENCE:</p>
-                  <span>
-                    {job?.experience}{" "}
-                    {job?.experience !== "Fresher" && "Year(s)"}
-                  </span>
+                  <span>{job?.experience} Year(s)</span>
                 </div>
                 <div>
                   <Briefcase />
