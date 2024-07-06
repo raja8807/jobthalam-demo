@@ -59,13 +59,19 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
     },
 
     {
+      id: "2",
+      title: "Applications",
+      icon: <ClipboardCheck />,
+      component: <JobRequests currentUser={currentUser} />,
+    },
+    {
       id: "3",
       title: "Job Requests",
       icon: <ClipboardCheck />,
       component: <JobRequests currentUser={currentUser} />,
     },
     {
-      id: "2",
+      id: "4",
       title: "Profile",
       icon: <PersonCircle />,
     },
