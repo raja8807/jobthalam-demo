@@ -53,6 +53,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
           setCurrentUser={setCurrentUser}
           allJobs={allJobs}
           isLoading={isLoading}
+          setAllJobs={setAllJobs}
         />
       ),
     },

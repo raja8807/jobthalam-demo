@@ -90,7 +90,6 @@ export const generateUid = function () {
 };
 
 export const addData = async (collectionName, data, id) => {
-  console.log("ok");
   try {
     const res = await setDoc(doc(db, collectionName, id), data);
     return data;
@@ -103,16 +102,16 @@ export const updateData = async (collectionName, data, id) => {
   try {
     const updateRef = doc(db, collectionName, id);
     const res = await updateDoc(updateRef, data);
-    return res || true;
+    return data;
   } catch (err) {
     throw new Error(err);
   }
 };
 
-export const deletData = async (collectionName, id) => {
+export const deleteData = async (collectionName, id) => {
   try {
-    const deletRef = doc(db, collectionName, id);
-    const res = await deleteDoc(deletRef);
+    const deleteRef = doc(db, collectionName, id);
+    const res = await deleteDoc(deleteRef);
     return res || true;
   } catch (err) {
     throw new Error(err);
