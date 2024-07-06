@@ -9,6 +9,7 @@ const CustomSelect = ({
   value,
   onChange = () => {},
   required,
+  placeholder,
 }) => {
   return (
     <div className={`${styles.CustomSelect} ${styles[`v${variant}`]}`}>
@@ -21,8 +22,13 @@ const CustomSelect = ({
         required
         value={value}
         defaultValue={value}
+        placeholder={placeholder}
       >
-        {!required && <option value={null} />}
+        {/* {!required && <option value="">{placeholder}</option>} */}
+        <option value="" disabled selected>
+          {placeholder}
+        </option>
+
         {options.map((o, i) => {
           return (
             <option key={`op_${i}`} value={o}>

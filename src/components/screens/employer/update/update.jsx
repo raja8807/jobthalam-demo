@@ -7,6 +7,8 @@ import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { createUser } from "@/libs/firebase/user/user";
 
 import { v4 as uuidv4 } from "uuid";
+import CustomSelect from "@/components/ui/select/custom_select/custom_select";
+import { Link } from "react-bootstrap-icons";
 
 const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
   const [values, setValues] = useState(
@@ -18,6 +20,7 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
           email: "",
           company_name: "",
           company_type: "",
+          website_url: "",
         }
   );
 
@@ -96,13 +99,25 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
         }}
         value={values.company_name}
       />
-      <CustomInput
-        placeHolder="Industry Type"
+      <CustomSelect
+        placeholder="Industry Type"
         required
         onChange={(e, value) => {
           setValues((prev) => ({ ...prev, company_type: value }));
         }}
         value={values.company_type}
+        options={["IT", "Marketing", "Transport"]}
+      />
+
+      <CustomInput
+        placeHolder="Website - Eg: http://example.com"
+        type="url"
+        required
+        onChange={(e, value) => {
+          setValues((prev) => ({ ...prev, website_url: value }));
+        }}
+        value={values.website_url}
+        rightElement={<Link className={styles.link} />}
       />
 
       <CustomButton
