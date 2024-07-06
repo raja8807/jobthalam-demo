@@ -16,7 +16,7 @@ const CustomInput = ({
 }) => {
   return (
     <>
-      {label && <ControlLabel label={label} />}
+      {label && <ControlLabel label={label} required={required} />}
       <div
         className={`${styles.CustomInput} ${styles[`v${variant}`]} ${
           error ? styles.error : ""

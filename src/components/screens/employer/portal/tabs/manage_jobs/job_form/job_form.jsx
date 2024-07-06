@@ -6,21 +6,28 @@ import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import { addData } from "@/libs/firebase/firebase";
 import { v4 } from "uuid";
+import CustomSelect from "@/components/ui/select/custom_select/custom_select";
+import { X } from "react-bootstrap-icons";
 
 const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
-  const [values, setValues] = useState({
+  const initialValues = {
     title: "",
     role: "",
     experience: "",
     education: "",
     description: "",
     location: "",
-    type: "",
+    type: "Full time",
     salary: "",
     employer_id: currentUser?.id,
-  });
+  };
+
+  const [values, setValues] = useState(initialValues);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const postJob = async () => {
+    setIsLoading(true);
     try {
       const id = v4();
       const date = new Date();
@@ -31,30 +38,34 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
           id,
           ...values,
           created_at: date.toDateString(),
+          status: "Active",
+          employer_logo: currentUser?.logo_url || "",
+          company_name: currentUser?.company_name,
         },
         id
       );
 
-      setValues({
-        title: "",
-        role: "",
-        experience: "",
-        education: "",
-        description: "",
-        location: "",
-        type: "",
-        salary: "",
-        employer_id: currentUser?.id,
-      });
+      setValues(initialValues);
       setAllJobs((prev) => [res, ...prev]);
     } catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   return (
     <div className={styles.JobForm}>
-      <h5> {!isUpdate ? "Create New Job" : "Update Job"}</h5>
+      <div className={styles.head}>
+        <h5> {!isUpdate ? "Create New Job" : "Update Job"}</h5>
+        <CustomButton
+          variant={2}
+          onClick={() => {
+            setValues(initialValues);
+          }}
+        >
+          Clear <X />
+        </CustomButton>
+      </div>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -70,6 +81,7 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
                   setValues((prev) => ({ ...prev, title: v }));
                 }}
                 label="Title"
+                required
               />
             </div>
           </Col>
@@ -88,23 +100,33 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
           </Col>
           <Col xs={12} md={6} lg={4}>
             <div className={styles.control}>
-              <CustomInput
+              <CustomSelect
                 value={values.experience}
                 onChange={(e, v) => {
                   setValues((prev) => ({ ...prev, experience: v }));
                 }}
-                label="Experience"
+                required
+                label="Required Experience"
+                placeholder="Select Experience"
+                options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
               />
             </div>
           </Col>
           <Col xs={12} md={6} lg={4}>
             <div className={styles.control}>
-              <CustomInput
+              <CustomSelect
                 value={values.education}
                 onChange={(e, v) => {
                   setValues((prev) => ({ ...prev, education: v }));
                 }}
-                label="Education"
+                required
+                label="Minimum Education"
+                placeholder="Select Education"
+                options={[
+                  "No Education Required",
+                  "Bachelor Degree",
+                  "Master Degree",
+                ]}
               />
             </div>
           </Col>
@@ -121,28 +143,37 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
                   setValues((prev) => ({ ...prev, salary: v }));
                 }}
                 label="Salary"
+                type="number"
+                min={0}
+                minLength={0}
+                required
               />
             </div>
           </Col>
           <Col xs={12} md={6} lg={4}>
             <div className={styles.control}>
-              <CustomInput
+              <CustomSelect
                 value={values.location}
                 onChange={(e, v) => {
                   setValues((prev) => ({ ...prev, location: v }));
                 }}
-                label="Location"
+                label="Job Location"
+                options={["Chennai", "Coimbatore"]}
+                placeholder="Select Location"
+                required
               />
             </div>
           </Col>
           <Col xs={12} md={6} lg={4}>
             <div className={styles.control}>
-              <CustomInput
+              <CustomSelect
                 value={values.type}
                 onChange={(e, v) => {
                   setValues((prev) => ({ ...prev, type: v }));
                 }}
                 label="Type"
+                required
+                options={["Full time", "Part time"]}
               />
             </div>
           </Col>
@@ -157,11 +188,15 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs }) => {
               onChange={(e, v) => {
                 setValues((prev) => ({ ...prev, description: v }));
               }}
+              required
+              value={values.description}
             />
           </Col>
         </Row>
         <br />
-        <CustomButton value={values.description}>Post Job</CustomButton>
+        <CustomButton value={values.description} isLoading={isLoading}>
+          Post Job
+        </CustomButton>
       </form>
     </div>
   );

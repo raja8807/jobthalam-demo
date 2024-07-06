@@ -2,4 +2,14 @@
   .control {
     margin-bottom: 16px;
   }
+
+  .head{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    h1{
+      margin: 0;
+    }
+    justify-content: space-between;
+  }
 }

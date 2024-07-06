@@ -4,8 +4,9 @@
   width: 100dvw;
   height: 100dvh;
   @include flexCenter;
+  z-index: 100;
 
   &.noBg {
-    background-color: transparent;
+    // background-color: transparent;
   }
 }

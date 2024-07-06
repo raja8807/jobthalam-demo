@@ -1,13 +1,7 @@
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import Tabs from "@/components/ui/tabs/tabs";
 import React, { useEffect, useState } from "react";
-import {
-  Briefcase,
-  ClipboardCheck,
-  ClipboardPlus,
-  PersonBadge,
-  PersonCircle,
-} from "react-bootstrap-icons";
+import { Briefcase, PersonBadge, PersonCircle } from "react-bootstrap-icons";
 import { useRouter } from "next/router";
 import ManageJobs from "./tabs/manage_jobs/manage_jobs";
 import { getDataByQuery } from "@/libs/firebase/firebase";
