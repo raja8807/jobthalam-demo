@@ -5,7 +5,9 @@
     @include flexCenter;
 
     .name {
-      display: flex;
+      display: grid;
+      grid-template-columns: 49% auto;
+
       gap: 10px;
     }
 
@@ -15,7 +17,7 @@
       padding: 20px;
       border-radius: 10px;
 
-      @include respond-below(sm){
+      @include respond-below(sm) {
         width: 90%;
       }
 
@@ -81,5 +83,29 @@
         }
       }
     }
+  }
+
+  .resumePreview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    svg {
+      width: 30px !important;
+      height: 30px !important;
+      cursor: pointer;
+      color: red;
+    }
+  }
+}
+
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  svg {
+    color: green;
   }
 }

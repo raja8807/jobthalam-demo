@@ -31,7 +31,6 @@ export const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
-
 const firebaseApp = !getApps().length
   ? initializeApp(firebaseConfig)
   : getApp();
@@ -40,8 +39,8 @@ export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
 
-export const uploadFile = async (file, folder) => {
-  const path = `${folder}/${file.name}`;
+export const uploadFile = async (file, path) => {
+  // const  = `${folder}/${file.name}`;
   const storageRef = ref(storage, path);
   try {
     await uploadBytes(storageRef, file);

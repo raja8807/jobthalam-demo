@@ -1,4 +1,17 @@
 .CustomSelect {
+  select {
+    &:required {
+      &:invalid {
+        color: gray;
+      }
+    }
+  }
+  option[value=""][disabled] {
+    display: none;
+  }
+  option {
+    color: black;
+  }
   &.v1 {
     select {
       cursor: pointer;

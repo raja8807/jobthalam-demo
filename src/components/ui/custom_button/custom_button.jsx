@@ -12,7 +12,8 @@ const CustomButton = ({
   disabled,
   isLoading,
   href,
-  target
+  target,
+  role,
 }) => {
   if (type === "submit") {
     return (
@@ -21,6 +22,7 @@ const CustomButton = ({
         className={`${styles.customButton} ${styles[`v${variant}`]} ${
           wFull ? styles.wFull : ""
         }`}
+        role={role}
         value={isLoading ? "Loading..." : btnText}
         disabled={disabled || isLoading}
         onClick={onClick}
@@ -29,17 +31,19 @@ const CustomButton = ({
   }
 
   if (href) {
-   return <Link href={href} target={target}>
-      <button
-        className={`${styles.customButton} ${styles[`v${variant}`]} ${
-          wFull ? styles.wFull : ""
-        }`}
-        onClick={onClick}
-        disabled={disabled || isLoading}
-      >
-        {isLoading ? "Loading..." : children}
-      </button>
-    </Link>;
+    return (
+      <Link href={href} target={target}>
+        <button
+          className={`${styles.customButton} ${styles[`v${variant}`]} ${
+            wFull ? styles.wFull : ""
+          }`}
+          onClick={onClick}
+          disabled={disabled || isLoading}
+        >
+          {isLoading ? "Loading..." : children}
+        </button>
+      </Link>
+    );
   }
 
   return (
@@ -49,6 +53,7 @@ const CustomButton = ({
       }`}
       onClick={onClick}
       disabled={disabled || isLoading}
+      role={role}
     >
       {isLoading ? "Loading..." : children}
     </button>
