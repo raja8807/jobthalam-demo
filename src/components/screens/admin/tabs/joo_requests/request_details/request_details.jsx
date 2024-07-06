@@ -134,11 +134,9 @@ const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
           )}
 
           <Row>
-            {
-              featuredJobs.map((fj)=>{
-                return <JobCard key={fj.id} job={fj} />
-              })
-            }
+            {featuredJobs.map((fj) => {
+              return <JobCard key={fj.id} job={fj} />;
+            })}
           </Row>
         </div>
       ) : (
