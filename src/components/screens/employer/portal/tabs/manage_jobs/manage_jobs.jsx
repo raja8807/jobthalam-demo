@@ -36,7 +36,7 @@ const ManageJobs = ({ allJobs, setAllJobs, currentUser }) => {
           <br />
 
           <Row>
-            {allJobs.map((job) => {
+            {allJobs.map((job, index) => {
               return (
                 <JobCard
                   key={job.id}
@@ -44,7 +44,7 @@ const ManageJobs = ({ allJobs, setAllJobs, currentUser }) => {
                   actionButton={
                     <CustomButton
                       onClick={() => {
-                        setShowNewJob(job);
+                        setShowNewJob({ job, index });
                       }}
                     >
                       Edit

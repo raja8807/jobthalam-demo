@@ -1,5 +1,6 @@
 .HeaderProfile {
   position: relative;
+  
   .dp {
     background-color: $color_p1;
     height: 35px;
@@ -15,7 +16,6 @@
     position: absolute;
     background-color: white;
     right: 0;
-    z-index: 100;
     border-radius: 5px;
     width: 250px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,

@@ -4,23 +4,25 @@ import { Col, Row } from "react-bootstrap";
 import styles from "./job_form.module.scss";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import { addData } from "@/libs/firebase/firebase";
+import { addData, updateData } from "@/libs/firebase/firebase";
 import { v4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
 
-const JobForm = ({ isUpdate, currentUser, setAllJobs,showNewJob }) => {
-  const initialValues = isUpdate ? {...showNewJob} : {
-    title: "",
-    role: "",
-    experience: "",
-    education: "",
-    description: "",
-    location: "",
-    type: "Full time",
-    salary: "",
-    employer_id: currentUser?.id,
-  };
+const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
+  const initialValues = isUpdate
+    ? { ...showNewJob }
+    : {
+        title: "",
+        role: "",
+        experience: "",
+        education: "",
+        description: "",
+        location: "",
+        type: "Full time",
+        salary: "",
+        employer_id: currentUser?.id,
+      };
 
   const [values, setValues] = useState(initialValues);
 
@@ -29,24 +31,37 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs,showNewJob }) => {
   const postJob = async () => {
     setIsLoading(true);
     try {
-      const id = v4();
-      const date = new Date();
+      if (isUpdate) {
+        const res = await updateData(
+          "Job",
+          { ...showNewJob, ...values },
+          showNewJob?.id
+        );
+        setAllJobs((prev) => {
+          const jobs = [...prev];
+          jobs[index] = res;
+          return jobs;
+        });
+      } else {
+        const id = v4();
+        const date = new Date();
 
-      const res = await addData(
-        "Job",
-        {
-          id,
-          ...values,
-          created_at: date.toDateString(),
-          status: "Active",
-          employer_logo: currentUser?.logo_url || "",
-          company_name: currentUser?.company_name,
-        },
-        id
-      );
+        const res = await addData(
+          "Job",
+          {
+            id,
+            ...values,
+            created_at: date.toDateString(),
+            status: "Active",
+            employer_logo: currentUser?.logo_url || "",
+            company_name: currentUser?.company_name,
+          },
+          id
+        );
 
-      setValues(initialValues);
-      setAllJobs((prev) => [res, ...prev]);
+        setValues(initialValues);
+        setAllJobs((prev) => [res, ...prev]);
+      }
     } catch (error) {
       console.log(error);
     }

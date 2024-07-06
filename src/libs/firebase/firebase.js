@@ -31,7 +31,6 @@ export const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
-
 const firebaseApp = !getApps().length
   ? initializeApp(firebaseConfig)
   : getApp();
@@ -91,9 +90,8 @@ export const generateUid = function () {
 };
 
 export const addData = async (collectionName, data, id) => {
-  console.log("xxxxx");
   try {
-    const res =  await setDoc(doc(db, collectionName, id), data);
+    const res = await setDoc(doc(db, collectionName, id), data);
     return data;
   } catch (err) {
     console.log(err);
@@ -105,7 +103,7 @@ export const updateData = async (collectionName, data, id) => {
   try {
     const updateRef = doc(db, collectionName, id);
     const res = await updateDoc(updateRef, data);
-    return res || true;
+    return data;
   } catch (err) {
     throw new Error(err);
   }
