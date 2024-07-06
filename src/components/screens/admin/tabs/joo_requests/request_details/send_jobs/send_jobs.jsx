@@ -23,8 +23,9 @@ const SendJobs = ({
   allAdminJobs,
 }) => {
   const [newJobs, setNewJobs] = useState([]);
-  const [availableJobs, setAvailableJobs] = useState(allJobs);
   const [isLoading, setIsLoading] = useState(false);
+
+  const availableJobs = allJobs;
 
   const sendJobs = async () => {
     setIsLoading(true);
@@ -36,6 +37,7 @@ const SendJobs = ({
           request_id: request.id,
           job_id: job?.id,
           ...job,
+          status:'New',
           id,
         };
       });
