@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import ManageJobs from "./tabs/manage_jobs/manage_jobs";
 import { getDataByQuery } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
+import Applications from "./tabs/applications/applications";
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
 
   const [allJobs, setAllJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [applications, setApplications] = useState(null);
 
   let tabs = [
     {
@@ -31,6 +33,13 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       id: "1",
       title: "Applications",
       icon: <PersonBadge />,
+      component: (
+        <Applications
+          currentUser={currentUser}
+          applications={applications}
+          setApplications={setApplications}
+        />
+      ),
     },
 
     {
@@ -66,7 +75,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
 
   useEffect(() => {
     if (tabIndex == 2) {
-      setCurrentTab(tabs[tabIndex]);
+      setCurrentTabIndex(tabs[tabIndex]);
     }
   }, [tabIndex]);
 

@@ -1,0 +1,80 @@
+.ApplicationCard {
+  border: 2px solid $color_g1;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  &:hover {
+    border-color: $color_p1;
+    cursor: pointer;
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+
+    > div {
+      //   margin-bottom: 16px;
+      p {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      > div {
+        small {
+          color: $color_g3;
+          font-size: 13px;
+          margin-bottom: 5px;
+          display: block;
+        }
+
+        > div {
+          margin-top: 10px;
+          font-size: 14px;
+          color: $color_link_blue;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    .img {
+      img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+    }
+    > div {
+      //   align-items: center;
+      display: flex;
+      gap: 16px;
+
+      p {
+        font-size: 14px;
+      }
+
+      small {
+        color: $color_g3;
+      }
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      height: fit-content;
+      gap: 5px;
+      > div {
+        background-color: green;
+        height: 7px;
+        width: 7px;
+        border-radius: 50%;
+      }
+      font-size: 14px;
+      color: green;
+    }
+  }
+}
