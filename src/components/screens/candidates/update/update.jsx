@@ -268,7 +268,7 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
         }
   );
 
-  const [currentFormIndex, setCurrentFormIndex] = useState(1);
+  const [currentFormIndex, setCurrentFormIndex] = useState(0);
 
   const forms = [
     {
