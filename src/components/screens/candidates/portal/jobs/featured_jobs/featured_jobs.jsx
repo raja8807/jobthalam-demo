@@ -9,18 +9,32 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
   const [loadingJobId, setLoadingJobId] = useState(null);
 
   const applyJob = async (job, index) => {
-    console.log(job, index);
     setLoadingJobId(job?.id);
     try {
       const application_id = v4();
+      const created_at = new Date().toDateString();
       const isApplied = await addData(
         "Application",
         {
-          ...job,
-          candidate_id: currentUser?.id,
-          job_id: job?.id,
-          status: "Applied",
           id: application_id,
+          job_id: job?.id,
+          created_at,
+
+          title: job?.title,
+          type: job?.type,
+          salary: job?.salary,
+          company_name: job?.company_name,
+          location: job?.location,
+          employer_logo: job?.employer_logo,
+
+          status: "Applied",
+          candidate: {
+            candidate_id: currentUser?.id,
+            candidate_image: currentUser?.candidate_image || "",
+            candidate_education: currentUser?.education,
+            candidate_experience: currentUser?.experience,
+            resume_url: currentUser?.resume_url || "",
+          },
         },
         application_id
       );
