@@ -1,7 +1,13 @@
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import React from "react";
 import styles from "./how_it_works.module.scss";
-import { Briefcase, CurrencyRupee, Pencil, PersonAdd, Whatsapp } from "react-bootstrap-icons";
+import {
+  Briefcase,
+  CurrencyRupee,
+  Pencil,
+  PersonAdd,
+  Whatsapp,
+} from "react-bootstrap-icons";
 import { Col, Image, Row } from "react-bootstrap";
 
 const HCard = ({ data, isWhite, isLast, isTwo }) => {
@@ -9,7 +15,7 @@ const HCard = ({ data, isWhite, isLast, isTwo }) => {
   return (
     <Col xs={12} md={6} lg={3}>
       <div className={`${styles.HCard} ${isWhite ? styles.white : ""} `}>
-        {icon}
+        <div className={styles.ico}>{icon}</div>
         <p>{title}</p>
         <small>{caption}</small>
         {!isLast && (

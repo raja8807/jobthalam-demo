@@ -25,20 +25,28 @@
   small {
     color: $color_g3;
   }
-  svg {
-    background-color: white;
+
+  .ico {
     height: 60px;
     width: 60px;
-    padding: 10px;
+    background-color: white;
     border-radius: 50%;
-    color: $color_p1;
+    margin: auto;
+    @include flexCenter;
+    svg {
+      font-size: 35px;
+      color: $color_p1;
+    }
   }
 
   &.white {
     background-color: white;
-    svg {
-      background-color: $color_p1;
-      color: white;
+
+    .ico {
+      background-color: #25D366;
+      svg {
+        color: white;
+      }
     }
   }
 
@@ -84,7 +92,6 @@
       width: 180px;
       &.two {
         display: none;
-
       }
     }
   }
