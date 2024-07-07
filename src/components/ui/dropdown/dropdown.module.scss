@@ -30,7 +30,10 @@
     }
 
     &:hover {
-      background-color: $color_g2;
+      background-color: $color_g1;
+      a {
+        color: black;
+      }
     }
 
     &.v_red {
@@ -38,6 +41,18 @@
 
       &:hover {
         background-color: rgba(200, 22, 22, 0.1);
+      }
+    }
+    &.v_primary {
+      a {
+        color: white;
+      }
+      color: white;
+      background-color: $color_p1;
+
+      &:hover {
+        background-color: $color_p1_mild;
+        color: $color_p1;
       }
     }
   }

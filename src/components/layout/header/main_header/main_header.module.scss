@@ -17,19 +17,37 @@
       background-position: center;
       background-repeat: no-repeat;
 
-      @include respond-below(md) {
-        background-image: url("/logo/logo_s.png");
-        width: 50px;
+      @include respond-below(sm) {
+        width: 180px;
       }
     }
 
     .right {
-      display: flex;
-      gap: 16px;
+      .btns {
+        display: no;
+        gap: 16px;
 
-      @include respond-below(sm) {
-        gap: 0;
+        @include respond-below(sm) {
+          display: none;
+        }
       }
+    }
+  }
+}
+
+.LoginDropDown {
+  display: none;
+
+  @include respond-below(sm) {
+    display: unset;
+  }
+  .login_button {
+    background-color: $color_p1;
+    padding: 5px 16px;
+    border-radius: 5px;
+
+    * {
+      color: white !important;
     }
   }
 }
