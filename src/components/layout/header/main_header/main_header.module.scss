@@ -18,8 +18,8 @@
       background-repeat: no-repeat;
 
       @include respond-below(md) {
-        background-image: url("/logo/logo_s.png");
-        width: 50px;
+        // background-image: url("/logo/logo_s.png");
+        width: 180px;
       }
     }
 
