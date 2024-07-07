@@ -5,7 +5,6 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import User from "./user/user";
 import OtpVerify from "./otp_verify/otp_verify";
 import { auth } from "@/libs/firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 
 const MainHeader = ({ currentUser, session }) => {
   const [showLogin, setShowLogin] = useState(false);
@@ -21,6 +20,7 @@ const MainHeader = ({ currentUser, session }) => {
           <div className={styles.right}>
             {!currentUser && !session && (
               <>
+                <div className={styles.btns}>
                 <CustomButton
                   variant={1}
                   onClick={() => {
@@ -29,6 +29,8 @@ const MainHeader = ({ currentUser, session }) => {
                 >
                   Employer Login
                 </CustomButton>
+              </div>
+
               </>
             )}
             {session && !currentUser && (

@@ -1,36 +1,23 @@
 .MainHeader {
   border-bottom: 1px solid $color_g2;
   padding: 10px 0;
-  
+  // background-color: $color_g1;
+
 
   .wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .logo {
-      display: block;
-      padding: 10px 0;
-      background-image: url("/logo/logo_f_v.png");
-      width: 200px;
-      height: 50px;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-
-      @include respond-below(md) {
-        // background-image: url("/logo/logo_s.png");
-        width: 180px;
-      }
-    }
+   
 
     .right {
-      display: flex;
-      gap: 16px;
-
-      @include respond-below(sm) {
-        gap: 0;
+      .btns {
+        display: no;
+        gap: 16px;
       }
     }
   }
 }
+
+

@@ -3,8 +3,10 @@
   width: 100%;
   height: calc(100dvh - 178px);
   overflow-y: auto;
-  // background-color: red;
-  // height: 100vh;
+
+  @include respond-below(sm){
+    padding: 12px;
+  }
 }
 
 .head {
@@ -16,6 +18,5 @@
     font-size: 15px;
   }
 
-  // margin: 0 20px 20px 20px;
   margin-bottom: 20px;
 }

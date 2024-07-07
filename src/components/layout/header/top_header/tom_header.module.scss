@@ -1,31 +1,69 @@
 .top_nav {
   background-color: $color_g1;
 
-  ul {
-    list-style-type: none;
+  .wrap {
     display: flex;
-    gap: 16px;
-    margin: 0;
-    padding: 0;
-    .item {
-      padding: 8px 0;
-      font-size: 16px;
-      font-weight: 500;
-      a {
-        color: $color_g2;
-      }
+    justify-content: space-between;
+    align-items: center;
 
-      &.active {
+    ul {
+      display: flex;
+      gap: 24px;
+      margin: 0;
+      height: 50px;
+
+      li {
+        list-style: none;
+        align-self: flex-end;
+        padding-bottom: 5px;
+        border-bottom: 3px solid transparent;
+
         a {
-          color: $color_p1 !important;
+          color: $color_g2;
         }
-        border-bottom: 3px solid $color_p1;
-      }
 
+        &.active {
+          border-bottom: 3px solid$color_p1;
+
+          a {
+            color: $color_p1;
+          }
+        }
+      }
+    }
+
+    .menu {
+      font-size: 28px;
+      color: $color_p1;
+      display: none;
+      cursor: pointer;
       &:hover {
-        a {
-          color: $color_p1 !important;
-        }
+        transform: scale(1.1);
+      }
+    }
+
+    @include respond-below(md) {
+      ul {
+        display: none;
+      }
+
+      .menu {
+        display: unset;
+      }
+    }
+
+    .logo {
+      display: block;
+      padding: 10px 0;
+      background-image: url("/logo/logo_f_v.png");
+      width: 200px;
+      height: 50px;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      @include respond-below(sm) {
+        width: 180px;
       }
     }
   }
