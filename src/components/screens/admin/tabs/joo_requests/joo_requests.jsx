@@ -7,14 +7,9 @@ import { getAllData, getData } from "@/libs/firebase/firebase";
 import React, { useEffect, useState } from "react";
 import { Col } from "react-bootstrap";
 import RequestDetails from "./request_details/request_details";
+import { formatDate } from "@/utils/helpers/helpers";
 
-const JobRequests = ({
-  allJobs,
-  setAllJobs,
-  setIsLoading,
-  requests,
-  allAdminJobs,
-}) => {
+const JobRequests = ({ allJobs, requests, allAdminJobs }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
   return (
@@ -24,7 +19,6 @@ const JobRequests = ({
           <RequestDetails
             request={showDetailsFor}
             setShow={setShowDetailsFor}
-            setIsLoading={setIsLoading}
             allJobs={allJobs}
             allAdminJobs={allAdminJobs}
           />
@@ -57,7 +51,7 @@ const JobRequests = ({
                 >
                   <Col>{r.count}</Col>
                   <Col>{r.jobs_sent}</Col>
-                  <Col>{r.created_at}</Col>
+                  <Col>{formatDate(r.createdAt)}</Col>
                   <Col>{r.payment_id || "Free"}</Col>
                 </CustomTableRow>
               );

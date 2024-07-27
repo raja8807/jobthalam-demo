@@ -9,7 +9,9 @@ import Router from "next/router";
 import styles from "../styles/Home.module.scss";
 import fonts from "@/styles/fonts";
 import Layout from "@/components/layout/layout";
-import { auth, getLoggedInUser } from "@/libs/firebase/firebase";
+import { auth } from "@/libs/firebase/firebase";
+import { QueryClientProvider } from "@tanstack/react-query";
+import queryClient from "@/libs/react-query";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -37,16 +39,6 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
-      if (user?.uid) {
-        try {
-          const loggedInUser = await getLoggedInUser(user?.uid);
-          setCurrentUser(loggedInUser);
-        } catch (err) {
-          console.log("logged in user error-->", err);
-        }
-      } else {
-        setCurrentUser(null);
-      }
       setSession(user);
     });
   }, []);
@@ -54,15 +46,17 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <main className={`${styles.main} ${fonts.MainFont}`}>
-        <Layout currentUser={currentUser} session={session}>
-          <Component
-            {...pageProps}
-            currentUser={currentUser}
-            session={session}
-            setCurrentUser={setCurrentUser}
-            setSession={setSession}
-          />
-        </Layout>
+        <QueryClientProvider client={queryClient}>
+          <Layout currentUser={currentUser} session={session}>
+            <Component
+              {...pageProps}
+              currentUser={currentUser}
+              session={session}
+              setCurrentUser={setCurrentUser}
+              setSession={setSession}
+            />
+          </Layout>
+        </QueryClientProvider>
       </main>
     </>
   );

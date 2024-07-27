@@ -6,26 +6,29 @@ import JobRequests from "./tabs/joo_requests/joo_requests";
 import { getAllData } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import ManageJobs from "./tabs/create_job/manage_jobs";
+import { useFetchAllRequests } from "@/hooks/request_hooks/request_hooks";
 
 const AdminScreen = ({ session }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [allJobs, setAllJobs] = useState([]);
   const [requests, setRequests] = useState([]);
   const [allAdminJobs, setAllAdminJobs] = useState([]);
 
+  const { mutateAsync: fetchAllRequests, isLoading: requestIsLoading } =
+    useFetchAllRequests();
+
+  const isLoading = requestIsLoading;
+
   const fetchAllJobs = async () => {
-    setIsLoading(true);
     try {
-      const res = await getAllData("Request");
+      const res = await fetchAllRequests();
       const jobs = await getAllData("Job");
       const adminJobs = await getAllData("Admin_job");
-      setRequests(res);
+      setRequests(res.data);
       setAllJobs(jobs);
       setAllAdminJobs(adminJobs);
     } catch (err) {
       console.log("job request error", err);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -43,10 +46,8 @@ const AdminScreen = ({ session }) => {
         <JobRequests
           allJobs={allJobs}
           setAllJobs={setAllJobs}
-          setIsLoading={setIsLoading}
           requests={requests}
           allAdminJobs={allAdminJobs}
-     
         />
       ),
     },
@@ -55,11 +56,7 @@ const AdminScreen = ({ session }) => {
       title: "Admin Jobs",
       icon: <Briefcase />,
       component: (
-        <ManageJobs
-          allJobs={allAdminJobs}
-          setAllJobs={setAllAdminJobs}
-        
-        />
+        <ManageJobs allJobs={allAdminJobs} setAllJobs={setAllAdminJobs} />
       ),
     },
   ];
