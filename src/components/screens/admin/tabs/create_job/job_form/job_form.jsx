@@ -4,11 +4,8 @@ import { Col, Row } from "react-bootstrap";
 import styles from "./job_form.module.scss";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import { addData, updateData } from "@/libs/firebase/firebase";
-import { v4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
-import ControlLabel from "@/components/ui/contol_label/control_label";
 import {
   useCreateAdminJob,
   useUpdateAdminJob,
@@ -36,6 +33,7 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
         type: "Full time",
         salary: "",
         status: "Active",
+        is_admin_job:true,
       };
 
   const [values, setValues] = useState(initialValues);

@@ -12,6 +12,8 @@ import EmployerJobsTab from "./employer_jobs_tab/employer_jobs_tab";
 import Tabs from "@/components/ui/tabs/tabs";
 import AdminJobsTab from "./admin_jobs_tab/admin_jobs_tab";
 import { v4 } from "uuid";
+import { useCreateBulkFeaturedJobs } from "@/hooks/featured_job_hooks/featured_job_hooks";
+import { useUpdateRequest } from "@/hooks/request_hooks/request_hooks";
 
 const SendJobs = ({
   setShow,
@@ -23,42 +25,57 @@ const SendJobs = ({
   allAdminJobs,
 }) => {
   const [newJobs, setNewJobs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const availableJobs = allJobs;
 
+  const {
+    mutateAsync: createBulkFeaturedJobs,
+    isLoading: createFeaturedJobsIsLoading,
+  } = useCreateBulkFeaturedJobs();
+
+  const { mutateAsync: updateRequestAsync, isLoading: updateRequestIsLoading } =
+    useUpdateRequest();
+
+  const isLoading = createFeaturedJobsIsLoading || updateRequestIsLoading;
+
   const sendJobs = async () => {
-    setIsLoading(true);
     try {
       const jobsToSend = newJobs.map((job) => {
-        const id = v4();
         return {
+          is_admin_job: job.is_admin_job || false,
+          admin_job_id: job.is_admin_job ? job.id : null,
+          job_id: job.is_admin_job ? null : job.id,
           candidate_id: candidate.id,
           request_id: request.id,
-          job_id: job?.id,
-          ...job,
-          status:'New',
-          id,
+          status: "New",
+          employer_id: job?.employer_id || null,
         };
       });
-      const res = await addMultipleData("Featured", jobsToSend);
-      const allSent = [...res, ...featuredJobs];
-      setFeaturedJobs(allSent);
 
-      const updateRes = await updateData(
-        "Request",
-        { ...request, jobs_sent: allSent.length },
-        request.id
-      );
+      const res = await createBulkFeaturedJobs(jobsToSend);
+      const allSent = [...res?.data, ...featuredJobs];
 
-      if (updateRes) {
-        setShow((prev) => ({ ...prev, jobs_sent: allSent.length }));
+      const updateRes = await updateRequestAsync({
+        ...request,
+        jobs_sent: allSent.length,
+      });
+
+      if (updateRes?.data) {
+        console.log(updateRes?.data);
+        setShow((prev) => {
+          const x = { ...prev };
+
+          X.jobs_sent = 2;
+
+          return x;
+        });
         setNewJobs([]);
       }
+
+      setFeaturedJobs(allSent);
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
   };
 
   const tabs = [
@@ -92,6 +109,8 @@ const SendJobs = ({
 
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const currentTab = tabs[currentTabIndex];
+
+  // console.log(request);
 
   return (
     <div className={styles.SendJobs}>

@@ -16,7 +16,12 @@ AdminJob.init(
       allowNull: false,
       primaryKey: true,
     },
-   
+
+    is_admin_job: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+
     company_name: {
       type: DataTypes.STRING,
     },

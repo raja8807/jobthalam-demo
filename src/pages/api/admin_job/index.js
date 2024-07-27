@@ -1,10 +1,10 @@
 import AdminJob from "@/libs/sequelize/Models/AdminJob";
-import sequelize from "@/libs/sequelize/sequelize";
+// import sequelize from "@/libs/sequelize/sequelize";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
-      // await sequelize.sync({ force: true });
+    //   await sequelize.sync({ force: true });
       const result = await AdminJob.create(req.body, {
         returning: true,
       });

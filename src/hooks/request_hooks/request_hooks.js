@@ -37,6 +37,7 @@ export const useFetchRequestByUid = (uid) => {
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
+
 const fetchAllRequests = async () => {
   try {
     return await axios.get(`${URL}`);
@@ -49,6 +50,23 @@ export const useFetchAllRequests = () => {
   const { mutateAsync, isPending, error, isSuccess, data, isError } =
     useMutation({
       mutationFn: fetchAllRequests,
+    });
+
+  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
+};
+
+const updateRequest = async (request) => {
+  try {
+    return await axios.put(`${URL}/${request.id}`, request);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const useUpdateRequest = () => {
+  const { mutateAsync, isPending, error, isSuccess, data, isError } =
+    useMutation({
+      mutationFn: updateRequest,
     });
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
