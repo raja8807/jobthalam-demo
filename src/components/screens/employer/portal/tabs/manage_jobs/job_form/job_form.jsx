@@ -8,6 +8,7 @@ import { addData, updateData } from "@/libs/firebase/firebase";
 import { v4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
+import { useCreateJob, useUpdateJob } from "@/hooks/job_hooks/job_hooks";
 
 const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
   const initialValues = isUpdate
@@ -22,42 +23,32 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
         type: "Full time",
         salary: "",
         employer_id: currentUser?.id,
+        status: "Active",
       };
 
   const [values, setValues] = useState(initialValues);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: createJob, isLoading: createJobIsLoading } =
+    useCreateJob();
+  const { mutateAsync: updateJob, isLoading: updateJobIsLoading } =
+    useUpdateJob();
+
+  const isLoading = createJobIsLoading || updateJobIsLoading;
 
   const postJob = async () => {
-    setIsLoading(true);
     try {
       if (isUpdate) {
-        const res = await updateData(
-          "Job",
-          { ...showNewJob, ...values },
-          showNewJob?.id
-        );
+        const res = await updateJob({ ...showNewJob, ...values });
         setAllJobs((prev) => {
           const jobs = [...prev];
-          jobs[index] = res;
+          jobs[index] = res.data;
           return jobs;
         });
       } else {
         const id = v4();
         const date = new Date();
 
-        const res = await addData(
-          "Job",
-          {
-            id,
-            ...values,
-            created_at: date.toDateString(),
-            status: "Active",
-            employer_logo: currentUser?.logo_url || "",
-            company_name: currentUser?.company_name,
-          },
-          id
-        );
+        const res = await createJob({ ...values });
 
         setValues(initialValues);
         setAllJobs((prev) => [res, ...prev]);
@@ -65,7 +56,6 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
   };
 
   return (

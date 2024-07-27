@@ -4,11 +4,10 @@ import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import { auth } from "@/libs/firebase/firebase";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
-import { createUser } from "@/libs/firebase/user/user";
-
 import { v4 as uuidv4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { Link } from "react-bootstrap-icons";
+import { useCreateEmployer } from "@/hooks/employer_hooks/employer_hooks";
 
 const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
   const [values, setValues] = useState(
@@ -24,34 +23,23 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
         }
   );
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { mutateAsync: createUser, isLoading, error } = useCreateEmployer();
 
   const updaterUser = async () => {
-    setIsLoading(true);
-    setError(null);
-
     try {
       if (session?.uid) {
-        const id = uuidv4();
-        const res = await createUser(
-          {
-            id,
-            ...values,
-            phone_number: session?.uid,
-          },
-          id
-        );
+        const res = await createUser({
+          ...values,
+          phone_number: session?.uid,
+        });
 
-        if (res) {
-          setCurrentUser(res);
+        if (res.data) {
+          setCurrentUser(res.data);
         }
       }
     } catch (err) {
       console.log(err);
     }
-
-    setIsLoading(false);
   };
 
   return (

@@ -7,13 +7,13 @@ import ManageJobs from "./tabs/manage_jobs/manage_jobs";
 import { getDataByQuery } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import Applications from "./tabs/applications/applications";
+import { useFetchJobByUid } from "@/hooks/job_hooks/job_hooks";
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
   const tabIndex = router.query.t;
 
   const [allJobs, setAllJobs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [applications, setApplications] = useState(null);
 
   let tabs = [
@@ -49,20 +49,16 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
     },
   ];
 
+  const { mutateAsync, isLoading } = useFetchJobByUid();
+
   const fetchAllJobs = async () => {
-    setIsLoading(true);
     try {
-      const res = await getDataByQuery("Job", [
-        "employer_id",
-        "==",
-        currentUser.id,
-      ]);
-      setAllJobs(res);
+      const res = await mutateAsync(currentUser.id);
+      setAllJobs(res?.data || []);
       tabs = tabs;
     } catch (err) {
       console.log(err);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {

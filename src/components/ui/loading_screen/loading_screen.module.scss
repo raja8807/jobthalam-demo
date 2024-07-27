@@ -3,10 +3,8 @@
   position: fixed;
   width: 100dvw;
   height: 100dvh;
+  top: 0;
+  left: 0;
   @include flexCenter;
-  z-index: 100;
-
-  &.noBg {
-    // background-color: transparent;
-  }
+  z-index: 1000;
 }

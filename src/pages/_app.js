@@ -9,7 +9,12 @@ import Router from "next/router";
 import styles from "../styles/Home.module.scss";
 import fonts from "@/styles/fonts";
 import Layout from "@/components/layout/layout";
-import { auth, getLoggedInUser } from "@/libs/firebase/firebase";
+import { auth } from "@/libs/firebase/firebase";
+import { QueryClientProvider } from "@tanstack/react-query";
+// import queryClient from "@/libs/react-query";
+import queryClient from "@/libs/react-query";
+import { useFetchCandidateByUid } from "@/hooks/candidate_hooks/candidate_hooks";
+import axios from "axios";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -35,11 +40,23 @@ export default function App({ Component, pageProps }) {
   const [session, setSession] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
+  // const { mutateAsync, isLoading } = useFetchCandidateByUid();
+
+  const getLoggedInUser = async (user) => {
+    const res = await axios.post(`/api/employer/${user.uid}`, {
+      user,
+    });
+
+    if (res.status === 200) {
+      return res.data;
+    }
+  };
+
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user?.uid) {
         try {
-          const loggedInUser = await getLoggedInUser(user?.uid);
+          const loggedInUser = await getLoggedInUser(user);
           setCurrentUser(loggedInUser);
         } catch (err) {
           console.log("logged in user error-->", err);
@@ -54,15 +71,17 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <main className={`${styles.main} ${fonts.MainFont}`}>
-        <Layout currentUser={currentUser} session={session}>
-          <Component
-            {...pageProps}
-            currentUser={currentUser}
-            session={session}
-            setCurrentUser={setCurrentUser}
-            setSession={setSession}
-          />
-        </Layout>
+        <QueryClientProvider client={queryClient}>
+          <Layout currentUser={currentUser} session={session}>
+            <Component
+              {...pageProps}
+              currentUser={currentUser}
+              session={session}
+              setCurrentUser={setCurrentUser}
+              setSession={setSession}
+            />
+          </Layout>
+        </QueryClientProvider>
       </main>
     </>
   );
