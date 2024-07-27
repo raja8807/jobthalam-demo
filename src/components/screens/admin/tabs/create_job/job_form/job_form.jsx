@@ -9,9 +9,13 @@ import { v4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
 import ControlLabel from "@/components/ui/contol_label/control_label";
+import {
+  useCreateAdminJob,
+  useUpdateAdminJob,
+} from "@/hooks/admin_job_hooks/admin_job_hooks";
 
 const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
-  const currentJob = showNewJob
+  const currentJob = showNewJob;
   const initialValues = isUpdate
     ? { ...currentJob }
     : {
@@ -31,50 +35,39 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
         location: "",
         type: "Full time",
         salary: "",
+        status: "Active",
       };
 
   const [values, setValues] = useState(initialValues);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync: createAdminJobAsync, isLoading: createIsLoading } =
+    useCreateAdminJob();
+  const { mutateAsync: updateAdminJobAsync, isLoading: updateIsLoading } =
+    useUpdateAdminJob();
+
+  const isLoading = createIsLoading || updateIsLoading;
 
   const postJob = async () => {
-    setIsLoading(true);
     try {
       if (isUpdate) {
-        const res = await updateData(
-          "Admin_job",
-          { ...currentJob, ...values },
-          currentJob?.id
-        );
+        const res = await updateAdminJobAsync({ ...currentJob, ...values });
 
         setAllJobs((prev) => {
           const jobs = [...prev];
-          jobs[index] = res;
+          jobs[index] = res?.data;
           return jobs;
         });
       } else {
-        const id = v4();
-        const date = new Date();
+        const res = await createAdminJobAsync({
+          ...values,
+        });
 
-        const res = await addData(
-          "Admin_job",
-          {
-            id,
-            ...values,
-            created_at: date.toDateString(),
-            status: "Active",
-            isAdminJob: true,
-          },
-          id
-        );
-
-        setValues(initialValues);
-        setAllJobs((prev) => [res, ...prev]);
+        // setValues(initialValues);
+        setAllJobs((prev) => [res?.data, ...prev]);
       }
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
   };
 
   return (
