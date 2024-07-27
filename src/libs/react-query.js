@@ -14,7 +14,7 @@ const queryClientConfig = {
       suspense: false,
     },
     mutations: {
-      retry: 2,
+      retry: 0,
     },
   },
 };

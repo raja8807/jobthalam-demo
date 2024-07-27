@@ -7,6 +7,7 @@ import { getAllData } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import ManageJobs from "./tabs/create_job/manage_jobs";
 import { useFetchAllRequests } from "@/hooks/request_hooks/request_hooks";
+import { useFetchAllJobs } from "@/hooks/job_hooks/job_hooks";
 
 const AdminScreen = ({ session }) => {
   const [allJobs, setAllJobs] = useState([]);
@@ -16,15 +17,18 @@ const AdminScreen = ({ session }) => {
   const { mutateAsync: fetchAllRequests, isLoading: requestIsLoading } =
     useFetchAllRequests();
 
-  const isLoading = requestIsLoading;
+  const { mutateAsync: fetchAllJobsAsync, isLoading: allJobsIsLoading } =
+    useFetchAllJobs();
+
+  const isLoading = requestIsLoading || allJobsIsLoading;
 
   const fetchAllJobs = async () => {
     try {
       const res = await fetchAllRequests();
-      const jobs = await getAllData("Job");
+      const jobs = await fetchAllJobsAsync();
       const adminJobs = await getAllData("Admin_job");
       setRequests(res.data);
-      setAllJobs(jobs);
+      setAllJobs(jobs?.data);
       setAllAdminJobs(adminJobs);
     } catch (err) {
       console.log("job request error", err);
@@ -35,7 +39,6 @@ const AdminScreen = ({ session }) => {
     fetchAllJobs();
   }, []);
 
-  //   console.log(allAdminJobs);
 
   const tabs = [
     {

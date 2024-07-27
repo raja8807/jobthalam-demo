@@ -2,7 +2,7 @@ import Candidate from "@/libs/sequelize/Models/Candidate";
 import sequelize from "@/libs/sequelize/sequelize";
 
 const handler = async (req, res) => {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
     try {
       //   console.log(req.query);
       //   //   await sequelize.sync({ force: true });
@@ -10,15 +10,15 @@ const handler = async (req, res) => {
       //     returning: true,
       //   });
 
-      if (!req.body.user.uid === req.query.uid) {
-        return res.status(401).json({
-          error: "Unauthorized",
-        });
-      }
+      // if (!req.body.user.uid === req.query.uid) {
+      //   return res.status(401).json({
+      //     error: "Unauthorized",
+      //   });
+      // }
 
       const result = await Candidate.findOne({
         where: {
-          phone_number: req.query.uid,
+          id: req.query.uid,
         },
       });
 

@@ -8,10 +8,11 @@ import { Col, Row } from "react-bootstrap";
 import SendJobs from "./send_jobs/send_jobs";
 import JobTable from "@/components/jobs/job_table/job_table";
 import JobCard from "@/components/ui/job/job_card/job_card";
+import { useFetchCandidateByUid } from "@/hooks/candidate_hooks/candidate_hooks";
+import { formatDate } from "@/utils/helpers/helpers";
 
 const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
   const [candidate, setCandidate] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [showSendFor, setShowSendFor] = useState(null);
   const [featuredJobs, setFeaturedJobs] = useState([]);
 
@@ -25,20 +26,21 @@ const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
     }
   };
 
+  const {mutateAsync:fetchCandidatesByUid,isLoading:candidatesIsLoading} = useFetchCandidateByUid()
+
+
+  const isLoading = candidatesIsLoading;
+
   const fetchCandidate = async () => {
-    setIsLoading(true);
+
     try {
-      const res = await getDataByQuery("Candidate", [
-        "id",
-        "==",
-        request.candidate_id,
-      ]);
-      setCandidate(res[0]);
+      const res = await fetchCandidatesByUid(request.candidate_id)
+      setCandidate(res?.data );
       fetchFeaturedJobs(res[0]?.id);
     } catch (err) {
       console.log(err);
     }
-    setIsLoading(false);
+
   };
 
   useEffect(() => {
@@ -116,7 +118,7 @@ const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
                     <div>Payment Id</div> : {request.payment_id || "Free"}
                   </div>
                   <div className={styles.row}>
-                    <div>Requested on</div> : {request.created_at}
+                    <div>Requested on</div> : {formatDate(request.createdAt)}
                   </div>
                   <br />
                   <br />
