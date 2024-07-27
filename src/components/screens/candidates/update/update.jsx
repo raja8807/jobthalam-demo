@@ -6,13 +6,11 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
 import { auth, uploadFile } from "@/libs/firebase/firebase";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
-import { createUser } from "@/libs/firebase/user/user";
-
-import { v4 as uuidv4 } from "uuid";
 import { Form } from "react-bootstrap";
 import { Whatsapp, X } from "react-bootstrap-icons";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import ControlLabel from "@/components/ui/contol_label/control_label";
+import { useCreateCandidate } from "@/hooks/candidate_hooks/candidate_hooks";
 
 const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
   const [isMobile, setIsMobile] = useState(true);
@@ -109,45 +107,40 @@ const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
   );
 };
 
-const Form2 = ({ setValues, values, session, setCurrentFormIndex ,setCurrentUser}) => {
-  const [isMobile, setIsMobile] = useState(true)
+const Form2 = ({
+  setValues,
+  values,
+  session,
+  setCurrentFormIndex,
+  setCurrentUser,
+}) => {
+  const [isMobile, setIsMobile] = useState(true);
 
   const [resumeFile, setResumeFile] = useState(null);
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { mutateAsync: createUser, isLoading, error } = useCreateCandidate();
 
   const updaterUser = async () => {
-    setIsLoading(true);
-    setError(null);
-
     try {
       if (session?.uid) {
-        const id = uuidv4();
         const resume_url = await uploadFile(
           resumeFile,
-          `resumes/${id}/resume`
-        );
-       
-        const res = await createUser(
-          {
-            id,
-            ...values,
-            phone_number: session?.uid,
-            resume_url
-          },
-          id,
+          `resumes/${session?.uid}/resume`
         );
 
-        if (res) {
-          setCurrentUser(res);
+        const res = await createUser({
+          ...values,
+          phone_number: session?.uid,
+          resume_url,
+        });
+
+        if (res.data) {
+          setCurrentUser(res.data);
         }
       }
     } catch (err) {
       console.log(err);
     }
-
-    setIsLoading(false);
   };
 
   return (

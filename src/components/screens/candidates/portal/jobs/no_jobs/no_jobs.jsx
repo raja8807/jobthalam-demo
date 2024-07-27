@@ -3,45 +3,45 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import React, { useState } from "react";
 import styles from "./no_jobs.module.scss";
 import { CheckCircleFill, Whatsapp } from "react-bootstrap-icons";
-import { addData } from "@/libs/firebase/firebase";
 import { v4 } from "uuid";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
-import { updateUser } from "@/libs/firebase/user/user";
+import { useCreateRequest } from "@/hooks/request_hooks/request_hooks";
+import { useUpdateCandidate } from "@/hooks/candidate_hooks/candidate_hooks";
 
 const NoJobs = ({ currentUser, setCurrentUser }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [isRequested, setIsRequested] = useState(currentUser?.free_requested);
 
+  const { mutateAsync, isLoading: createRequestIsLoading } = useCreateRequest();
+  const { mutateAsync: updateUserAsync, isLoading: updateUserIsLoading } =
+    useUpdateCandidate();
+
+  const isLoading = createRequestIsLoading || updateUserIsLoading;
+
   const sendFreeJobRequests = async () => {
-    setIsLoading(true);
     try {
       const id = v4();
       const date = new Date();
-      const res = await addData(
-        "Request",
-        {
-          id,
-          candidate_id: currentUser.id,
-          count: 2,
-          payment_id: null,
-          created_at: date.toDateString(),
-          jobs_sent: 0,
-        },
-        id
-      );
-      if (res) {
-        const updatedUser = await updateUser({
+      const res = await mutateAsync({
+        candidate_id: currentUser.id,
+        count: 2,
+        payment_id: null,
+        created_at: date.toDateString(),
+        jobs_sent: 0,
+        is_free: true,
+      });
+      console.log(res);
+      if (res.data) {
+        const updatedUser = await updateUserAsync({
           ...currentUser,
           free_requested: true,
         });
 
         setIsRequested(true);
-        setCurrentUser(updatedUser);
+        setCurrentUser(updatedUser.data);
       }
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
   };
 
   return (
