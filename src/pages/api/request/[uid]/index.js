@@ -21,7 +21,9 @@ const handler = async (req, res) => {
   if (req.method === "PUT") {
     try {
       if (req.body.jobs_sent > req.body.count) {
-        throw new Error("Invalid operation");
+        throw new Error(
+          "Invalid operation. Jobs sent count is higher than request count"
+        );
       }
 
       const [numberOfAffectedRows, affectedRows] = await Request.update(
