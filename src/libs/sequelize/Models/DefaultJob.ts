@@ -42,10 +42,17 @@ DefaultJob.init(
     skill: {
       type: DataTypes.STRING,
     },
+    industry: {
+      type: DataTypes.STRING,
+    },
 
     is_admin_job: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+    },
+
+    is_free: {
+      type: DataTypes.BOOLEAN,
     },
   },
   {

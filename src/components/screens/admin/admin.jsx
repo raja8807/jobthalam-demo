@@ -72,9 +72,7 @@ const AdminScreen = ({ session }) => {
       id: "amega",
       title: "Default Jobs",
       icon: <PlusLg />,
-      component: (
-        <DefaultJobs allJobs={allAdminJobs} adminJobs={allAdminJobs} />
-      ),
+      component: <DefaultJobs jobs={allJobs} adminJobs={allAdminJobs} />,
     },
   ];
 

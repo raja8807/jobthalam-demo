@@ -138,8 +138,6 @@ const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
 
           <Row>
             {featuredJobs.map((fj) => {
-              console.log(fj);
-
               return (
                 <JobCard
                   key={fj.id}

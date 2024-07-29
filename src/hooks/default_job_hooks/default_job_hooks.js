@@ -20,7 +20,7 @@ export const useFetchAllDefaultJobs = () => {
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
 
-const createBulkDefaultJobs = async (DefaultJobs) => {
+const createDefaultJobs = async (DefaultJobs) => {
   try {
     return await axios.post(`${URL}`, {
       jobs: DefaultJobs,
@@ -30,10 +30,26 @@ const createBulkDefaultJobs = async (DefaultJobs) => {
   }
 };
 
-export const useCreateBulkDefaultJobs = () => {
+export const useCreateDefaultJob = () => {
   const { mutateAsync, isPending, error, isSuccess, data, isError } =
     useMutation({
-      mutationFn: createBulkDefaultJobs,
+      mutationFn: createDefaultJobs,
+    });
+
+  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
+};
+const deleteDefaultJobs = async (uid) => {
+  try {
+    return await axios.delete(`${URL}/${uid}`);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const useDeleteDefaultJob = () => {
+  const { mutateAsync, isPending, error, isSuccess, data, isError } =
+    useMutation({
+      mutationFn: deleteDefaultJobs,
     });
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };

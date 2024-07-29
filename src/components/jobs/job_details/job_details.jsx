@@ -113,8 +113,8 @@ const JobDetails = ({ job, setJob, actionButton, employer }) => {
               <div className={styles.box3}>
                 <strong>
                   <Person /> &nbsp;
-                  {employer.first_name || job?.company_spoc_name}{" "}
-                  {employer.last_name}
+                  {employer?.first_name || job?.company_spoc_name}{" "}
+                  {employer?.last_name}
                 </strong>
                 <div>
                   <EnvelopeAt /> &nbsp;<small>{employer?.email}</small>
