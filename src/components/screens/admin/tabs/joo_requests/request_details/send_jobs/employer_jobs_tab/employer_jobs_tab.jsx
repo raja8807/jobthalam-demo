@@ -15,8 +15,8 @@ const EmployerJobsTab = ({
       {availableJobs
         .filter((j) => {
           return !(
-            newJobs.some((nj) => nj.id == j.id) ||
-            featuredJobs.some((nj) => nj.id == j.id)
+            newJobs.some((nj) => nj?.job?.id == j.id) ||
+            featuredJobs.some((nj) => nj?.job?.id == j.id)
           );
         })
         .map((job) => {
@@ -24,6 +24,7 @@ const EmployerJobsTab = ({
             <JobCard
               key={job.id}
               job={job}
+              employer={job?.employer}
               actionButton={
                 !(request.count - request.jobs_sent <= newJobs.length) && (
                   <CustomButton

@@ -61,7 +61,6 @@ const SendJobs = ({
       });
 
       if (updateRes?.data) {
-        console.log(updateRes?.data);
         setShow((prev) => {
           const x = { ...prev };
 
@@ -146,6 +145,7 @@ const SendJobs = ({
               <JobCard
                 key={job.id}
                 job={job}
+                employer={job?.employer}
                 actionButton={
                   <CustomButton
                     onClick={() => {

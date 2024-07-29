@@ -1,39 +1,39 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
-const URL = "/api/featured_job";
+const URL = "/api/default_job";
 
-const fetchFeaturedJobsById = async (uid) => {
+const fetchAllDefaultJobs = async () => {
   try {
-    return await axios.get(`${URL}/${uid}`);
+    return await axios.get(`${URL}`);
   } catch (err) {
     throw new Error(err.message);
   }
 };
 
-export const useFetchFeaturedJobsById = () => {
+export const useFetchAllDefaultJobs = () => {
   const { mutateAsync, isPending, error, isSuccess, data, isError } =
     useMutation({
-      mutationFn: fetchFeaturedJobsById,
+      mutationFn: fetchAllDefaultJobs,
     });
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
 
-const createBulkFeaturedJobs = async (featuredJobs) => {
+const createBulkDefaultJobs = async (DefaultJobs) => {
   try {
     return await axios.post(`${URL}`, {
-      featuredJobs,
+      jobs: DefaultJobs,
     });
   } catch (err) {
     throw new Error(err.message);
   }
 };
 
-export const useCreateBulkFeaturedJobs = () => {
+export const useCreateBulkDefaultJobs = () => {
   const { mutateAsync, isPending, error, isSuccess, data, isError } =
     useMutation({
-      mutationFn: createBulkFeaturedJobs,
+      mutationFn: createBulkDefaultJobs,
     });
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };

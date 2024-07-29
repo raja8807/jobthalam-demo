@@ -15,8 +15,8 @@ const AdmimJobsTab = ({
       {availableJobs
         .filter((j) => {
           return !(
-            newJobs.some((nj) => nj.id == j.id) ||
-            featuredJobs.some((nj) => nj.id == j.id)
+            newJobs.some((nj) => nj?.adminjob?.id.id == j.id) ||
+            featuredJobs.some((nj) => nj?.adminjob?.id == j.id)
           );
         })
         .map((job) => {

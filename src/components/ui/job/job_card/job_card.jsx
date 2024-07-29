@@ -4,10 +4,8 @@ import styles from "./job_card.module.scss";
 import { GeoAlt } from "react-bootstrap-icons";
 import JobDetails from "@/components/jobs/job_details/job_details";
 
-const JobCard = ({ job, actionButton }) => {
+const JobCard = ({ job, actionButton, employer }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
-
-  
 
   return (
     <>
@@ -15,6 +13,7 @@ const JobCard = ({ job, actionButton }) => {
         <JobDetails
           setJob={setShowDetailsFor}
           job={showDetailsFor}
+          employer={employer}
           actionButton={actionButton}
         />
       )}
@@ -42,13 +41,17 @@ const JobCard = ({ job, actionButton }) => {
             <div>
               <div>
                 <Image
-                  src={job.employer_logo || "/company_logo_placeholder.png"}
+                  src={
+                    job?.employer_logo ||
+                    employer?.logo ||
+                    "/company_logo_placeholder.png"
+                  }
                   alt="company_logo"
                   width={50}
                 />
               </div>
               <div>
-                <p>{job.company_name}</p>
+                <p>{employer?.company_name || job?.company_name} </p>
                 <small>
                   <GeoAlt /> {job.location}
                 </small>

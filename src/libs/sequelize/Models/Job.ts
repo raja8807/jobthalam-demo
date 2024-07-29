@@ -59,6 +59,9 @@ Job.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    skills: {
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,

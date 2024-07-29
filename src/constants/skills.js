@@ -1,6 +1,6 @@
 const SKILL_CATEGORIES = [
   {
-    id: "it",
+    id: "It",
     name: "Information Technology",
     skills: [
       "Computer Programmer",
@@ -10,6 +10,9 @@ const SKILL_CATEGORIES = [
       "Database Administrator",
     ],
   },
+
+  
+
   {
     id: "Marketing",
     name: "Marketing",
@@ -23,4 +26,4 @@ const SKILL_CATEGORIES = [
   },
 ];
 
-export default SKILL_CATEGORIES
+export default SKILL_CATEGORIES;

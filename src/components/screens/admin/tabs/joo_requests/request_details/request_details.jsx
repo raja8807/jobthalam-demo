@@ -10,37 +10,38 @@ import JobTable from "@/components/jobs/job_table/job_table";
 import JobCard from "@/components/ui/job/job_card/job_card";
 import { useFetchCandidateByUid } from "@/hooks/candidate_hooks/candidate_hooks";
 import { formatDate } from "@/utils/helpers/helpers";
+import { useFetchFeaturedJobsById } from "@/hooks/featured_job_hooks/featured_job_hooks";
 
 const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
   const [candidate, setCandidate] = useState(null);
   const [showSendFor, setShowSendFor] = useState(null);
   const [featuredJobs, setFeaturedJobs] = useState([]);
 
+  const { isLoading: fJobsIsLoading, mutateAsync: getFeaturedJobs } =
+    useFetchFeaturedJobsById();
+
   const fetchFeaturedJobs = async (id) => {
     try {
-      const res = await getDataByQuery("Featured", ["candidate_id", "==", id]);
-
-      setFeaturedJobs(res);
+      const res = await getFeaturedJobs(id);
+      setFeaturedJobs(res?.data);
     } catch (err) {
       console.log("fJobs err-->", err);
     }
   };
 
-  const {mutateAsync:fetchCandidatesByUid,isLoading:candidatesIsLoading} = useFetchCandidateByUid()
+  const { mutateAsync: fetchCandidatesByUid, isLoading: candidatesIsLoading } =
+    useFetchCandidateByUid();
 
-
-  const isLoading = candidatesIsLoading;
+  const isLoading = candidatesIsLoading || fJobsIsLoading;
 
   const fetchCandidate = async () => {
-
     try {
-      const res = await fetchCandidatesByUid(request.candidate_id)
-      setCandidate(res?.data );
-      fetchFeaturedJobs(res[0]?.id);
+      const res = await fetchCandidatesByUid(request.candidate_id);
+      setCandidate(res?.data);
+      fetchFeaturedJobs(res?.data?.id);
     } catch (err) {
       console.log(err);
     }
-
   };
 
   useEffect(() => {
@@ -137,7 +138,15 @@ const RequestDetails = ({ request, setShow, allJobs, allAdminJobs }) => {
 
           <Row>
             {featuredJobs.map((fj) => {
-              return <JobCard key={fj.id} job={fj} />;
+              console.log(fj);
+
+              return (
+                <JobCard
+                  key={fj.id}
+                  job={fj?.job || fj?.adminjob}
+                  employer={fj?.employer}
+                />
+              );
             })}
           </Row>
         </div>

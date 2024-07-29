@@ -12,17 +12,15 @@ import {
   Phone,
   X,
 } from "react-bootstrap-icons";
+import { formatDate } from "@/utils/helpers/helpers";
 
-const JobDetails = ({
-  job,
-  setJob,
-  actionBtnText,
-
-  onActionClick = () => {},
-}) => {
+const JobDetails = ({ job, setJob, actionButton, employer }) => {
   const close = () => {
     setJob(null);
   };
+
+  const companyName = job?.company_name || employer.company_name;
+
   return (
     <Modal
       show={!!job}
@@ -36,30 +34,18 @@ const JobDetails = ({
           <div className={styles.left}>
             <div className={styles.logo}>
               <Image
-                src={job?.logoUrl || "/company_logo_placeholder.png"}
+                src={job?.company_logo || "/company_logo_placeholder.png"}
                 alt="logo"
                 height={70}
               />
             </div>
             <div className={styles.name}>
               <h4>{job?.title}</h4>
-              <p>at {job?.company?.name}</p>
+              <p>at {companyName}</p>
             </div>
           </div>
 
-          {actionBtnText && (
-            <div className={styles.right}>
-              {
-                <CustomButton
-                  onClick={() => {
-                    onActionClick(job);
-                  }}
-                >
-                  {actionBtnText}
-                </CustomButton>
-              }
-            </div>
-          )}
+          <div>{actionButton}</div>
           <X
             onClick={(e) => {
               e.preventDefault();
@@ -74,18 +60,11 @@ const JobDetails = ({
           <div className={styles.top}>
             <div className={styles.box}>
               <div className={styles.box1}>
-                {job?.min_salary > 0 && (
-                  <div>
-                    <h5>Salary (INR)</h5>
-                    <p>
-                      &#8377; {job?.min_salary}{" "}
-                      {job?.max_salary &&
-                        job?.max_salary !== job?.min_salary &&
-                        `- ${job?.max_salary}`}
-                    </p>
-                    <small>Per Month</small>
-                  </div>
-                )}
+                <div>
+                  <h5>Salary (INR)</h5>
+                  <p>{job?.salary}</p>
+                  <small>Per Month</small>
+                </div>
                 <hr />
                 <div>
                   <GeoAlt />
@@ -100,7 +79,7 @@ const JobDetails = ({
                 <div>
                   <CalendarDate />
                   <p>Job Posted:</p>
-                  <span>{new Date(job?.created_at).toLocaleDateString()}</span>
+                  <span>{formatDate(job.createdAt)}</span>
                 </div>
                 {job?.expiry_date && (
                   <div>
@@ -119,10 +98,7 @@ const JobDetails = ({
                 <div>
                   <CalendarDate />
                   <p>EXPERIENCE:</p>
-                  <span>
-                    {job?.experience}{" "}
-                    {job?.experience !== "Fresher" && "Year(s)"}
-                  </span>
+                  <span>{job?.experience} Year(s)</span>
                 </div>
                 <div>
                   <Briefcase />
@@ -132,23 +108,43 @@ const JobDetails = ({
               </div>
             </div>
 
-            {job.employer && (
+            <div className={styles.box}>
+              <h6>Contact</h6>
+              <div className={styles.box3}>
+                <strong>
+                  <Person /> &nbsp;
+                  {employer.first_name || job?.company_spoc_name}{" "}
+                  {employer.last_name}
+                </strong>
+                <div>
+                  <EnvelopeAt /> &nbsp;<small>{employer?.email}</small>
+                </div>
+                <div>
+                  <Phone /> &nbsp;
+                  <small>
+                    {employer.phone_number || job?.company_phone_number}
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            {/* {isAdminJob && (
               <div className={styles.box}>
                 <h6>Contact</h6>
                 <div className={styles.box3}>
                   <strong>
-                    <Person/> &nbsp;{job?.employer.first_name} {job?.employer.last_name}
+                    <Person /> &nbsp;{job.company_spoc_name}
                   </strong>
                   <div>
-                    <EnvelopeAt /> &nbsp;<small>{job?.employer.email}</small>
+                    <EnvelopeAt /> &nbsp;<small>{job?.company_email}</small>
                   </div>
                   <div>
                     <Phone /> &nbsp;
-                    <small>{job.employer.phone_number}</small>
+                    <small>{job.company_phone_number}</small>
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
 
           <div className={styles.bottom}>
@@ -157,7 +153,7 @@ const JobDetails = ({
               <p>{job?.description}</p>
               <br />
               <h6>About Company</h6>
-              <p>{job?.company?.about}</p>
+              <p>{job?.about_company || employer?.about}</p>
             </div>
           </div>
         </div>
