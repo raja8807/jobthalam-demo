@@ -66,6 +66,10 @@ Application.init(
         key: "id",
       },
     },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: "Applied",
+    },
   },
   {
     sequelize,

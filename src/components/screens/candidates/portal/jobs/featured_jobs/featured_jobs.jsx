@@ -22,9 +22,8 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
         request_id: job?.request_id,
         employer_id: job?.employer?.id || null,
         featured_job_id: job?.id,
+        status: "Applied",
       });
-
-      console.log(res);
 
       if (res) {
         const updatedFeaturedJob = await updateFeaturedJob({
@@ -53,6 +52,7 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
           <JobCard
             key={job.id}
             job={job}
+            allJobs={allJobs}
             actionButton={
               job.status == "New" && (
                 <CustomButton

@@ -21,11 +21,15 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const [allJobs, setAllJobs] = useState([]);
   const tabIndex = router.query.t;
 
-  const { mutateAsync, isLoading } = useFetchFeaturedJobsByUid();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { mutateAsync, isLoading: jobsLoading } = useFetchFeaturedJobsByUid();
+
+  const showLoading = isLoading || jobsLoading;
+
   const getJobs = async () => {
     try {
       const res = await mutateAsync(currentUser.id);
-      // console.log('res--->',res);
       setAllJobs(res?.data || []);
     } catch (err) {
       console.log(err);
@@ -58,7 +62,13 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       id: "2",
       title: "Applications",
       icon: <CheckCircle />,
-      component: <ApplicationsTab currentUser={currentUser} />,
+      component: (
+        <ApplicationsTab
+          currentUser={currentUser}
+          allJobs={allJobs}
+          setIsLoading={setIsLoading}
+        />
+      ),
     },
     {
       id: "3",
@@ -86,7 +96,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
   return (
     <div>
       <CustomContainer>
-        {isLoading && <LoadingScreen />}
+        {showLoading && <LoadingScreen />}
         <Tabs
           tabs={tabs}
           currentTab={currentTab}

@@ -23,7 +23,7 @@ export const useCreateApplication = () => {
 
 const fetchApplicationByUid = async (uid) => {
   try {
-    return await axios.get(`${URL}/${uid}`);
+    return await axios.post(`${URL}/${uid}`);
   } catch (err) {
     throw new Error(err.message);
   }
