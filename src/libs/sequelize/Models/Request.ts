@@ -1,6 +1,7 @@
 // models/User.ts
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../sequelize";
+import Candidate from "./Candidate";
 
 class Request extends Model {
   public id!: number;
@@ -47,5 +48,10 @@ Request.init(
     timestamps: true,
   }
 );
+
+// Request.belongsTo(Candidate, {
+//   foreignKey: "candidate_id",
+
+// });
 
 export default Request;

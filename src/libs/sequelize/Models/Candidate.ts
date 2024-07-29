@@ -74,6 +74,8 @@ Candidate.init(
   }
 );
 
+// Candidate.hasMany(Request, );
+
 export default Candidate;
 
 // dob "2024-07-17"

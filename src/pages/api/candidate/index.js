@@ -1,5 +1,4 @@
 import Candidate from "@/libs/sequelize/Models/Candidate";
-import sequelize from "@/libs/sequelize/sequelize";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
