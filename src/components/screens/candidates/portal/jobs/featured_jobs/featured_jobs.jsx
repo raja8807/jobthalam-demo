@@ -64,7 +64,6 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
     setLoadingJobId(null);
   };
 
-
   return (
     <Row>
       {allJobs.map((job, idx) => {
@@ -89,7 +88,6 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
           />
         );
       })}
-  
     </Row>
   );
 };

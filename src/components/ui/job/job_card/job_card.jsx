@@ -4,11 +4,11 @@ import styles from "./job_card.module.scss";
 import { Briefcase, GeoAlt } from "react-bootstrap-icons";
 import JobDetails from "@/components/jobs/job_details/job_details";
 
-const JobCard = ({ job: fjob, actionButton }) => {
+const JobCard = ({ job: jobData, actionButton }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
-  const job = fjob.Job;
-  const employer = fjob.Employer;
+  const job = jobData.job;
+  const employer = jobData.employer;
 
   return (
     <>
@@ -36,7 +36,7 @@ const JobCard = ({ job: fjob, actionButton }) => {
             </div>
 
             <div className={styles.status}>
-              <div /> {job.status}
+              <div /> {jobData.status}
             </div>
           </div>
           <div className={styles.bottom}>

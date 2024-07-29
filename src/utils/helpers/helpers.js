@@ -32,7 +32,7 @@ export const getJoinTableQuery = (mainTable, options) => {
       ${refTableColumns
         .map((c) => `'${c}', ${refTableQName}."${c}"`)
         .join(", ")}
-    ) AS "${refTableQName}"
+    ) AS "${refTableQName.toLowerCase()}"
   `,
       joinQuery: `JOIN "${refTableName}" AS ${refTableQName} ON ${mainTableQNAme}."${refTable.foreignKey}" = ${refTableQName}."id"`,
     };
