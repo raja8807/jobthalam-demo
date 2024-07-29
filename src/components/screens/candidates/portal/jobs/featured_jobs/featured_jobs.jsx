@@ -64,6 +64,7 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
     setLoadingJobId(null);
   };
 
+
   return (
     <Row>
       {allJobs.map((job, idx) => {

@@ -25,9 +25,11 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
 
   const { mutateAsync, isLoading } = useFetchFeaturedJobsByUid();
 
+
   const getJobs = async () => {
     try {
       const res = await mutateAsync(currentUser.id);
+      // console.log('res--->',res);
       setAllJobs(res?.data || []);
     } catch (err) {
       console.log(err);

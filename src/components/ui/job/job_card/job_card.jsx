@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Col, Image } from "react-bootstrap";
 import styles from "./job_card.module.scss";
-import { GeoAlt } from "react-bootstrap-icons";
+import { Briefcase, GeoAlt } from "react-bootstrap-icons";
 import JobDetails from "@/components/jobs/job_details/job_details";
 
-const JobCard = ({ job, actionButton }) => {
+const JobCard = ({ job: fjob, actionButton }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
-  
+  const job = fjob.Job;
+  const employer = fjob.Employer;
 
   return (
     <>
@@ -50,6 +51,8 @@ const JobCard = ({ job, actionButton }) => {
               <div>
                 <p>{job.company_name}</p>
                 <small>
+                  {employer.company_name}
+                  <br />
                   <GeoAlt /> {job.location}
                 </small>
               </div>
