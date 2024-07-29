@@ -4,9 +4,12 @@ import axios from "axios";
 
 const URL = "/api/request";
 
-const createRequest = async (request) => {
+const createRequest = async ({ request, currentUser }) => {
   try {
-    return await axios.post(URL, request);
+    return await axios.post(URL, {
+      request,
+      currentUser,
+    });
   } catch (err) {
     throw new Error(err.message);
   }

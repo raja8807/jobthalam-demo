@@ -54,6 +54,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
           allJobs={allJobs}
           isLoading={isLoading}
           setAllJobs={setAllJobs}
+          setCurrentTabIndex={setCurrentTabIndex}
         />
       ),
     },

@@ -13,6 +13,7 @@ const Jobs = ({
   allJobs = [],
   isLoading,
   setAllJobs,
+  setCurrentTabIndex
 }) => {
   return (
     <MainFrame
@@ -27,7 +28,7 @@ const Jobs = ({
         />
       ) : (
         !isLoading && (
-          <NoJobs currentUser={currentUser} setCurrentUser={setCurrentUser} />
+          <NoJobs currentUser={currentUser}  setCurrentTabIndex={setCurrentTabIndex}/>
         )
       )}
     </MainFrame>

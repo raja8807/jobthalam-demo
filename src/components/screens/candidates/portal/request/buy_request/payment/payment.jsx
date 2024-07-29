@@ -10,6 +10,7 @@ import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { useCreatePayment } from "@/hooks/payment_hooks/payment_hooks";
 import { v4 } from "uuid";
 import ConfirmPopup from "@/components/ui/popups/confirm_popup/confirm_popup";
+import { useRouter } from "next/router";
 
 const PaymentPortal = ({
   currentUser,
@@ -45,11 +46,14 @@ const PaymentPortal = ({
       }
 
       const res = await mutateAsync({
-        candidate_id: currentUser.id,
-        count: packageData.count,
-        payment_id: paymentId,
-        jobs_sent: 0,
-        is_free: true,
+        request: {
+          candidate_id: currentUser.id,
+          count: packageData.count,
+          payment_id: paymentId,
+          jobs_sent: 0,
+          is_free: isFree,
+        },
+        currentUser,
       });
 
       if (!currentUser?.free_requested) {
@@ -68,15 +72,25 @@ const PaymentPortal = ({
     }
   };
 
+  const router = useRouter();
+
   return (
     <div className={styles.PaymentPortal}>
       <ConfirmPopup
         show={showSuccess}
-        message="Purchase Completed. Please wait for our admins to find right jobs for you"
+        message={
+          <p>
+            Purchase Completed. Please wait for our admins to find right jobs
+            for you
+            <br />
+            Refresh the page or click &quot;Ok&quot; to refresh.
+          </p>
+        }
         head="Thank you!"
         setShow={() => {}}
         onConfirm={() => {
           setCurrentTabIndex(0);
+          router.reload();
         }}
         hasCancel={false}
       />

@@ -3,18 +3,20 @@ import MainFrame from "@/components/ui/main_frame/main_frame";
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import styles from "./buy_request.module.scss";
-import { CheckCircle, CheckCircleFill } from "react-bootstrap-icons";
+import { CheckCircleFill } from "react-bootstrap-icons";
 import PaymentPortal from "./payment/payment";
 
-const Package = ({ data, setShowPaymentFor, setCurrentUser }) => {
+const Package = ({ data, setShowPaymentFor, currentUser }) => {
   const { title, price, text, features, isRecommended, isFree } = data;
+
+  const disabled = isFree && currentUser.free_requested;
 
   return (
     <Col sm={12} md={6} lg={4}>
       <div
         className={`${styles.Package} ${
           isRecommended ? styles.recommended : ""
-        }`}
+        } ${disabled && styles?.disabled}`}
       >
         <div className={styles.reco}>{isRecommended && "Recommended"}</div>
         <div className={styles.wrap}>
@@ -29,8 +31,11 @@ const Package = ({ data, setShowPaymentFor, setCurrentUser }) => {
             <CustomButton
               variant={isFree ? 2 : 1}
               onClick={() => {
-                setShowPaymentFor(data);
+                if (!disabled) {
+                  setShowPaymentFor(data);
+                }
               }}
+              disabled={disabled}
             >
               Buy Now
             </CustomButton>
@@ -97,6 +102,7 @@ const BuyRequests = ({
       title: "PLATINUM",
       price: "299",
       count: 30,
+      isFree: false,
 
       text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, ianegk",
       features: [
@@ -129,6 +135,7 @@ const BuyRequests = ({
       title: "GOLD",
       price: "99",
       count: 10,
+      isFree: false,
 
       text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam, ianegk",
       features: [
@@ -187,6 +194,7 @@ const BuyRequests = ({
                 key={pack.id}
                 data={pack}
                 setShowPaymentFor={setShowPaymentFor}
+                currentUser={currentUser}
               />
             ))}
           </Row>
