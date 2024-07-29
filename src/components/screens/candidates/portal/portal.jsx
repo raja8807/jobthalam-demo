@@ -11,31 +11,27 @@ import {
 import Jobs from "./jobs/jobs";
 import { useRouter } from "next/router";
 import JobRequests from "./request/request";
-import {  getDataByQuery } from "@/libs/firebase/firebase";
+import { getDataByQuery } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import ApplicationsTab from "./applications/applications";
+import { useFetchFeaturedJobsByUid } from "@/hooks/featured_job_hooks/featured_job_hooks";
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
 
   const [allJobs, setAllJobs] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const tabIndex = router.query.t;
 
+  const { mutateAsync, isLoading } = useFetchFeaturedJobsByUid();
+
   const getJobs = async () => {
-    setIsLoading(true);
     try {
-      const res = await getDataByQuery("Featured", [
-        "candidate_id",
-        "==",
-        currentUser.id,
-      ]);
-      setAllJobs(res);
+      const res = await mutateAsync(currentUser.id);
+      setAllJobs(res?.data || []);
     } catch (err) {
       console.log(err);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
