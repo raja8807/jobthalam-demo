@@ -1,0 +1,35 @@
+.ConfirmPopup {
+  div[class="modal-content"] {
+    // display: none;
+    width: 400px;
+    margin: auto;
+  }
+
+  .modal {
+    position: relative;
+
+    .x {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 35px;
+      cursor: pointer;
+    }
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    h2 {
+      font-size: 20px;
+      color: $color_p1;
+    }
+  }
+
+  .btns {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+  }
+}

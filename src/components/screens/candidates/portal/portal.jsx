@@ -40,7 +40,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
     getJobs();
   }, []);
 
-  // console.log(allJobs);
+  const [currentTabIndex, setCurrentTabIndex] = useState(tabIndex || 0);
 
   const tabs = [
     {
@@ -74,7 +74,13 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       id: "3",
       title: "Job Requests",
       icon: <ClipboardCheck />,
-      component: <JobRequests currentUser={currentUser} />,
+      component: (
+        <JobRequests
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+          setCurrentTabIndex={setCurrentTabIndex}
+        />
+      ),
     },
     {
       id: "4",
@@ -82,8 +88,6 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       icon: <PersonCircle />,
     },
   ];
-
-  const [currentTabIndex, setCurrentTabIndex] = useState(tabIndex || 0);
 
   const currentTab = tabs[currentTabIndex];
 

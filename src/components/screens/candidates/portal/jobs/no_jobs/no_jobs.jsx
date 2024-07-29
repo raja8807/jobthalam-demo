@@ -19,13 +19,10 @@ const NoJobs = ({ currentUser, setCurrentUser }) => {
 
   const sendFreeJobRequests = async () => {
     try {
-      const id = v4();
-      const date = new Date();
       const res = await mutateAsync({
         candidate_id: currentUser.id,
         count: 2,
         payment_id: null,
-        created_at: date.toDateString(),
         jobs_sent: 0,
         is_free: true,
       });
