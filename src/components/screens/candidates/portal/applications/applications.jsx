@@ -5,10 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 
 const ApplicationsTab = ({ currentUser }) => {
-
-    const [applications,setAllApplications] = useState([])
-
-
+  const [applications, setAllApplications] = useState([]);
 
   const getApplications = async () => {
     try {
@@ -18,7 +15,7 @@ const ApplicationsTab = ({ currentUser }) => {
         currentUser?.id,
       ]);
 
-      setAllApplications(applications||{})
+      setAllApplications(applications || {});
     } catch (error) {
       console.log(error);
     }
@@ -28,15 +25,15 @@ const ApplicationsTab = ({ currentUser }) => {
     getApplications();
   }, []);
 
-  return <MainFrame head="Applications">
-    <Row>
-        {
-            applications.map((a)=>{
-                return <JobCard key={a.id} job={a}/>
-            })
-        }
-    </Row>
-  </MainFrame>;
+  return (
+    <MainFrame head="Applications">
+      <Row>
+        {applications.map((a) => {
+          return <JobCard key={a.id} job={a} />;
+        })}
+      </Row>
+    </MainFrame>
+  );
 };
 
 export default ApplicationsTab;

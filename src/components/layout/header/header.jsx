@@ -9,17 +9,6 @@ const Header = ({ currentUser, session }) => {
   return (
     <header className={`${styles.header} `}>
       <TopHeader session={session} />
-      <CustomButton
-        onClick={async () => {
-          try {
-            const res = await axios.get("/api/test");
-          } catch (er) {
-            console.log(er);
-          }
-        }}
-      >
-        Test
-      </CustomButton>
       <MainHeader currentUser={currentUser} session={session} />
       {/* <SubHeader /> */}
     </header>

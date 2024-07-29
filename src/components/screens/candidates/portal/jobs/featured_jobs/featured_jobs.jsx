@@ -1,5 +1,7 @@
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import JobCard from "@/components/ui/job/job_card/job_card";
+import { useCreateApplication } from "@/hooks/application_hooks/application_hooks";
+import { useUpdateFeaturedJobs } from "@/hooks/featured_job_hooks/featured_job_hooks";
 import { addData, updateData } from "@/libs/firebase/firebase";
 import React, { useState } from "react";
 import { Row } from "react-bootstrap";
@@ -7,53 +9,33 @@ import { v4 } from "uuid";
 
 const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
   const [loadingJobId, setLoadingJobId] = useState(null);
+  const { mutateAsync } = useCreateApplication();
+  const { mutateAsync: updateFeaturedJob } = useUpdateFeaturedJobs();
 
   const applyJob = async (job, index) => {
     setLoadingJobId(job?.id);
     try {
-      const application_id = v4();
-      const created_at = new Date().toDateString();
-      const isApplied = await addData(
-        "Application",
-        {
-          id: application_id,
-          job_id: job?.id,
-          created_at,
+      const res = await mutateAsync({
+        candidate_id: currentUser?.id,
+        job_id: job?.job?.id || null,
+        admin_job_id: job?.adminjob?.id || null,
+        request_id: job?.request_id,
+        employer_id: job?.employer?.id || null,
+        featured_job_id: job?.id,
+      });
 
-          title: job?.title,
-          type: job?.type,
-          salary: job?.salary,
-          company_name: job?.company_name,
-          location: job?.location,
-          employer_logo: job?.employer_logo,
+      console.log(res);
 
+      if (res) {
+        const updatedFeaturedJob = await updateFeaturedJob({
+          id: job?.id,
           status: "Applied",
-          candidate: {
-            candidate_id: currentUser?.id,
-            candidate_image: currentUser?.candidate_image || "",
-            candidate_education: currentUser?.education,
-            candidate_experience: currentUser?.experience,
-            resume_url: currentUser?.resume_url || "",
-          },
-        },
-        application_id
-      );
-
-      if (isApplied) {
-        const updatedFeaturedJob = await updateData(
-          "Featured",
-          {
-            ...job,
-            application_id,
-            status: "Applied",
-          },
-          job?.id
-        );
+        });
 
         if (updatedFeaturedJob) {
           setAllJobs((prev) => {
             const fJobs = [...prev];
-            fJobs[index] = updatedFeaturedJob;
+            fJobs[index] = { ...job, status: "Applied" };
             return fJobs;
           });
         }

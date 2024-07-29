@@ -18,14 +18,10 @@ import { useFetchFeaturedJobsByUid } from "@/hooks/featured_job_hooks/featured_j
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
-
   const [allJobs, setAllJobs] = useState([]);
-
   const tabIndex = router.query.t;
 
   const { mutateAsync, isLoading } = useFetchFeaturedJobsByUid();
-
-
   const getJobs = async () => {
     try {
       const res = await mutateAsync(currentUser.id);

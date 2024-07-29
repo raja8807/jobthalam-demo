@@ -18,15 +18,16 @@ export const getJoinTableQuery = (mainTable, options) => {
   const mainTableQNAme = mainTableName.slice(0, -1);
 
   // Generate JSON object construction and join queries for reference tables
-  const includesQuery = options.include.map((refTable) => {
-    const refTableColumns = Object.keys(refTable.table.getAttributes()).filter(
-      (t) => t !== "id"
-    );
-    const refTableName = refTable.table.getTableName();
-    const refTableQName = refTableName.slice(0, -1); // Remove trailing 's'
+  const includesQuery = options?.include
+    ? options.include.map((refTable) => {
+        const refTableColumns = Object.keys(
+          refTable.table.getAttributes()
+        ).filter((t) => t !== "id");
+        const refTableName = refTable.table.getTableName();
+        const refTableQName = refTableName.slice(0, -1); // Remove trailing 's'
 
-    return {
-      jsonQuery: `
+        return {
+          jsonQuery: `
     json_build_object(
       'id', ${refTableQName}."id",
       ${refTableColumns
@@ -34,9 +35,10 @@ export const getJoinTableQuery = (mainTable, options) => {
         .join(", ")}
     ) AS "${refTableQName.toLowerCase()}"
   `,
-      joinQuery: `JOIN "${refTableName}" AS ${refTableQName} ON ${mainTableQNAme}."${refTable.foreignKey}" = ${refTableQName}."id"`,
-    };
-  });
+          joinQuery: `JOIN "${refTableName}" AS ${refTableQName} ON ${mainTableQNAme}."${refTable.foreignKey}" = ${refTableQName}."id"`,
+        };
+      })
+    : [];
 
   // Select columns from the main table
 
@@ -44,8 +46,12 @@ export const getJoinTableQuery = (mainTable, options) => {
   const query = `
 SELECT
   ${mainTableQNAme}."id",
-  ${mainTableColumns.map((c) => `${mainTableQNAme}."${c}"`).join(", ")},
-  ${includesQuery.map((iq) => iq.jsonQuery).join(", ")}
+  ${mainTableColumns.map((c) => `${mainTableQNAme}."${c}"`).join(", ")}
+  ${
+    includesQuery && includesQuery[0]
+      ? `, ${includesQuery.map((iq) => iq.jsonQuery).join(", ")}`
+      : ""
+  }
 FROM
   "${mainTableName}" AS ${mainTableQNAme}
   ${includesQuery.map((iq) => iq.joinQuery).join(" ")}

@@ -7,7 +7,7 @@ import JobDetails from "@/components/jobs/job_details/job_details";
 const JobCard = ({ job: jobData, actionButton }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
-  const job = jobData.job;
+  const job = jobData.job || jobData.adminjob;
   const employer = jobData.employer;
 
   return (
@@ -15,6 +15,8 @@ const JobCard = ({ job: jobData, actionButton }) => {
       {showDetailsFor && (
         <JobDetails
           setJob={setShowDetailsFor}
+          employer={employer}
+          isAdminJob={jobData?.is_admin_job}
           job={showDetailsFor}
           actionButton={actionButton}
         />
@@ -43,16 +45,16 @@ const JobCard = ({ job: jobData, actionButton }) => {
             <div>
               <div>
                 <Image
-                  src={job.employer_logo || "/company_logo_placeholder.png"}
+                  src={
+                    employer?.employer_logo || "/company_logo_placeholder.png"
+                  }
                   alt="company_logo"
                   width={50}
                 />
               </div>
               <div>
-                <p>{job.company_name}</p>
+                <p>{employer?.company_name || job.company_name}</p>
                 <small>
-                  {employer.company_name}
-                  <br />
                   <GeoAlt /> {job.location}
                 </small>
               </div>

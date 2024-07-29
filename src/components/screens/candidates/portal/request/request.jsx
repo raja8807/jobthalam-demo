@@ -8,7 +8,7 @@ import { useFetchRequestByUid } from "@/hooks/request_hooks/request_hooks";
 const JobRequests = ({ currentUser }) => {
   const [requests, setRequests] = useState([]);
 
-  const { data, mutateAsync, isLoading } = useFetchRequestByUid();
+  const { mutateAsync, isLoading } = useFetchRequestByUid();
 
   const fetchJobRequests = async () => {
     try {
@@ -40,7 +40,6 @@ const JobRequests = ({ currentUser }) => {
 
     return totalRequests - jobsSent;
   };
-
 
   return (
     <MainFrame

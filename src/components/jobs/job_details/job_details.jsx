@@ -12,13 +12,14 @@ import {
   Phone,
   X,
 } from "react-bootstrap-icons";
+import { formatDate } from "@/utils/helpers/helpers";
 
-const JobDetails = ({ job, setJob, actionButton }) => {
+const JobDetails = ({ job, setJob, actionButton, isAdminJob, employer }) => {
   const close = () => {
     setJob(null);
   };
 
-  
+  const companyName = isAdminJob ? job?.company_name : employer.company_name;
 
   return (
     <Modal
@@ -40,7 +41,7 @@ const JobDetails = ({ job, setJob, actionButton }) => {
             </div>
             <div className={styles.name}>
               <h4>{job?.title}</h4>
-              <p>at {job?.company_name}</p>
+              <p>at {companyName}</p>
             </div>
           </div>
 
@@ -78,7 +79,7 @@ const JobDetails = ({ job, setJob, actionButton }) => {
                 <div>
                   <CalendarDate />
                   <p>Job Posted:</p>
-                  <span>{new Date(job?.created_at).toLocaleDateString()}</span>
+                  <span>{formatDate(job.createdAt)}</span>
                 </div>
                 {job?.expiry_date && (
                   <div>
@@ -107,20 +108,36 @@ const JobDetails = ({ job, setJob, actionButton }) => {
               </div>
             </div>
 
-            {job.employer && (
+            {employer && (
               <div className={styles.box}>
                 <h6>Contact</h6>
                 <div className={styles.box3}>
                   <strong>
-                    <Person /> &nbsp;{job?.employer.first_name}
-                    {job?.employer.last_name}
+                    <Person /> &nbsp;{employer.first_name} {employer.last_name}
                   </strong>
                   <div>
-                    <EnvelopeAt /> &nbsp;<small>{job?.employer.email}</small>
+                    <EnvelopeAt /> &nbsp;<small>{employer?.email}</small>
                   </div>
                   <div>
                     <Phone /> &nbsp;
-                    <small>{job.employer.phone_number}</small>
+                    <small>{employer.phone_number}</small>
+                  </div>
+                </div>
+              </div>
+            )}
+            {isAdminJob && (
+              <div className={styles.box}>
+                <h6>Contact</h6>
+                <div className={styles.box3}>
+                  <strong>
+                    <Person /> &nbsp;{job.company_spoc_name}
+                  </strong>
+                  <div>
+                    <EnvelopeAt /> &nbsp;<small>{job?.company_email}</small>
+                  </div>
+                  <div>
+                    <Phone /> &nbsp;
+                    <small>{job.company_phone_number}</small>
                   </div>
                 </div>
               </div>
@@ -133,7 +150,7 @@ const JobDetails = ({ job, setJob, actionButton }) => {
               <p>{job?.description}</p>
               <br />
               <h6>About Company</h6>
-              <p>{job?.company?.about}</p>
+              <p>{isAdminJob ? job?.about_company : employer?.about}</p>
             </div>
           </div>
         </div>
