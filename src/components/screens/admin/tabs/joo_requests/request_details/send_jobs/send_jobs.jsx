@@ -26,7 +26,8 @@ const SendJobs = ({
 }) => {
   const [newJobs, setNewJobs] = useState([]);
 
-  const availableJobs = allJobs;
+  const [availableJobs, setAvailableJobs] = useState(allJobs);
+  const [availableAllAdminJobs, setAvailableAdminJobs] = useState(allAdminJobs);
 
   const {
     mutateAsync: createBulkFeaturedJobs,
@@ -53,6 +54,13 @@ const SendJobs = ({
       });
 
       const res = await createBulkFeaturedJobs(jobsToSend);
+
+      // const newSentJobs = res?.data?.map((nj)=>{
+      //   if(nj.is_admin_job){
+      //     const x = allAdminJobs.find(aj=>aj>)
+      //   }
+      // })
+
       const allSent = [...res?.data, ...featuredJobs];
 
       const updateRes = await updateRequestAsync({
@@ -88,6 +96,7 @@ const SendJobs = ({
           newJobs={newJobs}
           request={request}
           setNewJobs={setNewJobs}
+          setAvailableJobs={setAvailableJobs}
         />
       ),
     },
@@ -96,11 +105,12 @@ const SendJobs = ({
       title: "Admin Jobs",
       component: (
         <AdminJobsTab
-          availableJobs={allAdminJobs}
+          availableJobs={availableAllAdminJobs}
           featuredJobs={featuredJobs}
           newJobs={newJobs}
           request={request}
           setNewJobs={setNewJobs}
+          setAvailableJobs={setAvailableAdminJobs}
         />
       ),
     },
@@ -150,7 +160,11 @@ const SendJobs = ({
                   <CustomButton
                     onClick={() => {
                       setNewJobs((prev) => {
-                        return prev.filter((nj) => nj.id != job.id);
+                        return prev.filter(
+                          (nj) =>
+                            nj.id != job.id &&
+                            nj?.admin_job_id != job?.admin_job_id
+                        );
                       });
                     }}
                   >

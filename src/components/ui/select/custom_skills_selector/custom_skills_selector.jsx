@@ -3,6 +3,7 @@ import styles from "./custom_skills_selector.module.scss";
 import CustomInput from "../../cuatom_input/cuatom_input";
 import { XCircleFill } from "react-bootstrap-icons";
 import SKILL_CATEGORIES from "@/constants/skills";
+import ControlLabel from "../../contol_label/control_label";
 
 const Bubble = ({ name, index, setBubbles }) => {
   return (
@@ -21,11 +22,15 @@ const Bubble = ({ name, index, setBubbles }) => {
   );
 };
 
-const CustomSkillSelector = () => {
+const CustomSkillSelector = ({ onSelect, initialSkills = [], max = 5 }) => {
   const [showList, setShowList] = useState(false);
   const [query, setQuery] = useState("");
 
-  const [bubbles, setBubbles] = useState([]);
+  const [bubbles, setBubbles] = useState(initialSkills);
+
+  useEffect(() => {
+    onSelect(bubbles);
+  }, [bubbles]);
 
   useEffect(() => {
     window.addEventListener("click", (e) => {
@@ -38,13 +43,14 @@ const CustomSkillSelector = () => {
   }, []);
 
   useEffect(() => {
-    if (bubbles.length === 5) {
+    if (bubbles.length === max) {
       setShowList(false);
     }
   }, [bubbles]);
 
   return (
     <div className={styles.CustomMultiSelect}>
+      {bubbles.length === max && <ControlLabel label="Skills" />}
       <div className={styles.bubbles}>
         {bubbles.map((bubble, idx) => {
           return (
@@ -56,9 +62,9 @@ const CustomSkillSelector = () => {
             />
           );
         })}
-        <small>{bubbles.length}/5</small>
+        <small>{bubbles.length}/max</small>
       </div>
-      {bubbles.length < 5 && (
+      {bubbles.length < max && (
         <CustomInput
           placeHolder="Skills"
           onChange={(e) => {

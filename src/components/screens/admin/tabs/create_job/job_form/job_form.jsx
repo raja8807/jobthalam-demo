@@ -10,6 +10,7 @@ import {
   useCreateAdminJob,
   useUpdateAdminJob,
 } from "@/hooks/admin_job_hooks/admin_job_hooks";
+import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
 
 const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
   const currentJob = showNewJob;
@@ -33,7 +34,8 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
         type: "Full time",
         salary: "",
         status: "Active",
-        is_admin_job:true,
+        skills:'',
+        is_admin_job: true,
       };
 
   const [values, setValues] = useState(initialValues);
@@ -261,6 +263,16 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
                   label="Type"
                   required
                   options={["Full time", "Part time"]}
+                />
+              </div>
+            </Col>
+            <Col>
+              <div className={styles.control}>
+                <CustomSkillSelector
+                  onSelect={(a) => {
+                    setValues((prev) => ({ ...prev, skills: a.join() }));
+                  }}
+                  initialSkills={values.skills ? values.skills.split(",") : []}
                 />
               </div>
             </Col>

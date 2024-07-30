@@ -19,7 +19,7 @@ const JobDetails = ({ job, setJob, actionButton, employer }) => {
     setJob(null);
   };
 
-  const companyName = job?.company_name || employer.company_name;
+  const companyName = job?.company_name || employer?.company_name;
 
   return (
     <Modal
@@ -122,7 +122,7 @@ const JobDetails = ({ job, setJob, actionButton, employer }) => {
                 <div>
                   <Phone /> &nbsp;
                   <small>
-                    {employer.phone_number || job?.company_phone_number}
+                    {employer?.phone_number || job?.company_phone_number}
                   </small>
                 </div>
               </div>

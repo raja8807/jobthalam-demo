@@ -9,13 +9,14 @@ const EmployerJobsTab = ({
   featuredJobs,
   newJobs,
   setNewJobs,
+  setAvailableJobs
 }) => {
   return (
     <Row>
       {availableJobs
         .filter((j) => {
           return !(
-            newJobs.some((nj) => nj?.job?.id == j.id) ||
+            
             featuredJobs.some((nj) => nj?.job?.id == j.id)
           );
         })
@@ -28,7 +29,9 @@ const EmployerJobsTab = ({
               actionButton={
                 !(request.count - request.jobs_sent <= newJobs.length) && (
                   <CustomButton
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setAvailableJobs(prev=> prev.filter(j=> j?.id !== job?.id))
                       setNewJobs((prev) => [job, ...prev]);
                     }}
                   >

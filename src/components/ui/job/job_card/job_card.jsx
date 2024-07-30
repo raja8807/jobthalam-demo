@@ -26,15 +26,15 @@ const JobCard = ({ job, actionButton, employer }) => {
         >
           <div className={styles.top}>
             <div>
-              <p>{job.title}</p>
+              <p>{job?.title}</p>
               <div>
-                <div>{job.type}</div>
-                <small>&#8377; {job.salary}</small>
+                <div>{job?.type}</div>
+                <small>&#8377; {job?.salary}</small>
               </div>
             </div>
 
             <div className={styles.status}>
-              <div /> {job.status}
+              <div /> {job?.status}
             </div>
           </div>
           <div className={styles.bottom}>
@@ -53,7 +53,7 @@ const JobCard = ({ job, actionButton, employer }) => {
               <div>
                 <p>{employer?.company_name || job?.company_name} </p>
                 <small>
-                  <GeoAlt /> {job.location}
+                  <GeoAlt /> {job?.location}
                 </small>
               </div>
             </div>

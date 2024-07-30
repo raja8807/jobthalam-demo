@@ -37,6 +37,7 @@ const ManageJobs = ({ allJobs, setAllJobs}) => {
                 <JobCard
                   key={job.id}
                   job={job}
+                  
                   actionButton={
                     <CustomButton
                       onClick={() => {
