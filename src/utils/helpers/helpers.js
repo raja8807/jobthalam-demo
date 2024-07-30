@@ -65,9 +65,3 @@ ${
   // Execute the query and return the result
   return query;
 };
-
-export const getReferencedData = async (tableName, foreignKey, ids) => {
-  const query = `SELECT * FROM ${tableName} WHERE ${foreignKey} = ANY($1)`;
-  const result = await pool.query(query, [ids]);
-  return result.rows;
-};
