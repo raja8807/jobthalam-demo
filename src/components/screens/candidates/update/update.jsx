@@ -163,7 +163,7 @@ const Form2 = ({
         />
 
         <CustomSelect
-          options={[1, 2, 3, 4, 5, 6, 8, 9, 10]}
+          options={[0, 1, 2, 3, 4, 5, 6, 8, 9, 10]}
           value={values.experience}
           onChange={(e, value) => {
             setValues((prev) => ({ ...prev, experience: value }));
@@ -178,6 +178,7 @@ const Form2 = ({
           setValues((prev) => ({ ...prev, skills: a.join() }));
         }}
         initialSkills={values.skills ? values.skills.split(",") : []}
+        max={1}
       />
 
       <ControlLabel label="Select Resume (2 MB)" />

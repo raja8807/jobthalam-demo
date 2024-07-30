@@ -10,6 +10,7 @@ const CustomSelect = ({
   onChange = () => {},
   required,
   placeholder,
+  
 }) => {
   return (
     <div className={`${styles.CustomSelect} ${styles[`v${variant}`]}`}>

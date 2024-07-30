@@ -22,7 +22,7 @@ const Bubble = ({ name, index, setBubbles }) => {
   );
 };
 
-const CustomSkillSelector = ({ onSelect, initialSkills = [] }) => {
+const CustomSkillSelector = ({ onSelect, initialSkills = [], max = 5 }) => {
   const [showList, setShowList] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -43,14 +43,14 @@ const CustomSkillSelector = ({ onSelect, initialSkills = [] }) => {
   }, []);
 
   useEffect(() => {
-    if (bubbles.length === 5) {
+    if (bubbles.length === max) {
       setShowList(false);
     }
   }, [bubbles]);
 
   return (
     <div className={styles.CustomMultiSelect}>
-      {bubbles.length === 5 && <ControlLabel label="Skills" />}
+      {bubbles.length === max && <ControlLabel label="Skills" />}
       <div className={styles.bubbles}>
         {bubbles.map((bubble, idx) => {
           return (
@@ -62,9 +62,9 @@ const CustomSkillSelector = ({ onSelect, initialSkills = [] }) => {
             />
           );
         })}
-        <small>{bubbles.length}/5</small>
+        <small>{bubbles.length}/max</small>
       </div>
-      {bubbles.length < 5 && (
+      {bubbles.length < max && (
         <CustomInput
           placeHolder="Skills"
           onChange={(e) => {
