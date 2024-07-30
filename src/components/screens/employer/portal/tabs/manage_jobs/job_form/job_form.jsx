@@ -9,6 +9,7 @@ import { v4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
 import { useCreateJob, useUpdateJob } from "@/hooks/job_hooks/job_hooks";
+import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
 
 const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
   const initialValues = isUpdate
@@ -24,6 +25,7 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
         salary: "",
         employer_id: currentUser?.id,
         status: "Active",
+        skills: "",
       };
 
   const [values, setValues] = useState(initialValues);
@@ -41,17 +43,17 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
         const res = await updateJob({ ...showNewJob, ...values });
         setAllJobs((prev) => {
           const jobs = [...prev];
-          jobs[index] = res.data;
+          jobs[index] = { ...res?.data, employer: res.data };
           return jobs;
         });
       } else {
-        const id = v4();
-        const date = new Date();
-
         const res = await createJob({ ...values });
 
         setValues(initialValues);
-        setAllJobs((prev) => [res, ...prev]);
+        setAllJobs((prev) => [
+          { ...res?.data, employer: currentUser },
+          ...prev,
+        ]);
       }
     } catch (error) {
       console.log(error);
@@ -182,6 +184,16 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
               />
             </div>
           </Col>
+          <Col xs={12}>
+            <div className={styles.control}>
+              <CustomSkillSelector
+                onSelect={(a) => {
+                  setValues((prev) => ({ ...prev, skills: a.join() }));
+                }}
+                initialSkills={values.skills ? values.skills.split(",") : []}
+              />
+            </div>
+          </Col>
         </Row>
 
         {/* ----------------------------------- */}
@@ -199,7 +211,11 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
           </Col>
         </Row>
         <br />
-        <CustomButton value={values.description} isLoading={isLoading}>
+        <CustomButton
+          value={values.description}
+          isLoading={isLoading}
+          disabled={!values?.skills}
+        >
           {isUpdate ? "Update" : "Post"} Job
         </CustomButton>
       </form>
