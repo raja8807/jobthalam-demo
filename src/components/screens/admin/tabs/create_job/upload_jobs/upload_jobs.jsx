@@ -7,6 +7,7 @@ import styles from "./upload_jobs.module.scss";
 import { useCreateBulkAdminJob } from "@/hooks/admin_job_hooks/admin_job_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { CheckCircleFill } from "react-bootstrap-icons";
+import Link from "next/link";
 
 const UploadJobs = ({ setScreen, setAllJobs }) => {
   const [rows, setRows] = useState([]);
@@ -63,7 +64,19 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
       >
         Back To List
       </CustomButton>
-
+      &nbsp; &nbsp;
+      <Link
+        href="/templates/upload_exams_template.xlsx"
+        download="upload_exams_template"
+        target="_blank"
+      >
+        <CustomButton
+          variant={3}
+          
+        >
+          Download Template
+        </CustomButton>
+      </Link>
       <br />
       <br />
       <CustomInput
@@ -90,7 +103,6 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
         maxLength={1}
       />
       <br />
-
       {success && (
         <div className={styles.success}>
           <div>
@@ -107,7 +119,6 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
           </div>
         </div>
       )}
-
       <div>
         {rows?.[0] && (
           <>
