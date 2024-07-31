@@ -36,6 +36,25 @@ export const useCreateAdminJob = () => {
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
+const createBulkAdminJob = async (adminJobs) => {
+  try {
+    return await axios.post(`${URL}/bulk`, {
+      jobs: adminJobs,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const useCreateBulkAdminJob = () => {
+  const { mutateAsync, isPending, error, isSuccess, data, isError } =
+    useMutation({
+      mutationFn: createBulkAdminJob,
+    });
+
+  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
+};
+
 const updateAdminJob = async (adminJob) => {
   try {
     return await axios.put(`${URL}/${adminJob.id}`, adminJob);

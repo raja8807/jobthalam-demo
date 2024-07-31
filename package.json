@@ -44,6 +44,7 @@
     "react-share": "^4.4.1",
     "react-slideshow-image": "^4.3.0",
     "react-social-media-embed": "^2.3.5",
+    "read-excel-file": "^5.8.4",
     "sequelize": "^6.37.3",
     "twilio": "^5.2.2",
     "uuid": "^10.0.0"

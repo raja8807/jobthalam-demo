@@ -1,19 +1,30 @@
-import CustomButton from "@/components/ui/custom_button/custom_button";
-import CustomTable from "@/components/ui/custom_table/custom_table";
-import CustomTableRow from "@/components/ui/custom_table/custom_table_row/custom_table_row";
-import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import MainFrame from "@/components/ui/main_frame/main_frame";
-import { getAllData, getData } from "@/libs/firebase/firebase";
-import React, { useEffect, useState } from "react";
-import { Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Table } from "react-bootstrap";
 import RequestDetails from "./request_details/request_details";
 import { formatDate } from "@/utils/helpers/helpers";
+import styles from "./job_requests.module.scss";
 
 const JobRequests = ({ allJobs, requests, allAdminJobs }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
+  const titles = [
+    {
+      title: "Count",
+    },
+    {
+      title: "Jobs Sent",
+    },
+    {
+      title: "Requested On",
+    },
+    {
+      title: "Payment Id",
+    },
+  ];
+
   return (
-    <MainFrame head="Job Requests">
+    <MainFrame>
       <div>
         {showDetailsFor ? (
           <RequestDetails
@@ -23,40 +34,34 @@ const JobRequests = ({ allJobs, requests, allAdminJobs }) => {
             allAdminJobs={allAdminJobs}
           />
         ) : (
-          <CustomTable
-            head={[
-              {
-                title: "Count",
-              },
-              {
-                title: "Jobs Sent",
-              },
-              {
-                title: "Requested On",
-              },
-              {
-                title: "Payment Id",
-              },
-            ]}
-            title="Requests History"
-            count={requests.length}
-          >
-            {requests.map((r) => {
-              return (
-                <CustomTableRow
-                  key={r.id}
-                  onClick={() => {
-                    setShowDetailsFor(r);
-                  }}
-                >
-                  <Col>{r.count}</Col>
-                  <Col>{r.jobs_sent}</Col>
-                  <Col>{formatDate(r.createdAt)}</Col>
-                  <Col>{r.payment_id || "Free"}</Col>
-                </CustomTableRow>
-              );
-            })}
-          </CustomTable>
+          <Table striped responsive hover className={styles.table}>
+            <thead>
+              <tr>
+                <th>#</th>
+                {titles.map((t) => (
+                  <th key={t.title}>{t.title}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {requests.map((req, i) => {
+                return (
+                  <tr
+                    key={req.id}
+                    onClick={() => {
+                      setShowDetailsFor(req);
+                    }}
+                  >
+                    <td>{i + 1}</td>
+                    <td>{req.count}</td>
+                    <td>{req.jobs_sent}</td>
+                    <td>{formatDate(req.createdAt)}</td>
+                    <td>{req.payment_id || "Free"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
         )}
       </div>
     </MainFrame>

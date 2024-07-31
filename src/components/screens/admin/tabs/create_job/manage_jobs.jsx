@@ -4,22 +4,26 @@ import React, { useState } from "react";
 import NewJob from "./new_job/new_job";
 import JobCard from "@/components/ui/job/job_card/job_card";
 import { Row } from "react-bootstrap";
-import { PencilFill } from "react-bootstrap-icons";
-import JobDetails from "@/components/jobs/job_details/job_details";
+import UploadJobs from "./upload_jobs/upload_jobs";
 
-const ManageJobs = ({ allJobs, setAllJobs}) => {
+const ManageJobs = ({ allJobs, setAllJobs }) => {
   const [showNewJob, setShowNewJob] = useState(false);
+
+  const [screen, setScreen] = useState("list");
 
   return (
     <MainFrame>
-      {showNewJob ? (
+      {screen === "form" && (
         <NewJob
           setShowNewJob={setShowNewJob}
           showNewJob={showNewJob}
+          setScreen={setScreen}
           setAllJobs={setAllJobs}
           isUpdate={showNewJob != "new"}
         />
-      ) : (
+      )}
+
+      {screen == "list" && (
         <>
           <CustomButton
             onClick={() => {
@@ -28,20 +32,28 @@ const ManageJobs = ({ allJobs, setAllJobs}) => {
           >
             Post New Job
           </CustomButton>
+          &nbsp; &nbsp;
+          <CustomButton
+            onClick={() => {
+              setScreen("upload");
+            }}
+            variant={2}
+          >
+            Upload xls
+          </CustomButton>
           <br />
           <br />
-
           <Row>
             {allJobs.map((job, index) => {
               return (
                 <JobCard
                   key={job.id}
                   job={job}
-                  
                   actionButton={
                     <CustomButton
                       onClick={() => {
                         setShowNewJob({ job, index });
+                        setScreen("form");
                       }}
                     >
                       Edit
@@ -52,6 +64,10 @@ const ManageJobs = ({ allJobs, setAllJobs}) => {
             })}
           </Row>
         </>
+      )}
+
+      {screen == "upload" && (
+        <UploadJobs setAllJobs={setAllJobs} setScreen={setScreen} />
       )}
     </MainFrame>
   );

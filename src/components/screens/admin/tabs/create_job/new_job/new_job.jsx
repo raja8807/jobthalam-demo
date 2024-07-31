@@ -4,7 +4,7 @@ import JobForm from "../job_form/job_form";
 
 const NewJob = ({
   setShowNewJob,
-
+  setScreen,
   setAllJobs,
   isUpdate,
   showNewJob,
@@ -14,6 +14,7 @@ const NewJob = ({
       <CustomButton
         onClick={() => {
           setShowNewJob(false);
+          setScreen("list");
         }}
       >
         Back to all Jobs
