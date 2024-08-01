@@ -88,6 +88,7 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
             const ext = selectedFile.name.split(".")[1];
             if (ext === "xlsx" || ext === "xls") {
               const data = await readXlsxFile(selectedFile);
+              setSuccess(null)
               setRows(data);
             } else {
               throw new Error("invalid file");
@@ -125,7 +126,7 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
             <div className={styles.upload}>
               <h4>Jobs To Upload</h4>
               <CustomButton
-                //  disabled={getHasError()}
+                 disabled={getHasError()}
                 onClick={uploadBulkJobs}
               >
                 Upload {rows?.length - 1} Jobs
