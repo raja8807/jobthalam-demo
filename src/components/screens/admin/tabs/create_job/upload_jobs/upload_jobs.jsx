@@ -70,12 +70,7 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
         download="upload_exams_template"
         target="_blank"
       >
-        <CustomButton
-          variant={3}
-          
-        >
-          Download Template
-        </CustomButton>
+        <CustomButton variant={3}>Download Template</CustomButton>
       </Link>
       <br />
       <br />
@@ -88,7 +83,7 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
             const ext = selectedFile.name.split(".")[1];
             if (ext === "xlsx" || ext === "xls") {
               const data = await readXlsxFile(selectedFile);
-              setSuccess(null)
+              setSuccess(null);
               setRows(data);
             } else {
               throw new Error("invalid file");
@@ -125,10 +120,7 @@ const UploadJobs = ({ setScreen, setAllJobs }) => {
           <>
             <div className={styles.upload}>
               <h4>Jobs To Upload</h4>
-              <CustomButton
-                 disabled={getHasError()}
-                onClick={uploadBulkJobs}
-              >
+              <CustomButton disabled={getHasError()} onClick={uploadBulkJobs}>
                 Upload {rows?.length - 1} Jobs
               </CustomButton>
             </div>

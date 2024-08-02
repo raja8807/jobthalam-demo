@@ -3,25 +3,53 @@ const SKILL_CATEGORIES = [
     id: "It",
     name: "Information Technology",
     skills: [
-      "Computer Programmer",
-      "Information Security Analyst",
-      "Web Developer",
-      "Information Research Scientist",
-      "Database Administrator",
+      {
+        id: "kdnkad",
+        skill: "Computer Programmer",
+      },
+      {
+        id: "adkvnka",
+        skill: "Information Security Analyst",
+      },
+      {
+        id: "gsndg",
+        skill: "Web Developer",
+      },
+      {
+        id: "ewwfe",
+        skill: "Information Research Scientist",
+      },
+      {
+        id: "kdpskkf",
+        skill: "Database Administrator",
+      },
     ],
   },
-
-  
 
   {
     id: "Marketing",
     name: "Marketing",
     skills: [
-      "Market Research Analyst",
-      "Advertising Sales Agent",
-      "Public Relations Specialist",
-      "Advertising, Promotions, and Marketing Managers",
-      "Sales Manager",
+      {
+        id: "sriosgo",
+        skill: "Market Research Analyst",
+      },
+      {
+        id: "fbmldmf",
+        skill: "Advertising Sales Agent",
+      },
+      {
+        id: "skvpsk",
+        skill: "Public Relations Specialist",
+      },
+      {
+        id: "dpdpdd",
+        skill: "Advertising, Promotions, and Marketing Managers",
+      },
+      {
+        id: "skmvks",
+        skill: "Sales Manager",
+      },
     ],
   },
 ];

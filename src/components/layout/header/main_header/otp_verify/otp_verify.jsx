@@ -50,9 +50,6 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
     <Modal
       show={showLogin}
       centered
-      //   onHide={() => {
-      //     setShowLogin(false);
-      //   }}
       className={styles.OtpVerify}
     >
       <Modal.Body className={styles.modal}>
