@@ -55,7 +55,7 @@
       ul {
         li {
           list-style: none;
-          margin-bottom: 16px;
+          margin-bottom: 12px;
           div {
             svg {
               margin-right: 10px;
@@ -75,4 +75,7 @@
       background-color: $color_p1;
     }
   }
+}
+.btns {
+  text-align: center;
 }

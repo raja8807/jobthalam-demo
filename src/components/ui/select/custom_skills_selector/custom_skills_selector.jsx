@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./custom_skills_selector.module.scss";
 import CustomInput from "../../cuatom_input/cuatom_input";
 import { XCircleFill } from "react-bootstrap-icons";
-import SKILL_CATEGORIES from "@/constants/skills";
 import ControlLabel from "../../contol_label/control_label";
 
 const Bubble = ({ name, index, setBubbles }) => {
@@ -22,7 +21,14 @@ const Bubble = ({ name, index, setBubbles }) => {
   );
 };
 
-const CustomSkillSelector = ({ onSelect, initialSkills = [], max = 5 }) => {
+const CustomSkillSelector = ({
+  onSelect,
+  initialSkills = [],
+  max = 5,
+  skills = [],
+}) => {
+  const SKILL_CATEGORIES = skills;
+
   const [showList, setShowList] = useState(false);
   const [query, setQuery] = useState("");
 

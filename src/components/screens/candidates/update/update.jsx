@@ -1,5 +1,5 @@
 import MainFrame from "@/components/ui/main_frame/main_frame";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./update.module.scss";
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomButton from "@/components/ui/custom_button/custom_button";
@@ -11,6 +11,8 @@ import { Whatsapp, X } from "react-bootstrap-icons";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import ControlLabel from "@/components/ui/contol_label/control_label";
 import { useCreateCandidate } from "@/hooks/candidate_hooks/candidate_hooks";
+import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
   const [isMobile, setIsMobile] = useState(true);
@@ -113,14 +115,21 @@ const Form2 = ({
   session,
   setCurrentFormIndex,
   setCurrentUser,
+  skills,
 }) => {
   const [isMobile, setIsMobile] = useState(true);
 
   const [resumeFile, setResumeFile] = useState(null);
 
-  const { mutateAsync: createUser, isLoading, error } = useCreateCandidate();
+  const [updateIsLoading, setUpdateIsLoading] = useState(false);
+
+  const { mutateAsync: createUser, isLoading: candidateIsLoading } =
+    useCreateCandidate();
+
+  const isLoading = updateIsLoading || candidateIsLoading;
 
   const updaterUser = async () => {
+    setUpdateIsLoading(true);
     try {
       if (session?.uid) {
         const resume_url = await uploadFile(
@@ -141,6 +150,7 @@ const Form2 = ({
     } catch (err) {
       console.log(err);
     }
+    setUpdateIsLoading(false);
   };
 
   return (
@@ -177,6 +187,7 @@ const Form2 = ({
         onSelect={(a) => {
           setValues((prev) => ({ ...prev, skills: a.join() }));
         }}
+        skills={skills}
         initialSkills={values.skills ? values.skills.split(",") : []}
         max={1}
       />
@@ -263,6 +274,39 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
   );
 
   const [currentFormIndex, setCurrentFormIndex] = useState(0);
+  const [skills, setSkills] = useState([]);
+
+  const { mutateAsync: fetchSkillsAsync, isLoading } = useFetchSkills();
+
+  const fetchSkills = async () => {
+    try {
+      const skillsData = await fetchSkillsAsync();
+
+      const industry = [];
+
+      if (skillsData?.data) {
+        skillsData?.data.forEach((skill) => {
+          if (skill?.isIndustry) {
+            const ind = {
+              id: skill?.id,
+              name: skill?.industry,
+              skills: skillsData?.data
+                ?.filter((s) => !s?.isIndustry && s.industry === skill.industry)
+                .map((x) => x.skill),
+            };
+            industry.push(ind);
+          }
+        });
+      }
+      setSkills(industry || []);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchSkills();
+  }, []);
 
   const forms = [
     {
@@ -285,6 +329,7 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
           session={session}
           setCurrentFormIndex={setCurrentFormIndex}
           setCurrentUser={setCurrentUser}
+          skills={skills}
         />
       ),
     },
@@ -292,7 +337,16 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
 
   const currentForm = forms[currentFormIndex];
 
-  return <>{currentForm.form}</>;
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  return (
+    <>
+      {isLoading && <LoadingScreen />}
+      {currentForm.form}
+    </>
+  );
 };
 
 const UpdateScreen = ({ currentUser, session, setCurrentUser }) => {

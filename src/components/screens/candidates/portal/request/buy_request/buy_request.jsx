@@ -179,15 +179,6 @@ const BuyRequests = ({
         </div>
       ) : (
         <div className={styles.BuyRequests}>
-          <CustomButton
-            onClick={() => {
-              setShowHistory(true);
-            }}
-            variant={2}
-          >
-            View Request History
-          </CustomButton>
-          <br />
           <Row>
             {packages.map((pack) => (
               <Package
@@ -198,6 +189,18 @@ const BuyRequests = ({
               />
             ))}
           </Row>
+
+          <br />
+          <div className={styles.btns}>
+            <CustomButton
+              onClick={() => {
+                setShowHistory(true);
+              }}
+              variant={3}
+            >
+              View Request History
+            </CustomButton>
+          </div>
         </div>
       )}
     </MainFrame>
