@@ -1,5 +1,5 @@
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import styles from "./job_form.module.scss";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
@@ -10,6 +10,8 @@ import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
 import { useCreateJob, useUpdateJob } from "@/hooks/job_hooks/job_hooks";
 import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
+import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
   const initialValues = isUpdate
@@ -29,13 +31,46 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
       };
 
   const [values, setValues] = useState(initialValues);
+  const [skills, setSkills] = useState([]);
 
   const { mutateAsync: createJob, isLoading: createJobIsLoading } =
     useCreateJob();
   const { mutateAsync: updateJob, isLoading: updateJobIsLoading } =
     useUpdateJob();
 
-  const isLoading = createJobIsLoading || updateJobIsLoading;
+  const { mutateAsync, isLoading: skillsIsLoading } = useFetchSkills();
+
+  const fetchSkills = async () => {
+    try {
+      const skillsData = await mutateAsync();
+
+      const industry = [];
+
+      if (skillsData?.data) {
+        skillsData?.data.forEach((skill) => {
+          if (skill?.isIndustry) {
+            const ind = {
+              id: skill?.id,
+              name: skill?.industry,
+              skills: skillsData?.data
+                ?.filter((s) => !s?.isIndustry && s.industry === skill.industry)
+                .map((x) => x.skill),
+            };
+            industry.push(ind);
+          }
+        });
+      }
+      setSkills(industry || []);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchSkills();
+  }, []);
+
+  const isLoading = createJobIsLoading || updateJobIsLoading || skillsIsLoading;
 
   const postJob = async () => {
     try {
@@ -62,6 +97,7 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
 
   return (
     <div className={styles.JobForm}>
+      {isLoading && <LoadingScreen />}
       <div className={styles.head}>
         <h5> {!isUpdate ? "Create New Job" : "Update Job"}</h5>
         <CustomButton
@@ -190,6 +226,7 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
                 onSelect={(a) => {
                   setValues((prev) => ({ ...prev, skills: a.join() }));
                 }}
+                skills={skills}
                 initialSkills={values.skills ? values.skills.split(",") : []}
               />
             </div>
