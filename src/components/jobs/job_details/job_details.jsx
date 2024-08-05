@@ -76,7 +76,7 @@ const JobDetails = ({ job, setJob, actionButton }) => {
                 <div>
                   <CalendarDate />
                   <p>Job Posted:</p>
-                  <span>{new Date(job?.created_at).toLocaleDateString()}</span>
+                  <span>{new Date(job?.createdAt).toLocaleDateString()}</span>
                 </div>
                 {job?.expiry_date && (
                   <div>
