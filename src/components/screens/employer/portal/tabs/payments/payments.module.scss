@@ -1,0 +1,82 @@
+.Package {
+    border: 1px solid $color_g2;
+    margin: 20px;
+    border-radius: 10px;
+  
+    &.disabled {
+      opacity: 0.7;
+    }
+  
+    .reco {
+      border-radius: 10px 10px 0 0;
+      color: white;
+      @include flexCenter;
+      height: 40px;
+    }
+  
+    .wrap {
+      padding: 10px 20px;
+      h1 {
+        color: $color_p1;
+        font-weight: bold;
+      }
+  
+      .price {
+        .ico {
+          margin-right: 7px;
+          font-size: 30px;
+        }
+  
+        .amount {
+          font-size: 35px;
+          color: $color_p1;
+          font-weight: bold;
+        }
+  
+        .mo {
+          color: $color_g3;
+        }
+      }
+  
+      .text {
+        font-size: 15px;
+        margin-bottom: 16px;
+        color: $color_g3;
+      }
+  
+      .btn {
+        button {
+          width: 100%;
+        }
+      }
+  
+      .list {
+        padding: 10px;
+        ul {
+          li {
+            list-style: none;
+            margin-bottom: 12px;
+            div {
+              svg {
+                margin-right: 10px;
+                margin-bottom: 4px;
+                color: $color_g3;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    &.recommended {
+      border-color: $color_p1;
+  
+      .reco {
+        background-color: $color_p1;
+      }
+    }
+  }
+  .btns {
+    text-align: center;
+  }
+  

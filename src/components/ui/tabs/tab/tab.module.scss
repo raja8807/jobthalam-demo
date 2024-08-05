@@ -23,12 +23,33 @@
   }
 
   @include respond-below(md) {
+    small {
+      margin-right: 0px;
+    }
     p {
       display: flex;
       flex-direction: column;
       align-items: center;
       font-size: 13px;
-      svg{
+      svg {
+        font-size: 25px;
+      }
+    }
+  }
+
+  @include respond-below(sm) {
+    padding: 5px 10px;
+
+    small {
+      margin-right: 0px;
+    }
+
+    p {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      svg {
         font-size: 25px;
       }
     }

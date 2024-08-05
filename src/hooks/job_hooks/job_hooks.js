@@ -20,9 +20,9 @@ export const useFetchJobByUid = () => {
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
 
-const createJob = async (Job) => {
+const createJob = async (data) => {
   try {
-    return await axios.post(URL, Job);
+    return await axios.post(URL, data);
   } catch (err) {
     throw new Error(err.message);
   }

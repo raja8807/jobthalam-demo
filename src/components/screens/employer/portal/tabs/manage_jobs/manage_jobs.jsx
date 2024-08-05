@@ -7,7 +7,15 @@ import { Row } from "react-bootstrap";
 import { PencilFill } from "react-bootstrap-icons";
 import JobDetails from "@/components/jobs/job_details/job_details";
 
-const ManageJobs = ({ allJobs, setAllJobs, currentUser }) => {
+const ManageJobs = ({
+  allJobs,
+  setAllJobs,
+  currentUser,
+  setCurrentTabIndex,
+  setAllSkills,
+  allSkills,
+  setCurrentUser
+}) => {
   const [showNewJob, setShowNewJob] = useState(false);
 
   return (
@@ -21,13 +29,20 @@ const ManageJobs = ({ allJobs, setAllJobs, currentUser }) => {
           currentUser={currentUser}
           showNewJob={showNewJob}
           setAllJobs={setAllJobs}
+          setAllSkills={setAllSkills}
+          allSkills={allSkills}
           isUpdate={showNewJob != "new"}
+          setCurrentUser={setCurrentUser}
         />
       ) : (
         <>
           <CustomButton
             onClick={() => {
-              setShowNewJob("new");
+              if (currentUser?.jobs_pending) {
+                setShowNewJob("new");
+              } else {
+                setCurrentTabIndex(2);
+              }
             }}
           >
             Post New Job

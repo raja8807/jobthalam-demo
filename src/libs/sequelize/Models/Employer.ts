@@ -45,6 +45,11 @@ Employer.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    jobs_pending: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     sequelize,

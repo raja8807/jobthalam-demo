@@ -13,7 +13,16 @@ import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/c
 import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
-const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
+const JobForm = ({
+  isUpdate,
+  currentUser,
+  setAllJobs,
+  showNewJob,
+  index,
+  setAllSkills,
+  allSkills,
+  setCurrentUser,
+}) => {
   const initialValues = isUpdate
     ? { ...showNewJob }
     : {
@@ -31,7 +40,7 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
       };
 
   const [values, setValues] = useState(initialValues);
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(allSkills || []);
 
   const { mutateAsync: createJob, isLoading: createJobIsLoading } =
     useCreateJob();
@@ -61,13 +70,16 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
         });
       }
       setSkills(industry || []);
+      setAllSkills(industry || []);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    fetchSkills();
+    if (!allSkills[0]) {
+      fetchSkills();
+    }
   }, []);
 
   const isLoading = createJobIsLoading || updateJobIsLoading || skillsIsLoading;
@@ -82,13 +94,20 @@ const JobForm = ({ isUpdate, currentUser, setAllJobs, showNewJob, index }) => {
           return jobs;
         });
       } else {
-        const res = await createJob({ ...values });
+        const res = await createJob({
+          job: { ...values },
+          employer: currentUser,
+        });
 
         setValues(initialValues);
         setAllJobs((prev) => [
           { ...res?.data, employer: currentUser },
           ...prev,
         ]);
+        setCurrentUser((prev) => ({
+          ...prev,
+          jobs_pending: prev.jobs_pending - 1,
+        }));
       }
     } catch (error) {
       console.log(error);

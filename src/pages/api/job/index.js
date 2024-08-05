@@ -1,3 +1,4 @@
+import Employer from "@/libs/sequelize/Models/Employer";
 import Job from "@/libs/sequelize/Models/Job";
 import sequelize from "@/libs/sequelize/sequelize";
 
@@ -6,8 +7,23 @@ const handler = async (req, res) => {
     try {
       //   await sequelize.sync({ force: true });
 
-      const result = await Job.create(req.body, {
+      const emp = {
+        ...req.body.employer,
+        jobs_pending: req.body.employer.jobs_pending - 1,
+      };
+
+      if (emp.jobs_pending < 0) {
+        throw new Error("No jobs pending");
+      }
+
+      const result = await Job.create(req.body.job, {
         returning: true,
+      });
+
+      await Employer.update(emp, {
+        where: {
+          id: emp.id,
+        },
       });
 
       return res.status(201).json(result);
