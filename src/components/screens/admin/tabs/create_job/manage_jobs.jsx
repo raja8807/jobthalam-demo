@@ -6,7 +6,7 @@ import JobCard from "@/components/ui/job/job_card/job_card";
 import { Row } from "react-bootstrap";
 import UploadJobs from "./upload_jobs/upload_jobs";
 
-const ManageJobs = ({ allJobs, setAllJobs,skills }) => {
+const ManageJobs = ({ allJobs, setAllJobs, skills }) => {
   const [showNewJob, setShowNewJob] = useState(false);
 
   const [screen, setScreen] = useState("list");
@@ -29,6 +29,7 @@ const ManageJobs = ({ allJobs, setAllJobs,skills }) => {
           <CustomButton
             onClick={() => {
               setShowNewJob("new");
+              setScreen("form");
             }}
           >
             Post New Job
