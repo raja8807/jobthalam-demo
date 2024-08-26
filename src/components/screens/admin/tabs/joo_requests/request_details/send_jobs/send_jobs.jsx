@@ -14,6 +14,7 @@ import AdminJobsTab from "./admin_jobs_tab/admin_jobs_tab";
 import { v4 } from "uuid";
 import { useCreateBulkFeaturedJobs } from "@/hooks/featured_job_hooks/featured_job_hooks";
 import { useUpdateRequest } from "@/hooks/request_hooks/request_hooks";
+import AllJobsTab from "./all_jobs_tab/all_jobs_tab";
 
 const SendJobs = ({
   setShow,
@@ -65,7 +66,7 @@ const SendJobs = ({
 
       const updateRes = await updateRequestAsync({
         ...request,
-        jobs_sent: allSent.length,
+        jobs_sent: parseInt(request.jobs_sent, 10) + res?.data?.length,
       });
 
       if (updateRes?.data) {
@@ -114,6 +115,20 @@ const SendJobs = ({
         />
       ),
     },
+    // {
+    //   id: "adm",
+    //   title: "All Jobs",
+    //   component: (
+    //     <AllJobsTab
+    //       availableJobs={availableAllAdminJobs}
+    //       featuredJobs={featuredJobs}
+    //       newJobs={newJobs}
+    //       request={request}
+    //       setNewJobs={setNewJobs}
+    //       setAvailableJobs={setAvailableAdminJobs}
+    //     />
+    //   ),
+    // },
   ];
 
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -158,14 +173,19 @@ const SendJobs = ({
                 employer={job?.employer}
                 actionButton={
                   <CustomButton
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setNewJobs((prev) => {
-                        return prev.filter(
-                          (nj) =>
-                            nj.id != job.id &&
-                            nj?.admin_job_id != job?.admin_job_id
-                        );
+                        return prev.filter((nj) => {
+                          // nj?.admin_job_id != job?.admin_job_id
+                          return nj?.id != job.id;
+                        });
                       });
+                      if (job.is_admin_job) {
+                        setAvailableAdminJobs((prev) => [...prev, job]);
+                      } else {
+                        setAvailableJobs((prev) => [...prev, job]);
+                      }
                     }}
                   >
                     Remove

@@ -28,6 +28,7 @@ const NewJob = ({
         showNewJob={showNewJob.job}
         index={showNewJob.index}
         skills={skills}
+        
       />
     </div>
   );
