@@ -12,7 +12,7 @@ import {
 } from "@/hooks/admin_job_hooks/admin_job_hooks";
 import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
 
-const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
+const JobForm = ({ isUpdate, setAllJobs, showNewJob, index, skills }) => {
   const currentJob = showNewJob;
   const initialValues = isUpdate
     ? { ...currentJob }
@@ -34,11 +34,14 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
         type: "Full time",
         salary: "",
         status: "Active",
-        skills:'',
+        skills: "",
         is_admin_job: true,
       };
 
   const [values, setValues] = useState(initialValues);
+
+  console.log(skills);
+  
 
   const { mutateAsync: createAdminJobAsync, isLoading: createIsLoading } =
     useCreateAdminJob();
@@ -273,6 +276,7 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index }) => {
                     setValues((prev) => ({ ...prev, skills: a.join() }));
                   }}
                   initialSkills={values.skills ? values.skills.split(",") : []}
+                  skills={skills || []}
                 />
               </div>
             </Col>

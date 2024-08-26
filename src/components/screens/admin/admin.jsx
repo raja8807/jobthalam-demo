@@ -97,7 +97,11 @@ const AdminScreen = ({ session }) => {
       title: "Admin Jobs",
       icon: <Briefcase />,
       component: (
-        <ManageJobs allJobs={allAdminJobs} setAllJobs={setAllAdminJobs} />
+        <ManageJobs
+          allJobs={allAdminJobs}
+          setAllJobs={setAllAdminJobs}
+          skills={skills}
+        />
       ),
     },
     {

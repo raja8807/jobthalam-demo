@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./custom_skills_selector.module.scss";
 import CustomInput from "../../cuatom_input/cuatom_input";
 import { XCircleFill } from "react-bootstrap-icons";
-import SKILL_CATEGORIES from "@/constants/skills";
 import ControlLabel from "../../contol_label/control_label";
 
 const Bubble = ({ name, index, setBubbles }) => {
@@ -22,7 +21,14 @@ const Bubble = ({ name, index, setBubbles }) => {
   );
 };
 
-const CustomSkillSelector = ({ onSelect, initialSkills = [], max = 5 }) => {
+const CustomSkillSelector = ({
+  onSelect,
+  initialSkills = [],
+  max = 5,
+  skills = [],
+}) => {
+  const SKILL_CATEGORIES = skills;
+
   const [showList, setShowList] = useState(false);
   const [query, setQuery] = useState("");
 
@@ -83,7 +89,7 @@ const CustomSkillSelector = ({ onSelect, initialSkills = [], max = 5 }) => {
           {SKILL_CATEGORIES.filter((scc) => {
             if (query) {
               return scc.skills.some((sk) => {
-                return sk
+                return sk.skill
                   .toLocaleLowerCase()
                   .includes(query.toLocaleLowerCase());
               });
@@ -91,25 +97,27 @@ const CustomSkillSelector = ({ onSelect, initialSkills = [], max = 5 }) => {
               return true;
             }
           }).map((sc) => {
-            if (!sc.skills.every((x) => bubbles.includes(x))) {
+            if (!sc.skills.every((x) => bubbles.includes(x.skill))) {
               return (
                 <div key={sc.id}>
                   <h3>{sc.name}</h3>
                   {sc.skills
                     .filter((sks) => {
-                      return sks.toLowerCase().includes(query.toLowerCase());
+                      return sks.skill
+                        .toLowerCase()
+                        .includes(query.toLowerCase());
                     })
                     .map((s, i) => {
-                      if (!bubbles.includes(s)) {
+                      if (!bubbles.includes(s.skill)) {
                         return (
                           <p
                             key={`skill_${sc.id}_${i}`}
                             onClick={() => {
-                              setBubbles((prev) => [...prev, s]);
+                              setBubbles((prev) => [...prev, s.skill]);
                             }}
                             className="cat"
                           >
-                            {s}
+                            {s.skill}
                           </p>
                         );
                       }

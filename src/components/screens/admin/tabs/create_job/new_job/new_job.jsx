@@ -8,6 +8,7 @@ const NewJob = ({
   setAllJobs,
   isUpdate,
   showNewJob,
+  skills
 }) => {
   return (
     <div>
@@ -26,6 +27,7 @@ const NewJob = ({
         isUpdate={isUpdate}
         showNewJob={showNewJob.job}
         index={showNewJob.index}
+        skills={skills}
       />
     </div>
   );
