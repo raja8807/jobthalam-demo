@@ -22,8 +22,8 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
     try {
       const session = await signInWithEmailAndPassword(
         auth,
-        "yora8807+a1@gmail.com",
-        "admin@123"
+        "admin@jobthalam.com",
+        "Jtadmin@123"
       );
 
       // console.log(session);
