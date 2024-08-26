@@ -1,0 +1,18 @@
+.ConfirmPopup {
+  div[class="modal-content"] {
+    border-radius: 0;
+  }
+
+  .body {
+    padding: 20px;
+    .msg {
+      text-align: center;
+    }
+
+    .btns {
+      width: fit-content;
+      margin: 0 0 0 auto;
+      margin-top: 24px;
+    }
+  }
+}

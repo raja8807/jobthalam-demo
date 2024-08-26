@@ -4,6 +4,7 @@ import CustomModal from "@/components/ui/custom_modal/custom_modal";
 import React, { useState } from "react";
 import styles from "./add_industry.module.scss";
 import { useCreateBulkSkills } from "@/hooks/skill_hooks/skill_hooks";
+import { X } from "react-bootstrap-icons";
 
 const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
   const [industry, setIndustry] = useState({
@@ -62,19 +63,25 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
         <hr />
         {skills.map((skill, sIdx) => {
           return (
-            <CustomInput
-              key={`skill_${sIdx}`}
-              placeHolder={`Skill Name ${sIdx + 1}`}
-              onChange={(e, v) => {
-                setSkills((prev) => {
-                  const sk = [...prev];
-                  sk[sIdx].skill = v;
-                  return sk;
-                });
-              }}
-              value={skill.skill}
-              required
-            />
+            <div key={`skill_${sIdx}`} className={styles.newSkill}>
+              <CustomInput
+                placeHolder={`Skill Name ${sIdx + 1}`}
+                onChange={(e, v) => {
+                  setSkills((prev) => {
+                    const sk = [...prev];
+                    sk[sIdx].skill = v;
+                    return sk;
+                  });
+                }}
+                value={skill.skill}
+                required
+              />
+              <X
+                onClick={() => {
+                  setSkills((prev) => prev.filter((ns, i) => i !== sIdx));
+                }}
+              />
+            </div>
           );
         })}
         <br />
