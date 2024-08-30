@@ -13,6 +13,7 @@ const CustomInput = ({
   label,
   rightElement,
   ...props
+  
 }) => {
   // <input
   //     placeholder="Date"

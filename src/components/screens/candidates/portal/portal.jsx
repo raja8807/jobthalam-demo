@@ -15,6 +15,7 @@ import { getDataByQuery } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import ApplicationsTab from "./applications/applications";
 import { useFetchFeaturedJobsByUid } from "@/hooks/featured_job_hooks/featured_job_hooks";
+import ProfileTab from "./profile/profile";
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
@@ -87,6 +88,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       id: "4",
       title: "Profile",
       icon: <PersonCircle />,
+      component: <ProfileTab currentUser={currentUser} />,
     },
   ];
 
