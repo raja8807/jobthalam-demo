@@ -3,11 +3,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../sequelize";
 import FeaturedJob from "./FeaturedJob";
 
-class Job extends Model {
-  public id!: number;
-  public email!: string;
-  public name!: string;
-}
+class Job extends Model {}
 
 Job.init(
   {
@@ -67,9 +63,5 @@ Job.init(
     timestamps: true,
   }
 );
-
-// Job.hasMany(FeaturedJob, {
-//   foreignKey: "job_id",
-// });
 
 export default Job;

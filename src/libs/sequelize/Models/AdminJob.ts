@@ -16,7 +16,7 @@ AdminJob.init(
       allowNull: false,
       primaryKey: true,
     },
-   
+
     company_name: {
       type: DataTypes.STRING,
     },
@@ -66,6 +66,9 @@ AdminJob.init(
     type: {
       type: DataTypes.STRING,
       allowNull: true,
+    },
+    is_free: {
+      type: DataTypes.BOOLEAN,
     },
   },
   {

@@ -1,5 +1,7 @@
 import DefaultJob from "@/libs/sequelize/Models/`DefaulJob";
+import AdminJob from "@/libs/sequelize/Models/AdminJob";
 import FeaturedJob from "@/libs/sequelize/Models/FeaturedJob";
+import Job from "@/libs/sequelize/Models/Job";
 import Request from "@/libs/sequelize/Models/Request";
 
 const handler = async (req, res) => {
@@ -18,18 +20,28 @@ const handler = async (req, res) => {
 
       let defaultJobs = [];
 
-      defaultJobs = await DefaultJob.findAll({
-        where: {
-          is_free: request?.is_free,
-          skill: currentUser?.skills,
-        },
-      });
+      if (request?.is_free) {
+        defaultJobs = await AdminJob.findAll({
+          where: {
+            is_free: true,
+            skills: currentUser?.skills,
+          },
+        });
+      } else {
+        defaultJobs = await AdminJob.findAll({
+          where: {
+            is_free: false,
+            skills: currentUser?.skills,
+          },
+          limit: request.count,
+        });
+      }
 
       if (defaultJobs?.[0]) {
         const featuredJobs = defaultJobs.map((defaultJobJob) => {
           return {
             job_id: defaultJobJob.job_id,
-            admin_job_id: defaultJobJob.admin_job_id,
+            admin_job_id: defaultJobJob.id,
             request_id: result.id,
             employer_id: defaultJobJob.employer_id,
             candidate_id: currentUser?.id,
