@@ -4,6 +4,7 @@ import { useUpdateBulkAdminJob } from "@/hooks/admin_job_hooks/admin_job_hooks";
 import React, { useEffect, useState } from "react";
 import { Form, Table } from "react-bootstrap";
 import UploadJobsPopup from "./upload_job_template/upload_job_template";
+import styles from "./jobs_list.module.scss";
 
 const JobsList = ({ allAdminJobs, skill }) => {
   const [adminJobsForSkill, setAdminJobForSkill] = useState([]);
@@ -11,7 +12,7 @@ const JobsList = ({ allAdminJobs, skill }) => {
 
   useEffect(() => {
     setAdminJobForSkill(
-      allAdminJobs.filter((j) => j.skills.includes(skill.skill)) || []
+      allAdminJobs.filter((j) => j.skills === skill.skill) || []
     );
   }, []);
 
@@ -19,8 +20,7 @@ const JobsList = ({ allAdminJobs, skill }) => {
 
   const updateAdminJobsForSkill = async () => {
     try {
-      const res = await mutateAsync(adminJobsForSkill);
-      console.log(res);
+      await mutateAsync(adminJobsForSkill);
     } catch (err) {
       alert("error");
       console.log(err);
@@ -37,6 +37,8 @@ const JobsList = ({ allAdminJobs, skill }) => {
     }
   });
 
+  const [showInactive, setShowInactive] = useState(true);
+
   return (
     <div>
       <UploadJobsPopup
@@ -46,22 +48,37 @@ const JobsList = ({ allAdminJobs, skill }) => {
         setAdminJobForSkill={setAdminJobForSkill}
       />
       {isLoading && <LoadingScreen />}
+      <div
+        onClick={() => {
+          setShowInactive((prev) => !prev);
+        }}
+        className={styles.toggleActive}
+      >
+        {showInactive ? "Hide" : "Show"} Inactive Jobs
+      </div>
+      <hr />
       <Table responsive>
         <thead>
           <tr>
             <th>#</th>
             <th>Company</th>
+            <th>Title</th>
             <th>Role</th>
-            <th>Status</th>
-            <th>Is Free</th>
+            <th>Active</th>
+            <th>Free</th>
           </tr>
         </thead>
         <tbody>
           {adminJobsForSkill.map((aJob, jIndx) => {
+            if (!showInactive && aJob.status === "Inactive") {
+              return <></>;
+            }
+
             return (
               <tr key={aJob.id}>
                 <td>{jIndx + 1}</td>
                 <td>{aJob.company_name}</td>
+                <td>{aJob.title}</td>
                 <td>{aJob.role}</td>
                 <td>
                   <Form.Check

@@ -40,7 +40,6 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index, skills }) => {
 
   const [values, setValues] = useState(initialValues);
 
-
   const { mutateAsync: createAdminJobAsync, isLoading: createIsLoading } =
     useCreateAdminJob();
   const { mutateAsync: updateAdminJobAsync, isLoading: updateIsLoading } =
@@ -58,12 +57,12 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index, skills }) => {
           jobs[index] = res?.data;
           return jobs;
         });
-        setValues(initialValues);
-
       } else {
         const res = await createAdminJobAsync({
           ...values,
         });
+
+        setValues(initialValues);
 
         setAllJobs((prev) => [res?.data, ...prev]);
       }

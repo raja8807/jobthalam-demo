@@ -1,10 +1,11 @@
 .MainFrame {
-  padding: 20px;
+  padding: 20px 20px 0 20px;
   width: 100%;
   height: calc(100dvh - 178px);
   overflow-y: auto;
-  // background-color: red;
-  // height: 100vh;
+  @include respond-below(md){
+    padding: 20px 15px 0 15px;
+  }
 }
 
 .head {

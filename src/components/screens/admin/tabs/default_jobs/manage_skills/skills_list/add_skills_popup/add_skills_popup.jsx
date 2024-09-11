@@ -2,21 +2,20 @@ import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import CustomModal from "@/components/ui/custom_modal/custom_modal";
 import React, { useState } from "react";
-import styles from "./add_industry.module.scss";
+import styles from "./add_skills_popup.module.scss";
 import { useCreateBulkSkills } from "@/hooks/skill_hooks/skill_hooks";
 import { X } from "react-bootstrap-icons";
 
-const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
-  const [industry, setIndustry] = useState({
-    skill: null,
-    isIndustry: true,
-    industry: "",
-  });
-
+const AddSkillsPopUp = ({
+  show,
+  setShow,
+  currentIndustryIndex,
+  currentIndustry,
+  setAllSkills,
+}) => {
   const [skills, setSkills] = useState([
     {
       skill: "",
-      isIndustry: false,
     },
   ]);
 
@@ -27,22 +26,25 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
     try {
       const skillsToCreate = skills.map((s) => ({
         ...s,
-        industry: industry?.industry,
+        industry: currentIndustry?.name,
+        isIndustry: false,
       }));
-      const newSkills = [industry, ...skillsToCreate];
-      const res = await mutateAsync(newSkills);
+
+      const res = await mutateAsync(skillsToCreate);
 
       if (res?.data) {
         setAllSkills((prev) => {
-          const newIndustry = res?.data?.find((s) => s.isIndustry);
-          newIndustry.name = industry.industry;
-          newIndustry.skills = res?.data?.filter((x) => !x.isIndustry);
-          return [...prev, newIndustry];
+          const as = [...prev];
+          as[currentIndustryIndex].skills = [
+            ...res?.data,
+            ...as[currentIndustryIndex].skills,
+          ];
+          return as;
         });
-
         setShow(false);
       }
     } catch (err) {
+      alert("error");
       console.log(err);
     }
   };
@@ -51,19 +53,10 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
     <CustomModal
       show={show}
       setShow={isLoading ? () => {} : setShow}
-      title="Add Industry"
+      title={`Add skills for ${currentIndustry?.name}`}
       hasClose={!isLoading}
     >
       <form onSubmit={createIndustryWithSkills}>
-        <CustomInput
-          placeHolder="Industry Name"
-          onChange={(e, v) => {
-            setIndustry((prev) => ({ ...prev, industry: v }));
-          }}
-          value={industry?.industry}
-          required
-        />
-        <hr />
         {skills.map((skill, sIdx) => {
           return (
             <div key={`skill_${sIdx}`} className={styles.newSkill}>
@@ -79,11 +72,13 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
                 value={skill.skill}
                 required
               />
-              <X
-                onClick={() => {
-                  setSkills((prev) => prev.filter((ns, i) => i !== sIdx));
-                }}
-              />
+              {sIdx !== 0 && (
+                <X
+                  onClick={() => {
+                    setSkills((prev) => prev.filter((ns, i) => i !== sIdx));
+                  }}
+                />
+              )}
             </div>
           );
         })}
@@ -112,4 +107,4 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
   );
 };
 
-export default AddIndustryPopUp;
+export default AddSkillsPopUp;

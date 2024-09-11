@@ -8,9 +8,10 @@ const IndustryList = ({
   SkillCategories,
   currentIndustryIndex,
   setCurrentIndustryIndex,
+  setShowAddIndustry,
 }) => {
   return (
-    <Col xs={3}>
+    <Col xs={12} md={3}>
       <div className={styles.IndustryList}>
         <CustomButton
           onClick={() => {
@@ -22,21 +23,22 @@ const IndustryList = ({
         </CustomButton>
         <br />
         <br />
-        {SkillCategories.map((ind, idx) => {
-          return (
-            <div
-              key={ind.id}
-              className={`${styles.Industry} ${
-                currentIndustryIndex === idx ? styles.active : ""
-              }`}
-              onClick={() => {
-                setCurrentIndustryIndex(idx);
-              }}
-            >
-              {ind.name}
-            </div>
-          );
-        })}
+        {SkillCategories &&
+          SkillCategories.map((ind, idx) => {
+            return (
+              <div
+                key={ind.id}
+                className={`${styles.Industry} ${
+                  currentIndustryIndex === idx ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setCurrentIndustryIndex(idx);
+                }}
+              >
+                {ind.name}
+              </div>
+            );
+          })}{" "}
       </div>
     </Col>
   );
