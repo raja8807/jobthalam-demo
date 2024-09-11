@@ -5,74 +5,17 @@ import AddIndustryPopUp from "./add_industry/add_industry";
 import ManageSillsPopup from "./manage_skills/manage_skills";
 import ConfirmPopup from "@/components/ui/confirm_popup/confirm_popup.jsx";
 import { useDeleteIndustry } from "@/hooks/skill_hooks/skill_hooks";
+import { Row } from "react-bootstrap";
+import IndustryList from "./industry_list/industry_list";
+import SkillsList from "./skills_list/skills_list";
+import { Plus } from "react-bootstrap-icons";
 
-const IndustryCard = ({ industry, setSkills }) => {
-  const [showAddSkillsFor, setShowAddSkillsFor] = useState(null);
-  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
-
-  const { mutateAsync, isLoading } = useDeleteIndustry();
-  const deleteIndustry = async () => {
-    const res = await mutateAsync({
-      industry: industry.name,
-    });
-
-    if (res?.status === 204) {
-      setSkills((ind) => {
-        return ind.filter((s) => s?.id !== industry?.id);
-      });
-    }
-  };
-
-  return (
-    <div>
-      {showAddSkillsFor && (
-        <ManageSillsPopup
-          industry={showAddSkillsFor}
-          setShow={setShowAddSkillsFor}
-          setSkills={setSkills}
-        />
-      )}
-
-      {showConfirmDelete && (
-        <ConfirmPopup
-          show={showConfirmDelete}
-          setShow={setShowConfirmDelete}
-          onConfirm={deleteIndustry}
-          isLoading={isLoading}
-        />
-      )}
-
-      <div className={styles.industry}>
-        {<strong>{industry.name}</strong>}
-        <ol>
-          {industry.skills.map((skill) => {
-            return <li key={skill?.id}>{skill?.skill}</li>;
-          })}
-        </ol>
-        <CustomButton
-          variant={2}
-          onClick={() => {
-            setShowAddSkillsFor(industry);
-          }}
-        >
-          Update
-        </CustomButton>
-        &nbsp; &nbsp;
-        <CustomButton
-          variant={2}
-          onClick={() => {
-            setShowConfirmDelete(true);
-          }}
-        >
-          Delete
-        </CustomButton>
-      </div>
-    </div>
-  );
-};
-
-const ManageSkills = ({ SkillCategories, setSkills }) => {
+const ManageSkills = ({ SkillCategories, setSkills, adminJobs }) => {
   const [showAddIndustry, setShowAddIndustry] = useState(false);
+
+  const [currentIndustryIndex, setCurrentIndustryIndex] = useState(0);
+
+  const currentIndustry = SkillCategories[currentIndustryIndex || 0];
 
   return (
     <div className={styles.ManageSkills}>
@@ -84,23 +27,20 @@ const ManageSkills = ({ SkillCategories, setSkills }) => {
         />
       )}
 
-      {SkillCategories.map((industry) => {
-        return (
-          <IndustryCard
-            key={industry?.id}
-            industry={industry}
-            setSkills={setSkills}
-          />
-        );
-      })}
-      <br />
-      <CustomButton
-        onClick={() => {
-          setShowAddIndustry(true);
-        }}
-      >
-        Add Industry
-      </CustomButton>
+
+      <Row className={styles.wrap}>
+        <IndustryList
+          SkillCategories={SkillCategories}
+          currentIndustryIndex={currentIndustryIndex}
+          setCurrentIndustryIndex={setCurrentIndustryIndex}
+          setShowAddIndustry={setShowAddIndustry}
+        />
+        <SkillsList
+          currentIndustry={currentIndustry}
+          allAdminJobs={adminJobs}
+          key={currentIndustry?.id}
+        />
+      </Row>
     </div>
   );
 };

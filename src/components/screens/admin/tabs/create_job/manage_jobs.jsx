@@ -34,15 +34,7 @@ const ManageJobs = ({ allJobs, setAllJobs, skills }) => {
           >
             Post New Job
           </CustomButton>
-          &nbsp; &nbsp;
-          <CustomButton
-            onClick={() => {
-              setScreen("upload");
-            }}
-            variant={2}
-          >
-            Upload xls
-          </CustomButton>
+         
           <br />
           <br />
           <Row>

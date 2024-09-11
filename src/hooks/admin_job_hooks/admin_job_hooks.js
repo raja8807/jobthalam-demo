@@ -71,3 +71,22 @@ export const useUpdateAdminJob = () => {
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
+
+const updateBulkAdminJob = async (adminJobs) => {
+  try {
+    return await axios.post(`${URL}/update`, {
+      jobs: adminJobs,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const useUpdateBulkAdminJob = () => {
+  const { mutateAsync, isPending, error, isSuccess, data, isError } =
+    useMutation({
+      mutationFn: updateBulkAdminJob,
+    });
+
+  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
+};

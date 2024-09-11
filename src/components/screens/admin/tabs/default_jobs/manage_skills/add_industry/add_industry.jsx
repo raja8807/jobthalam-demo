@@ -36,7 +36,7 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
         const ind = res?.data?.find((s) => s.isIndustry);
         ind.name = ind.industry;
         ind.skills = res?.data?.filter((x) => !x.isIndustry);
-        setAllSkills((prev) => [ind, ...prev]);
+        setAllSkills((prev) => [...prev, ind]);
         setShow(false);
       }
     } catch (err) {

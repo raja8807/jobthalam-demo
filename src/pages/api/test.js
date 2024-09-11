@@ -4,6 +4,7 @@ import sequelize from "@/libs/sequelize/sequelize";
 const handler = async (req, res) => {
   try {
     await sequelize.sync({ force: true });
+    // Candidate.update
     const result = await Candidate.create(
       {
         dob: "2024-07-17",

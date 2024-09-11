@@ -1,0 +1,25 @@
+.IndustryList {
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid $color_g2;
+  height: 100%;
+  padding: 0 10px 10px 10px;
+
+  button{
+    margin-bottom: 16px;
+  }
+  .Industry {
+    cursor: pointer;
+    padding: 10px;
+
+    &:hover {
+      background-color: $color_g1;
+    }
+
+    &.active {
+      background-color: $color_p1;
+      color: white;
+    }
+  }
+}

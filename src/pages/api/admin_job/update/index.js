@@ -5,22 +5,11 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
       //   await sequelize.sync({ force: true });
-      const result = await AdminJob.create(req.body, {
+      const result = await AdminJob.bulkCreate(req.body.jobs, {
         returning: true,
+        updateOnDuplicate: ["status", "is_free"],
       });
       return res.status(201).json(result);
-    } catch (err) {
-      console.log(err.message);
-      return res.status(500).json({
-        error: err.message,
-      });
-    }
-  }
-  if (req.method === "GET") {
-    try {
-      // await sequelize.sync({ force: true });
-      const result = await AdminJob.findAll();
-      return res.status(200).json(result);
     } catch (err) {
       console.log(err.message);
       return res.status(500).json({

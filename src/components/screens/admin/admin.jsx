@@ -17,8 +17,6 @@ const AdminScreen = ({ session }) => {
   const [allAdminJobs, setAllAdminJobs] = useState([]);
   const [skills, setSkills] = useState([]);
 
-  // console.log(sk);
-
   const { mutateAsync: fetchAllRequests, isLoading: requestIsLoading } =
     useFetchAllRequests();
 

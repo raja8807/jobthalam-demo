@@ -276,6 +276,7 @@ const JobForm = ({ isUpdate, setAllJobs, showNewJob, index, skills }) => {
                   }}
                   initialSkills={values.skills ? values.skills.split(",") : []}
                   skills={skills || []}
+                  max={1}
                 />
               </div>
             </Col>

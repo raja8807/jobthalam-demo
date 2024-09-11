@@ -9,6 +9,7 @@ const CustomModal = ({
   title,
   hasClose = true,
   onHide = () => {},
+  size,
 }) => {
   return (
     <Modal
@@ -19,6 +20,7 @@ const CustomModal = ({
       }}
       centered
       className={styles.CustomModal}
+      size={size}
     >
       <Modal.Header closeButton={hasClose} className={styles.head}>
         <p> {title}</p>

@@ -1,7 +1,6 @@
 .ManageSkills {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 20px;
+  height: 100%;
+  width: 100%;
   .industry {
     border: 1px solid $color_g2;
     margin: 0 20px 20px 0;
@@ -17,4 +16,8 @@
       width: 300px;
     }
   }
+
+  // .wrap {
+  //   display: flex;
+  // }
 }
