@@ -189,7 +189,7 @@ const Form2 = ({
         }}
         skills={skills}
         initialSkills={values.skills ? values.skills.split(",") : []}
-        max={1}
+        max={5}
       />
 
       <ControlLabel label="Select Resume (2 MB)" />

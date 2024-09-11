@@ -4,12 +4,10 @@ import MainFrame from "@/components/ui/main_frame/main_frame";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import React, { useState } from "react";
 import styles from "./profile.module.scss";
+import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
 
 const ProfileTab = ({ currentUser }) => {
   const [values, setValues] = useState({ ...currentUser });
-
-  console.log(values);
-  
 
   return (
     <MainFrame head="Profile">
@@ -58,7 +56,12 @@ const ProfileTab = ({ currentUser }) => {
               placeholder="Select Education"
               required
             />
-            <CustomInput value={values.skills} disabled />
+
+            <CustomSkillSelector
+              initialSkills={values.skills.split(",")}
+              onSelect={() => {}}
+              disabled
+            />
           </div>
           <div>
             <CustomInput value={values.phone_number} disabled />

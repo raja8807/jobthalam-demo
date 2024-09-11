@@ -11,6 +11,7 @@ import { useCreatePayment } from "@/hooks/payment_hooks/payment_hooks";
 import { v4 } from "uuid";
 import ConfirmPopup from "@/components/ui/popups/confirm_popup/confirm_popup";
 import { useRouter } from "next/router";
+import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 
 const PaymentPortal = ({
   currentUser,
@@ -32,8 +33,12 @@ const PaymentPortal = ({
     createRequestIsLoading || updateUserIsLoading || paymentIsLoading;
 
   const [showSuccess, setShowSuccess] = useState(false);
+  const [skill, setSkill] = useState(null);
+  const [agreed, setAgreed] = useState(false);
 
   const purchaseRequest = async () => {
+    console.log(skill);
+    
     try {
       let paymentId = null;
       if (!isFree) {
@@ -52,6 +57,7 @@ const PaymentPortal = ({
           payment_id: paymentId,
           jobs_sent: 0,
           is_free: isFree,
+          skill,
         },
         currentUser,
       });
@@ -117,6 +123,21 @@ const PaymentPortal = ({
 
           <Col xs={12}>
             <div className={styles.info}>
+              <h5>Skill</h5>
+
+              <CustomSelect
+                options={currentUser.skills.split(",")}
+                value={skill}
+                onChange={(e, v) => {
+                  setSkill(v);
+                }}
+              />
+            </div>
+            <br />
+          </Col>
+
+          <Col xs={12}>
+            <div className={styles.info}>
               <h5>Package</h5>
 
               <h4>Name : {title}</h4>
@@ -134,14 +155,23 @@ const PaymentPortal = ({
 
           <div>
             <div>
-              <Form.Check />
+              <Form.Check
+                checked={agreed}
+                onChange={(e) => {
+                  setAgreed(e.target.checked);
+                }}
+              />
               <p>Agree to terms and conditions</p>
             </div>
           </div>
           <br />
           <hr />
           <br />
-          <CustomButton onClick={purchaseRequest} isLoading={isLoading}>
+          <CustomButton
+            onClick={purchaseRequest}
+            isLoading={isLoading}
+            disabled={!skill || !agreed}
+          >
             Complete Payment
           </CustomButton>
           <CustomButton

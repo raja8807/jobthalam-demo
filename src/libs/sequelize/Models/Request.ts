@@ -41,6 +41,10 @@ Request.init(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    skill: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,

@@ -1,7 +1,5 @@
-import DefaultJob from "@/libs/sequelize/Models/`DefaulJob";
 import AdminJob from "@/libs/sequelize/Models/AdminJob";
 import FeaturedJob from "@/libs/sequelize/Models/FeaturedJob";
-import Job from "@/libs/sequelize/Models/Job";
 import Request from "@/libs/sequelize/Models/Request";
 
 const handler = async (req, res) => {
@@ -24,14 +22,14 @@ const handler = async (req, res) => {
         defaultJobs = await AdminJob.findAll({
           where: {
             is_free: true,
-            skills: currentUser?.skills,
+            skills: request?.skill,
           },
         });
       } else {
         defaultJobs = await AdminJob.findAll({
           where: {
             is_free: false,
-            skills: currentUser?.skills,
+            skills: request?.skill,
           },
           limit: request.count,
         });
