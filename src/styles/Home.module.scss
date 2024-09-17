@@ -1,14 +1,14 @@
 .main {
-  * {
-    &::-webkit-scrollbar {
-      width: 3px;
-      background-color: $color_g1;
-      height: 3px;
-    }
+  // * {
+  //   &::-webkit-scrollbar {
+  //     width: 5px !important;
+  //     background-color: $color_g1 !important;
+  //     height: 3px !important;
+  //   }
 
-    &::-webkit-scrollbar-thumb {
-      background: $color_g2;
-      border-radius: 10px;
-    }
-  }
+  //   &::-webkit-scrollbar-thumb {
+  //     background: $color_p1 !important;
+  //     border-radius: 30px !important;
+  //   }
+  // }
 }
