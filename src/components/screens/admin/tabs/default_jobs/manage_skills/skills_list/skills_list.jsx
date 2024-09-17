@@ -11,7 +11,9 @@ const SkillsList = ({
   currentIndustry,
   allAdminJobs,
   currentIndustryIndex,
-  setSkills
+  setSkills,
+  allEmployerJobs,
+  setAllAdminJobs
 }) => {
   const [showAddSkills, setShowAddSkills] = useState(false);
 
@@ -26,23 +28,24 @@ const SkillsList = ({
       />
 
       <Col xs={12} md={9}>
-        <div className={styles.SkillsList} >
+        <div className={styles.SkillsList}>
           <div className={styles.top}>
-          <CustomButton
+            <CustomButton
               onClick={() => {
                 setShowAddSkills(true);
               }}
             >
-              Add New Skills <Plus/>
+              Add New Skills <Plus />
             </CustomButton>
             <Link
               href="/templates/upload_jobs_template.xlsx"
               download="upload_jobs_template"
               target="_blank"
             >
-              <CustomButton variant={3}>Download Excel Template <Download/></CustomButton>
+              <CustomButton variant={3}>
+                Download Excel Template <Download />
+              </CustomButton>
             </Link>
-            
           </div>
           <br />
           <Accordion>
@@ -51,7 +54,12 @@ const SkillsList = ({
                 <Accordion.Item key={skill.id} eventKey={`${idx}`}>
                   <Accordion.Header>{skill.skill}</Accordion.Header>
                   <Accordion.Body>
-                    <JobsList skill={skill} allAdminJobs={allAdminJobs} />
+                    <JobsList
+                      skill={skill}
+                      allAdminJobs={allAdminJobs}
+                      allEmployerJobs={allEmployerJobs}
+                      setAllAdminJobs={setAllAdminJobs}
+                    />
                   </Accordion.Body>
                 </Accordion.Item>
               );

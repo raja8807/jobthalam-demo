@@ -17,6 +17,8 @@ const AdminScreen = ({ session }) => {
   const [allAdminJobs, setAllAdminJobs] = useState([]);
   const [skills, setSkills] = useState([]);
 
+  // console.log();
+
   const { mutateAsync: fetchAllRequests, isLoading: requestIsLoading } =
     useFetchAllRequests();
 
@@ -108,10 +110,11 @@ const AdminScreen = ({ session }) => {
       icon: <PlusLg />,
       component: (
         <DefaultJobs
-          jobs={allJobs}
+          allEmployerJobs={allJobs}
           adminJobs={allAdminJobs}
           skills={skills}
           setSkills={setSkills}
+          setAllAdminJobs={setAllAdminJobs}
         />
       ),
     },

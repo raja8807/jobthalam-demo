@@ -72,10 +72,11 @@ export const useUpdateAdminJob = () => {
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
 
-const updateBulkAdminJob = async (adminJobs) => {
+const updateBulkAdminJob = async ({ adminJobs, employerJobs }) => {
   try {
     return await axios.post(`${URL}/update`, {
-      jobs: adminJobs,
+      adminJobs: adminJobs,
+      employerJobs: employerJobs,
     });
   } catch (err) {
     throw new Error(err.message);
@@ -86,6 +87,23 @@ export const useUpdateBulkAdminJob = () => {
   const { mutateAsync, isPending, error, isSuccess, data, isError } =
     useMutation({
       mutationFn: updateBulkAdminJob,
+    });
+
+  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
+};
+
+const deleteAdminJob = async (adminJobId) => {
+  try {
+    return await axios.delete(`${URL}/${adminJobId}`);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const useDeleteAdminJob = () => {
+  const { mutateAsync, isPending, error, isSuccess, data, isError } =
+    useMutation({
+      mutationFn: deleteAdminJob,
     });
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };

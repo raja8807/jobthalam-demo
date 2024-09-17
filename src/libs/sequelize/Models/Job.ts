@@ -62,7 +62,12 @@ Job.init(
     skills: {
       type: DataTypes.STRING,
     },
+    is_free: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
+
   {
     sequelize,
     modelName: "Job",

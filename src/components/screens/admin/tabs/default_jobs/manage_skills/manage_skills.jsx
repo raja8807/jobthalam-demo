@@ -5,7 +5,7 @@ import { Row } from "react-bootstrap";
 import IndustryList from "./industry_list/industry_list";
 import SkillsList from "./skills_list/skills_list";
 
-const ManageSkills = ({ SkillCategories, setSkills, adminJobs }) => {
+const ManageSkills = ({ SkillCategories, setSkills, adminJobs,allEmployerJobs,setAllAdminJobs }) => {
   const [showAddIndustry, setShowAddIndustry] = useState(false);
 
   const [currentIndustryIndex, setCurrentIndustryIndex] = useState(0);
@@ -36,6 +36,8 @@ const ManageSkills = ({ SkillCategories, setSkills, adminJobs }) => {
             key={currentIndustry?.id}
             currentIndustryIndex={currentIndustryIndex}
             setSkills={setSkills}
+            allEmployerJobs={allEmployerJobs}
+            setAllAdminJobs={setAllAdminJobs}
           />
         )}
       </Row>
