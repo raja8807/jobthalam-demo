@@ -19,7 +19,10 @@ const JobDetails = ({ job, setJob, actionButton, isAdminJob, employer }) => {
     setJob(null);
   };
 
-  const companyName = isAdminJob ? job?.company_name : employer.company_name;
+  const companyName = isAdminJob ? job?.company_name : employer?.company_name;
+
+  console.log(job);
+  
 
   return (
     <Modal

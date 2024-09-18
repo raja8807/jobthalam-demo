@@ -1,9 +1,12 @@
 // models/User.ts
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../sequelize";
-import FeaturedJob from "./FeaturedJob";
 
-class Job extends Model {}
+class Job extends Model {
+  public id!: number;
+  public email!: string;
+  public name!: string;
+}
 
 Job.init(
   {
@@ -56,7 +59,15 @@ Job.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    skills: {
+      type: DataTypes.STRING,
+    },
+    is_free: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
+
   {
     sequelize,
     modelName: "Job",

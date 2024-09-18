@@ -37,8 +37,8 @@ const JobCard = ({ job: jobData, actionButton }) => {
               </div>
             </div>
 
-            <div className={styles.status}>
-              <div /> {jobData.status}
+            <div className={`${styles.status} ${styles[job.status]}`}>
+              <div /> {job?.status}
             </div>
           </div>
           <div className={styles.bottom}>
