@@ -115,26 +115,10 @@ const SendJobs = ({
         />
       ),
     },
-    // {
-    //   id: "adm",
-    //   title: "All Jobs",
-    //   component: (
-    //     <AllJobsTab
-    //       availableJobs={availableAllAdminJobs}
-    //       featuredJobs={featuredJobs}
-    //       newJobs={newJobs}
-    //       request={request}
-    //       setNewJobs={setNewJobs}
-    //       setAvailableJobs={setAvailableAdminJobs}
-    //     />
-    //   ),
-    // },
   ];
 
   const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const currentTab = tabs[currentTabIndex];
-
-  // console.log(request);
 
   return (
     <div className={styles.SendJobs}>
