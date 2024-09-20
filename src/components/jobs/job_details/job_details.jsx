@@ -21,9 +21,6 @@ const JobDetails = ({ job, setJob, actionButton, isAdminJob, employer }) => {
 
   const companyName = isAdminJob ? job?.company_name : employer?.company_name;
 
-  console.log(job);
-  
-
   return (
     <Modal
       show={!!job}

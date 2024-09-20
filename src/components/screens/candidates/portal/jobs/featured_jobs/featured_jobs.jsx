@@ -1,10 +1,16 @@
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import JobCard from "@/components/ui/job/job_card/job_card";
+import CustomToolTip from "@/components/ui/tool_tip/tool_tip";
 import { useCreateApplication } from "@/hooks/application_hooks/application_hooks";
 import { useUpdateFeaturedJobs } from "@/hooks/featured_job_hooks/featured_job_hooks";
 import { addData, updateData } from "@/libs/firebase/firebase";
 import React, { useState } from "react";
-import { Row } from "react-bootstrap";
+import { Row, Tooltip } from "react-bootstrap";
+import {
+  Check2Circle,
+  QuestionCircle,
+  QuestionCircleFill,
+} from "react-bootstrap-icons";
 import { v4 } from "uuid";
 
 import * as XLSX from "xlsx";
@@ -13,6 +19,10 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
   const [loadingJobId, setLoadingJobId] = useState(null);
   const { mutateAsync } = useCreateApplication();
   const { mutateAsync: updateFeaturedJob } = useUpdateFeaturedJobs();
+
+  const employerJobs = allJobs ? allJobs.filter((j) => !j.is_admin_job) : [];
+
+  const adminJobs = allJobs ? allJobs.filter((j) => j.is_admin_job) : [];
 
   const applyJob = async (job, index) => {
     setLoadingJobId(job?.id);
@@ -127,39 +137,69 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
     link.parentNode.removeChild(link);
   };
 
-  // console.log(allJobs);
-
   return (
     <>
-      <CustomButton onClick={downloadExcel}>Download as Xls</CustomButton>
+      <CustomButton onClick={downloadExcel}>Export as Xls</CustomButton>
       <br />
       <br />
-      <Row>
-        {allJobs.map((job, idx) => {
-          return (
-            <JobCard
-              key={job.id}
-              job={job}
-              allJobs={allJobs}
-              actionButton={
-                job.status == "New" &&
-                !job?.is_admin_job && (
+      {employerJobs?.[0] && (
+        <Row>
+          <p>
+            Apply Directly{" "}
+            <CustomToolTip message="These jobs are posted by different Employers. You can apply directly from this dashboard">
+              <QuestionCircleFill />
+            </CustomToolTip>
+          </p>
+          <br />
+          <br />
+          {employerJobs.map((job, idx) => {
+            return (
+              <JobCard
+                key={job.id}
+                job={job}
+                allJobs={allJobs}
+                actionButton={
                   <CustomButton
                     onClick={async (e) => {
                       e.stopPropagation();
                       await applyJob(job, idx);
                     }}
                     isLoading={job.id === loadingJobId}
-                    disabled={loadingJobId}
+                    disabled={
+                      loadingJobId ||
+                      job?.status !== "New" ||
+                      job?.job?.status !== "Active"
+                    }
                   >
-                    Apply
+                    {job?.status === "New" ? (
+                      "Apply"
+                    ) : (
+                      <>
+                        Applied <Check2Circle />
+                      </>
+                    )}
                   </CustomButton>
-                )
-              }
-            />
-          );
-        })}
-      </Row>
+                }
+              />
+            );
+          })}
+        </Row>
+      )}
+      {adminJobs?.[0] && (
+        <Row>
+          <p>
+            Posted by Admin{" "}
+            <CustomToolTip message="These jobs are posted by Admin. You can contact the employers.">
+              <QuestionCircleFill />
+            </CustomToolTip>
+          </p>
+          <br />
+          <br />
+          {adminJobs.map((job, idx) => {
+            return <JobCard key={job.id} job={job} allJobs={allJobs} />;
+          })}
+        </Row>
+      )}
     </>
   );
 };
