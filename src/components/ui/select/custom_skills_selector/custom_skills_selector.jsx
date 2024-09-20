@@ -68,7 +68,7 @@ const CustomSkillSelector = ({
             />
           );
         })}
-        <small>{bubbles.length}/max</small>
+        <small>{bubbles.length}/{max}</small>
       </div>
       {bubbles.length < max && (
         <CustomInput

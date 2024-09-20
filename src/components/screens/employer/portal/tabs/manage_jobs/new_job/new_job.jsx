@@ -32,6 +32,7 @@ const NewJob = ({
         setAllSkills={setAllSkills}
         allSkills={allSkills}
         setCurrentUser={setCurrentUser}
+        setShowNewJob={setShowNewJob}
       />
     </div>
   );

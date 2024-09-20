@@ -7,8 +7,6 @@ import JobDetails from "@/components/jobs/job_details/job_details";
 const JobCard = ({ job, actionButton }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
-  
-
   return (
     <>
       {showDetailsFor && (

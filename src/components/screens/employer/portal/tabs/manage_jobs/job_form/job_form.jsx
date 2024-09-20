@@ -22,6 +22,7 @@ const JobForm = ({
   setAllSkills,
   allSkills,
   setCurrentUser,
+  setShowNewJob,
 }) => {
   const initialValues = isUpdate
     ? { ...showNewJob }
@@ -108,6 +109,7 @@ const JobForm = ({
           ...prev,
           jobs_pending: prev.jobs_pending - 1,
         }));
+        setShowNewJob(false);
       }
     } catch (error) {
       console.log(error);
@@ -247,6 +249,7 @@ const JobForm = ({
                 }}
                 skills={skills}
                 initialSkills={values.skills ? values.skills.split(",") : []}
+                max={1}
               />
             </div>
           </Col>
