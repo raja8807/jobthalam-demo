@@ -5,7 +5,13 @@ import RequestDetails from "./request_details/request_details";
 import { formatDate } from "@/utils/helpers/helpers";
 import styles from "./job_requests.module.scss";
 
-const JobRequests = ({ allJobs, requests, allAdminJobs }) => {
+import { AgGridReact } from "ag-grid-react";
+
+import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
+import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
+import "ag-grid-community/styles/ag-theme-balham.css"; // Optional Theme applied to the Data Grid
+
+const JobRequests = ({ allJobs, requests = [], allAdminJobs }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
   const titles = [
@@ -34,34 +40,59 @@ const JobRequests = ({ allJobs, requests, allAdminJobs }) => {
             allAdminJobs={allAdminJobs}
           />
         ) : (
-          <Table striped responsive hover className={styles.table}>
-            <thead>
-              <tr>
-                <th>#</th>
-                {titles.map((t) => (
-                  <th key={t.title}>{t.title}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {requests.map((req, i) => {
-                return (
-                  <tr
-                    key={req.id}
-                    onClick={() => {
-                      setShowDetailsFor(req);
-                    }}
-                  >
-                    <td>{i + 1}</td>
-                    <td>{req.count}</td>
-                    <td>{req.jobs_sent}</td>
-                    <td>{formatDate(req.createdAt)}</td>
-                    <td>{req.payment_id || "Free"}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+          <>
+            <div
+              className="ag-theme-balham" // applying the Data Grid theme
+              style={{ height: 500 }} // the Data Grid will fill the size of the parent container
+            >
+              <AgGridReact
+                rowData={requests.map((req, idx) => {
+                  return {
+                    ...req,
+                    index: idx + 1,
+                  };
+                })}
+                onRowClicked={(reqRow) => {
+                  // setShowNewJob({ job: jobRow?.data, index: jobRow?.rowIndex });
+                  setShowDetailsFor(reqRow?.data);
+
+                  // setScreen("form");
+                }}
+                // selection={selection}
+                // onRowSelected={onSelectionChanged}
+                rowStyle={{
+                  cursor: "pointer",
+                }}
+                rowHeight={40}
+                unSortIcon
+                columnDefs={[
+                  {
+                    field: "index",
+                    headerName: "#",
+                  },
+                  {
+                    field: "count",
+                  },
+                  {
+                    field: "jobs_sent",
+                    filter: true,
+                  },
+
+                  {
+                    field: "createdAt",
+                    headerName: "Requested on",
+                    cellDataType: "date",
+                    filter: true,
+                    valueFormatter: (d) => formatDate(d),
+                  },
+                  {
+                    field: "payment_id",
+                    valueFormatter: (pid) => pid.id || "Free",
+                  },
+                ]}
+              />
+            </div>
+          </>
         )}
       </div>
     </MainFrame>

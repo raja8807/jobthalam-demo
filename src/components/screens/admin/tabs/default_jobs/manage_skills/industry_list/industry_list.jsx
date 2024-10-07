@@ -21,8 +21,6 @@ const IndustryList = ({
         >
           Create New <Plus />
         </CustomButton>
-        <br />
-        <br />
         {SkillCategories &&
           SkillCategories.map((ind, idx) => {
             return (

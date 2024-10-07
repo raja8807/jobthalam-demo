@@ -1,11 +1,15 @@
 .top {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  > div {
+    display: flex;
+    gap: 20px;
+  }
 }
 
-.SkillsList{
-    height: calc(100vh - 200px);
-    max-height: calc(100vh - 200px);
-    min-height: calc(100vh - 200px);
-    overflow-y: auto;
+.SkillsList {
+  height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  min-height: calc(100vh - 200px);
+  overflow-y: auto;
 }

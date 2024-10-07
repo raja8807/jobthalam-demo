@@ -10,16 +10,20 @@ import UploadJobsPopup from "./upload_job_template/upload_job_template";
 import styles from "./jobs_list.module.scss";
 import { Trash } from "react-bootstrap-icons";
 import ConfirmPopup from "@/components/ui/confirm_popup/confirm_popup.jsx";
+import { useDeleteSkill } from "@/hooks/skill_hooks/skill_hooks";
 
 const JobsList = ({
   allAdminJobs = [],
   skill,
   allEmployerJobs = [],
   setAllAdminJobs,
+  setSkills,
+  currentIndustryIndex,
 }) => {
   const [adminJobsForSkill, setAdminJobForSkill] = useState([]);
   const [employerJobsForSkill, setEmployerJobsForSkill] = useState([]);
   const [showUpload, setShowUpload] = useState(false);
+  const [showDeleteSkill, setShowDeleteSkill] = useState(false);
 
   useEffect(() => {
     setAdminJobForSkill(
@@ -34,7 +38,10 @@ const JobsList = ({
   const { mutateAsync: deleteAdminJobAsync, isLoading: deleteIsLoading } =
     useDeleteAdminJob();
 
-  const isLoading = updateIsLoading || deleteIsLoading;
+  const { mutateAsync: deleteSkillAsync, isLoading: deleteSkillIsLoading } =
+    useDeleteSkill();
+
+  const isLoading = updateIsLoading || deleteIsLoading || deleteSkillIsLoading;
 
   const updateAdminJobsForSkill = async () => {
     try {
@@ -83,6 +90,27 @@ const JobsList = ({
     }
   };
 
+  const deleteSkill = async () => {
+    try {
+      const delRes = await deleteSkillAsync(skill?.id);
+
+      if (delRes.status === 204) {
+        setSkills((prev) => {
+          const industrySkills = [...prev];
+
+          industrySkills[currentIndustryIndex].skills = industrySkills[
+            currentIndustryIndex
+          ].skills.filter((s) => s.id !== skill.id);
+
+          return industrySkills;
+        });
+      }
+    } catch (error) {
+      alert("Error");
+      console.log(error);
+    }
+  };
+
   return (
     <div className={styles.JobsList}>
       <UploadJobsPopup
@@ -96,14 +124,31 @@ const JobsList = ({
         setShow={setShowDeleteAdminJobFor}
         onConfirm={deleteJob}
       />
+      <ConfirmPopup
+        show={showDeleteSkill}
+        setShow={setShowDeleteSkill}
+        onConfirm={deleteSkill}
+        isLoading={deleteSkillIsLoading}
+      />
       {isLoading && <LoadingScreen />}
-      <div
-        onClick={() => {
-          setShowInactive((prev) => !prev);
-        }}
-        className={styles.toggleActive}
-      >
-        {showInactive ? "Hide" : "Show"} Inactive Jobs
+      <div className={styles.toggleActive}>
+        <p
+          onClick={() => {
+            setShowInactive((prev) => !prev);
+          }}
+        >
+          {showInactive ? "Hide" : "Show"} Inactive Jobs
+        </p>
+        <CustomButton
+          disabled={
+            adminJobsForSkill.length + employerJobsForSkill.length !== 0
+          }
+          onClick={() => {
+            setShowDeleteSkill(true);
+          }}
+        >
+          Delete Skill
+        </CustomButton>
       </div>
       <hr />
       <h5 className={styles.title}>Posted By Admins</h5>
@@ -247,7 +292,7 @@ const JobsList = ({
                         }}
                       />
                     </td>
-                    <td/>
+                    <td />
                   </tr>
                 );
               })}

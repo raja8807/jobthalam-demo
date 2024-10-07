@@ -66,8 +66,6 @@ const AdminScreen = ({ session }) => {
         });
       }
 
-      // console.log(industry);
-
       setSkills(industry || []);
     } catch (err) {
       console.log("job request error", err);
@@ -94,13 +92,14 @@ const AdminScreen = ({ session }) => {
     },
     {
       id: "nrw",
-      title: "Admin Jobs",
+      title: "Jobs",
       icon: <Briefcase />,
       component: (
         <ManageJobs
           allJobs={allAdminJobs}
           setAllJobs={setAllAdminJobs}
           skills={skills}
+          employerJobs={allJobs}
         />
       ),
     },
