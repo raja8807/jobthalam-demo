@@ -37,6 +37,33 @@ const AddIndustryPopUp = ({
     e.preventDefault();
     e.stopPropagation();
     try {
+      if (isNewIndustry) {
+        if (
+          allSkills.some(
+            (i) =>
+              i.name.trim().toLowerCase() ===
+              industry.industry.trim().toLowerCase()
+          )
+        ) {
+          throw new Error("Industry already exist");
+        }
+      } else {
+        const currentInd = allSkills.find(
+          (i) =>
+            i.name.trim().toLowerCase() ===
+            industry.industry.trim().toLowerCase()
+        );
+        if (
+          currentInd &&
+          currentInd.skills.some(
+            (s) =>
+              s.trim().toLowerCase() === skills[0]?.skill.trim().toLowerCase()
+          )
+        ) {
+          throw new Error("Skill already exist under selected industry");
+        }
+      }
+
       const skillsToCreate = skills.map((s) => ({
         ...s,
         industry: industry?.industry,
@@ -84,6 +111,7 @@ const AddIndustryPopUp = ({
         setShow(false);
       }
     } catch (err) {
+      alert(err.message);
       console.log(err);
     }
   };
