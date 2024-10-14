@@ -129,7 +129,7 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "output.xlsx"); // Name of the downloaded file
+    link.setAttribute("download", "jobs.xlsx"); // Name of the downloaded file
 
     // Append the link to the body, click it, and remove it
     document.body.appendChild(link);
@@ -139,7 +139,7 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
 
   return (
     <>
-      <CustomButton onClick={downloadExcel}>Export as Xls</CustomButton>
+      <CustomButton onClick={downloadExcel}>Download as Xls</CustomButton>
       <br />
       <br />
       {employerJobs?.[0] && (
@@ -193,8 +193,7 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
               <QuestionCircleFill />
             </CustomToolTip>
           </p>
-          <br />
-          <br />
+         <p>&nbsp;</p>
           {adminJobs.map((job, idx) => {
             return <JobCard key={job.id} job={job} allJobs={allJobs} />;
           })}

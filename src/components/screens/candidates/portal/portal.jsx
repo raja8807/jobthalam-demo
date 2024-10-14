@@ -95,7 +95,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const currentTab = tabs[currentTabIndex];
 
   useEffect(() => {
-    if (tabIndex == 2) {
+    if (tabIndex) {
       setCurrentTabIndex(tabIndex);
     }
   }, [tabIndex]);

@@ -54,7 +54,7 @@ const HeaderProfile = ({ currentUser }) => {
             <br />
             <br />
             <Link
-              href="/candidate?t=2"
+              href="/candidate?t=3"
               onClick={() => {
                 setShowPopup(false);
               }}
