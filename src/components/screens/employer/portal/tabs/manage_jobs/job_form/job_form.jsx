@@ -12,6 +12,7 @@ import { useCreateJob, useUpdateJob } from "@/hooks/job_hooks/job_hooks";
 import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
 import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
+import NewSkillPopupButton from "./new_skill_popup/new_skill_popup";
 
 const JobForm = ({
   isUpdate,
@@ -251,6 +252,7 @@ const JobForm = ({
                 initialSkills={values.skills ? values.skills.split(",") : []}
                 max={1}
               />
+              <NewSkillPopupButton/>
             </div>
           </Col>
         </Row>
