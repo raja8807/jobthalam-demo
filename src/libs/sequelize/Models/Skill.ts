@@ -21,6 +21,19 @@ Skill.init(
     isIndustry: {
       type: DataTypes.BOOLEAN,
     },
+    employer_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+      references: {
+        model: "Employers",
+        key: "id",
+      },
+    },
+    is_admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false,
+    },
   },
   {
     sequelize,

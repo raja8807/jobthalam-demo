@@ -5,8 +5,15 @@ import styles from "./add_industry.module.scss";
 import { useCreateBulkSkills } from "@/hooks/skill_hooks/skill_hooks";
 import { X } from "react-bootstrap-icons";
 import CustomModal from "@/components/custom_modal/custom_modal";
+import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 
-const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
+const AddIndustryPopUp = ({
+  show,
+  setShow,
+  setSkills: setAllSkills,
+  allSkills,
+  currentUser,
+}) => {
   const [industry, setIndustry] = useState({
     skill: null,
     isIndustry: true,
@@ -20,24 +27,58 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
     },
   ]);
 
+  console.log(allSkills);
+
+  const [isNewIndustry, setIsNewIndustry] = useState(false);
+
   const { mutateAsync, isLoading } = useCreateBulkSkills();
 
   const createIndustryWithSkills = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     try {
       const skillsToCreate = skills.map((s) => ({
         ...s,
         industry: industry?.industry,
+        employer_id: currentUser?.id,
+        is_admin: false,
       }));
-      const newSkills = [industry, ...skillsToCreate];
+
+      const newSkills = [...skillsToCreate];
+
+      if (isNewIndustry) {
+        const ind = {
+          ...industry,
+          is_admin: false,
+          employer_id: currentUser?.id,
+        };
+        newSkills.push(ind);
+      }
+
       const res = await mutateAsync(newSkills);
 
       if (res?.data) {
         setAllSkills((prev) => {
-          const newIndustry = res?.data?.find((s) => s.isIndustry);
-          newIndustry.name = industry.industry;
-          newIndustry.skills = res?.data?.filter((x) => !x.isIndustry);
-          return [...prev, newIndustry];
+          if (isNewIndustry) {
+            const newIndustry = res?.data?.find((s) => s.isIndustry);
+            return [
+              ...prev,
+              {
+                id: newIndustry?.id,
+                name: newIndustry?.industry,
+                skills: [skills[0]?.skill],
+              },
+            ];
+          } else {
+            const as = [...prev];
+
+            const industryIndex = allSkills.findIndex(
+              (i) => i.name === industry.industry
+            );
+
+            as[industryIndex].skills.push(skills[0]?.skill);
+            return as;
+          }
         });
 
         setShow(false);
@@ -55,14 +96,36 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
       hasClose={!isLoading}
     >
       <form onSubmit={createIndustryWithSkills}>
-        <CustomInput
-          placeHolder="Industry Name"
-          onChange={(e, v) => {
-            setIndustry((prev) => ({ ...prev, industry: v }));
+        {isNewIndustry ? (
+          <CustomInput
+            placeHolder="Industry Name"
+            onChange={(e, v) => {
+              setIndustry((prev) => ({ ...prev, industry: v }));
+            }}
+            value={industry?.industry}
+            required
+          />
+        ) : (
+          <CustomSelect
+            placeholder="Select Industry"
+            options={allSkills.map((i) => {
+              return i.name;
+            })}
+            onChange={(e, v) => {
+              setIndustry((prev) => ({ ...prev, industry: v }));
+            }}
+            required
+          />
+        )}
+        <p
+          onClick={() => {
+            setIndustry((prev) => ({ ...prev, industry: "" }));
+            setIsNewIndustry((prev) => !prev);
           }}
-          value={industry?.industry}
-          required
-        />
+          className={styles.indToggle}
+        >
+          {isNewIndustry ? "Choose Existing Industry" : "Create New Industry"}
+        </p>
         <hr />
         {skills.map((skill, sIdx) => {
           return (
@@ -79,32 +142,11 @@ const AddIndustryPopUp = ({ show, setShow, setSkills: setAllSkills }) => {
                 value={skill.skill}
                 required
               />
-              <X
-                onClick={() => {
-                  setSkills((prev) => prev.filter((ns, i) => i !== sIdx));
-                }}
-              />
             </div>
           );
         })}
         <br />
         <div className={styles.btns}>
-          <CustomButton
-            variant={3}
-            onClick={(e) => {
-              e.preventDefault();
-              setSkills((prev) => [
-                ...prev,
-                {
-                  skill: "",
-                  isIndustry: false,
-                },
-              ]);
-            }}
-          >
-            Add Skill
-          </CustomButton>
-
           <CustomButton isLoading={isLoading}>Save Industry</CustomButton>
         </div>
       </form>

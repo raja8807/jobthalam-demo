@@ -4,8 +4,6 @@ import { Col, Row } from "react-bootstrap";
 import styles from "./job_form.module.scss";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import { addData, updateData } from "@/libs/firebase/firebase";
-import { v4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
 import { useCreateJob, useUpdateJob } from "@/hooks/job_hooks/job_hooks";
@@ -42,7 +40,7 @@ const JobForm = ({
       };
 
   const [values, setValues] = useState(initialValues);
-  const [skills, setSkills] = useState(allSkills || []);
+  const [skills, setSkills] = useState([]);
 
   const { mutateAsync: createJob, isLoading: createJobIsLoading } =
     useCreateJob();
@@ -81,8 +79,10 @@ const JobForm = ({
   useEffect(() => {
     if (!allSkills[0]) {
       fetchSkills();
+    } else {
+      setSkills(allSkills);
     }
-  }, []);
+  }, [allSkills]);
 
   const isLoading = createJobIsLoading || updateJobIsLoading || skillsIsLoading;
 
@@ -251,8 +251,15 @@ const JobForm = ({
                 skills={skills}
                 initialSkills={values.skills ? values.skills.split(",") : []}
                 max={1}
+                disabled={isUpdate}
               />
-              <NewSkillPopupButton/>
+              {!isUpdate && (
+                <NewSkillPopupButton
+                  setAllSkills={setAllSkills}
+                  allSkills={allSkills}
+                  currentUser={currentUser}
+                />
+              )}
             </div>
           </Col>
         </Row>

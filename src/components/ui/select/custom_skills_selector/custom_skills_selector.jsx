@@ -4,19 +4,21 @@ import CustomInput from "../../cuatom_input/cuatom_input";
 import { XCircleFill } from "react-bootstrap-icons";
 import ControlLabel from "../../contol_label/control_label";
 
-const Bubble = ({ name, index, setBubbles }) => {
+const Bubble = ({ name, index, setBubbles, disabled }) => {
   return (
     <div className={styles.bubble}>
       {name}
-      <XCircleFill
-        onClick={() => {
-          setBubbles((prev) =>
-            prev.filter((_, i) => {
-              return i !== index;
-            })
-          );
-        }}
-      />
+      {!disabled && (
+        <XCircleFill
+          onClick={() => {
+            setBubbles((prev) =>
+              prev.filter((_, i) => {
+                return i !== index;
+              })
+            );
+          }}
+        />
+      )}
     </div>
   );
 };
@@ -26,6 +28,7 @@ const CustomSkillSelector = ({
   initialSkills = [],
   max = 5,
   skills = [],
+  disabled,
 }) => {
   const SKILL_CATEGORIES = skills;
 
@@ -65,12 +68,15 @@ const CustomSkillSelector = ({
               name={bubble}
               index={idx}
               setBubbles={setBubbles}
+              disabled={disabled}
             />
           );
         })}
-        <small>{bubbles.length}/{max}</small>
+        <small>
+          {bubbles.length}/{max}
+        </small>
       </div>
-      {bubbles.length < max && (
+      {!disabled && bubbles.length < max && (
         <CustomInput
           placeHolder="Skills"
           onChange={(e) => {
