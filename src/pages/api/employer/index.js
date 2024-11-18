@@ -3,11 +3,12 @@ import Employer from "@/libs/sequelize/Models/Employer";
 const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
-    //   await sequelize.sync({ force: true });
-
-      const result = await Employer.create(req.body, {
-        returning: true,
-      });
+      const result = await Employer.create(
+        { ...req.body, jobs_pending: 1 },
+        {
+          returning: true,
+        }
+      );
 
       return res.status(201).json(result);
     } catch (err) {

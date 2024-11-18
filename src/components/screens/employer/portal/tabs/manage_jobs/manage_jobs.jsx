@@ -34,8 +34,8 @@ const ManageJobs = ({
 
   return (
     <MainFrame
-      head={`Hello ${currentUser?.first_name} ${currentUser?.last_name} from ${currentUser.company_name}`}
-      caption="Here are the jobs posted by you"
+      head={!showNewJob && `Hello ${currentUser?.first_name} ${currentUser?.last_name} from ${currentUser.company_name}`}
+      caption={!showNewJob && "Here are the jobs posted by you"}
     >
       {showNewJob ? (
         <NewJob

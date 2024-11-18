@@ -42,6 +42,17 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
     }
   };
 
+  const industryTypes = [
+    "Software & IT",
+    "Manufacturing & Auto Ancillary",
+    "Education",
+    "Food",
+    "Media & Emerging technology",
+    "Banking",
+    "construction",
+    "recruitment",
+  ];
+
   return (
     <form
       onSubmit={async (e) => {
@@ -69,15 +80,7 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
           value={values.last_name}
         />
       </div>
-      <CustomInput
-        placeHolder="Email"
-        type="email"
-        required
-        onChange={(e, value) => {
-          setValues((prev) => ({ ...prev, email: value }));
-        }}
-        value={values.phone_number}
-      />
+
       <CustomInput
         placeHolder="Company Name"
         type="text"
@@ -94,11 +97,11 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
           setValues((prev) => ({ ...prev, company_type: value }));
         }}
         value={values.company_type}
-        options={["IT", "Marketing", "Transport"]}
+        options={industryTypes}
       />
 
       <CustomInput
-        placeHolder="Website - Eg: http://example.com"
+        placeHolder="Website - Eg: https://example.com"
         type="url"
         required
         onChange={(e, value) => {
@@ -106,6 +109,16 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
         }}
         value={values.website_url}
         rightElement={<Link className={styles.link} />}
+      />
+
+      <CustomInput
+        placeHolder="Email"
+        type="email"
+        required
+        onChange={(e, value) => {
+          setValues((prev) => ({ ...prev, email: value }));
+        }}
+        value={values.phone_number}
       />
 
       <CustomButton
