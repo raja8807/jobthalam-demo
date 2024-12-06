@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const URL = "/api/application";
