@@ -3,7 +3,6 @@ import styles from "./header_profile.module.scss";
 import { BriefcaseFill, Pencil, X } from "react-bootstrap-icons";
 import Link from "next/link";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import { createClient } from "../../../../../../../utils/supabase/client";
 import { auth } from "@/libs/firebase/firebase";
 
 const HeaderProfile = ({ currentUser }) => {
