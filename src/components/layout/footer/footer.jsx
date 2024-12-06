@@ -4,24 +4,12 @@ import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { Col, Image, Row } from "react-bootstrap";
 import Link from "next/link";
 import PAGES from "@/constants/pages";
-import SocialMedia from "@/components/social_media/social_media";
 import { ArrowRight } from "react-bootstrap-icons";
 
-export const DownloadSection = ({ isAbout }) => {
-  return (
-    <Col xs={12} md={6} lg={3}>
-      <div className={`${styles.sec} ${styles.sec1}`}>
-        {/* <h4>Download Raido</h4> */}
-        {/* <DownloadButtons isHeader /> */}
-        {isAbout && <br />}
-        <h4>Follow Us On</h4>
-        <SocialMedia variant={isAbout && 2} />
-      </div>
-    </Col>
-  );
-};
+
 
 const Footer = () => {
+  
   const PRODUCTS = [
     {
       id: "MANGO",
@@ -93,7 +81,6 @@ const Footer = () => {
             </div>
           </Col>
 
-          <DownloadSection />
         </Row>
         <hr />
       </CustomContainer>
