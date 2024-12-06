@@ -11,7 +11,6 @@ const handler = async (req, res) => {
     const response = await client.verify.v2
       .services(process.env.NEXT_PUBLIC_TWILIO_SERVICE)
       .verificationChecks.create({ to: "+917904236030", code: req?.body.otp });
-    //   .then((verification_check) => console.log(verification_check.status));
 
     return res.status(200).json(response);
   } catch (err) {

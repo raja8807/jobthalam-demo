@@ -27,7 +27,6 @@ const AddIndustryPopUp = ({
     },
   ]);
 
-  console.log(allSkills);
 
   const [isNewIndustry, setIsNewIndustry] = useState(false);
 

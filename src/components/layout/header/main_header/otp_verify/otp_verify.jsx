@@ -22,9 +22,6 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
   const sendOtp = async () => {
     setIsLoading(true);
     try {
-      // const res = await axios.post("/api/auth/otp/send", {
-      //   mobile,
-      // });
       const newOtp = (Math.floor(Math.random() * 10000) + 10000)
         .toString()
         .substring(1);
@@ -45,7 +42,6 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
         mobile,
       });
 
-      // console.log(token);
 
       const session = await signInWithCustomToken(auth, token?.data?.token);
 

@@ -4,11 +4,7 @@ import sequelize from "@/libs/sequelize/sequelize";
 const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
-      //   console.log(req.query);
-      //   //   await sequelize.sync({ force: true });
-      //   const result = await Candidate.create(req.body, {
-      //     returning: true,
-      //   });
+    
 
       if (!req.body.user.uid === req.query.uid) {
         return res.status(401).json({
@@ -32,11 +28,6 @@ const handler = async (req, res) => {
   }
   if (req.method === "PUT") {
     try {
-      //   console.log(req.query);
-      //   //   await sequelize.sync({ force: true });
-      //   const result = await Candidate.create(req.body, {
-      //     returning: true,
-      //   });
 
       if (!req.body.id === req.query.uid) {
         return res.status(401).json({

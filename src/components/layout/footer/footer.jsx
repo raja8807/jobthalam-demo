@@ -4,7 +4,6 @@ import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { Col, Image, Row } from "react-bootstrap";
 import Link from "next/link";
 import PAGES from "@/constants/pages";
-import SocialMedia from "@/components/social_media/social_media";
 import { ArrowRight } from "react-bootstrap-icons";
 
 export const DownloadSection = ({ isAbout }) => {
@@ -15,7 +14,6 @@ export const DownloadSection = ({ isAbout }) => {
         {/* <DownloadButtons isHeader /> */}
         {isAbout && <br />}
         <h4>Follow Us On</h4>
-        <SocialMedia variant={isAbout && 2} />
       </div>
     </Col>
   );

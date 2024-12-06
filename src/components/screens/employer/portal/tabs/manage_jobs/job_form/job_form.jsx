@@ -82,7 +82,7 @@ const JobForm = ({
     } else {
       setSkills(allSkills);
     }
-  }, [allSkills]);
+  }, []);
 
   const isLoading = createJobIsLoading || updateJobIsLoading || skillsIsLoading;
 

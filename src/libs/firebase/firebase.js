@@ -67,7 +67,6 @@ async function listItemsInDirectory(directoryPath) {
   const storageRef = ref(storage, directoryPath);
   try {
     const items = await listAll(storageRef);
-    //console.log(items);
     return items;
   } catch (error) {
     console.error("Error listing items in directory:", error);

@@ -14,8 +14,6 @@ const JobPreviewRow = ({
 }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
-  console.log(job);
-
   return (
     <div
       className={styles.JobPreviewRow}
