@@ -8,7 +8,7 @@ const NewsLetterSection = () => {
     <section className={styles.NewsLetterSection}>
       <CustomContainer>
         <div className={styles.wrap}>
-          <h2>Get Latest News</h2>
+          <h2>Get <span>Latest </span>News</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate,
             nulla.

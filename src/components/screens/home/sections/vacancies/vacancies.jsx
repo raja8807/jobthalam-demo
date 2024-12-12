@@ -42,7 +42,7 @@ const VacanciesSection = () => {
     <div className={styles.CategorySection}>
       <CustomContainer>
         <div>
-          <h1>Most Popular Vacancies</h1>
+          <h2>Most Popular <span>Vacancies</span></h2>
         </div>
         <br />
         <div className={styles.scroller}>
