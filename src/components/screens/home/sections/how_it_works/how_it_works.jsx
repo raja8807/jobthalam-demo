@@ -69,7 +69,9 @@ const HowItWorks = () => {
     <div className={styles.HowItWorks}>
       <CustomContainer>
         <div>
-          <h1>How Jobthalam Works</h1>
+          <h2>
+            How <span>Jobthalam</span> Works
+          </h2>
         </div>
         <br />
         <Row>

@@ -1,0 +1,110 @@
+.DiscoverSection {
+  padding: 100px 0;
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+
+    > div {
+      width: 50%;
+    }
+
+    .left {
+      h2 {
+        font-size: 45px;
+        font-weight: bold;
+        color: $color_p2;
+
+        > span {
+          color: $color_p1;
+        }
+      }
+    }
+
+    .right {
+      p {
+        color: $color_g3;
+      }
+    }
+  }
+
+  .jobs {
+    margin-top: 100px;
+    // padding: 0 70px;
+  }
+
+  .stn {
+    width: fit-content;
+    margin: auto;
+  }
+
+  @include respond-below(md) {
+    padding: 80px 0;
+    .top {
+      flex-direction: column;
+
+      gap: 20px;
+      > div {
+        width: 100%;
+        br {
+          display: none;
+        }
+      }
+    }
+
+    .jobs {
+      margin-top: 20px;
+      padding: 0;
+    }
+  }
+}
+
+.jobCard {
+  background-color: #f8f8f8;
+  @include flexCenter;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 4px;
+  width: 300px;
+  margin-bottom: 50px;
+  padding: 20px;
+
+  text-align: center;
+
+  .text {
+    p {
+      font-weight: bold;
+    }
+
+    small {
+      color: $color_g3;
+    }
+  }
+
+  .type {
+    background-color: $color_p1_mild;
+    color: $color_p1;
+    padding: 4px 20px;
+  }
+
+  .btn {
+    // background-color: $color_p1_mild;
+    border: 1px solid $color_p1;
+
+    color: $color_p1;
+    padding: 4px 20px;
+    border-radius: 20px;
+    svg {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+  }
+
+  img {
+    border-radius: 50%;
+  }
+
+  @include respond-below(md) {
+    margin: 0 auto 50px auto;
+  }
+}

@@ -1,15 +1,11 @@
 .MainHeader {
-  border-bottom: 1px solid $color_g2;
   padding: 10px 0;
-  // background-color: $color_g1;
-
+  background-color: $color_p1_mild;
 
   .wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-   
 
     .right {
       .btns {
@@ -19,5 +15,3 @@
     }
   }
 }
-
-

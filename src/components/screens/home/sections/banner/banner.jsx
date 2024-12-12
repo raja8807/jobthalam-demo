@@ -13,7 +13,6 @@ import {
 
 const BCard = ({ data }) => {
   return (
-    <Col xs={6} md={3}>
       <div className={styles.BCard}>
         <div className={styles.c_left}>{data.icon}</div>
         <div className={styles.c_right}>
@@ -21,7 +20,6 @@ const BCard = ({ data }) => {
           <small>{data.title}</small>
         </div>
       </div>
-    </Col>
   );
 };
 
@@ -30,27 +28,22 @@ const BannerSection = () => {
     {
       id: "1",
       title: "Live Jobs",
-      num: "10,000",
+      num: "100+",
       icon: <Briefcase />,
     },
     {
       id: "2",
       title: "Companies",
-      num: "10,000",
+      num: "100+",
       icon: <Buildings />,
     },
     {
       id: "3",
       title: "Candidates",
-      num: "10,000",
+      num: "100+",
       icon: <People />,
     },
-    {
-      id: "4",
-      title: "New Jobs",
-      num: "10,000",
-      icon: <Briefcase />,
-    },
+   
   ];
 
   return (
@@ -58,10 +51,8 @@ const BannerSection = () => {
       <CustomContainer>
         <div className={styles.wrap}>
           <div className={styles.left}>
-            {/* <h1>Find the job that suits your interest and skills</h1> */}
             <h1>
-              The Easy Way To Get
-              Your <span>New Job</span>
+              The Easy Way To Get Your <span>New Job</span>
             </h1>
 
             <p>
@@ -78,15 +69,31 @@ const BannerSection = () => {
           </div>
 
           <div className={styles.right}>
-            <Image src="/assets/svg/hero2.svg" alt="hero" fluid />
+            <div className={styles.card}>
+              <div>
+                <Briefcase />
+              </div>
+              <div>
+                <p>
+                  120+ Jobs
+                  <br />
+                  Post Daily
+                </p>
+              </div>
+            </div>
+            <Image src="/assets/hero.png" alt="hero" fluid />
           </div>
         </div>
-        <Row className={styles.card_wrap}>
-          {bCards.map((c) => (
-            <BCard key={c.id} data={c} />
-          ))}
-        </Row>
       </CustomContainer>
+      <div className={styles.cards}>
+        <CustomContainer>
+          <div className={styles.card_wrap}>
+            {bCards.map((c) => (
+              <BCard key={c.id} data={c} />
+            ))}
+          </div>
+        </CustomContainer>
+      </div>
     </div>
   );
 };

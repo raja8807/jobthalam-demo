@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "aos": "^2.3.4",
+    "@tanstack/react-query": "^5.51.15",
     "ag-grid-react": "^32.2.0",
+    "aos": "^2.3.4",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
-    "@tanstack/react-query": "^5.51.15",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "firebase": "^10.12.2",
@@ -31,10 +31,11 @@
     "react-loading-skeleton": "^3.3.1",
     "react-slideshow-image": "^4.3.0",
     "react-social-media-embed": "^2.3.5",
+    "read-excel-file": "^5.8.4",
     "sequelize": "^6.37.3",
+    "swiper": "^11.1.15",
     "twilio": "^5.2.2",
     "uuid": "^10.0.0",
-    "xlsx": "^0.18.5",
-    "read-excel-file": "^5.8.4"
+    "xlsx": "^0.18.5"
   }
 }

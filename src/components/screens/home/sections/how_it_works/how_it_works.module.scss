@@ -2,8 +2,15 @@
   padding: 50px 0;
   background-color: $color_g1;
 
-  h1 {
-    text-align: center;
+  h2 {
+    font-size: 45px;
+    font-weight: bold;
+    color: $color_p2;
+    // text-align:  center;
+
+    > span {
+      color: $color_p1;
+    }
   }
 }
 

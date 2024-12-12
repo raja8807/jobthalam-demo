@@ -1,0 +1,48 @@
+.ExploreSection {
+  padding: 50px 0;
+  background-color: $color_p1_mild;
+  h2 {
+    font-size: 45px;
+    font-weight: bold;
+    color: $color_p2;
+
+    > span {
+      color: $color_p1;
+    }
+  }
+
+  .cards {
+    margin-top: 50px;
+    padding: 0 70px;
+  }
+
+  @include respond-below(md) {
+    .cards {
+      padding: 0;
+    }
+  }
+}
+
+.Card {
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: white;
+
+  svg {
+    color: $color_p1;
+    font-size: 24px;
+  }
+
+  P {
+    font-weight: bold;
+    margin: 10px 0 5px 0;
+  }
+
+  small {
+    color: $color_g3;
+  }
+
+  @include respond-below(md) {
+    text-align: center;
+  }
+}

@@ -1,6 +1,6 @@
 .BannerSection {
-  background-color: $color_g1;
-  padding-bottom: 50px;
+  // padding-bottom: 50px;
+  background-color: #ea205309;
 
   .wrap {
     display: flex;
@@ -8,15 +8,15 @@
     justify-content: space-between;
 
     .left {
-      padding: 80px 50px 0 0;
-      width: 100%;
+      padding: 100px 50px 0 0;
+      width: 60%;
 
       h1 {
-        font-size: 65px;
+        font-size: 75px;
         font-weight: 600;
         color: $color_p2;
 
-        span{
+        span {
           color: $color_p1;
         }
       }
@@ -28,7 +28,36 @@
     }
 
     .right {
-      width: 800px;
+      width: 40%;
+      background-image: url("/assets/hero_bg_circle.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: relative;
+
+      .card {
+        position: absolute;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        padding: 20px 16px;
+        top: 25%;
+        left: -50px;
+
+        gap: 10px;
+
+        // box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        border-radius: 6px;
+
+        svg {
+          font-size: 24px;
+          color: $color_p1;
+        }
+
+        p {
+          font-weight: 600;
+          font-size: 15px;
+        }
+      }
 
       img {
         width: 100%;
@@ -36,15 +65,12 @@
     }
   }
 
-  .card_wrap {
-    display: flex;
-  }
-
   @include respond-below(lg) {
     .wrap {
       flex-direction: column;
 
       .left {
+        width: 100%;
         padding: 50px 0 0 0;
         text-align: center;
         h1 {
@@ -54,38 +80,82 @@
 
       .right {
         width: 100%;
+
+        .card{
+          left: 20px;
+        }
       }
     }
   }
 }
 
-.BCard {
-  background-color: white;
-  margin-bottom: 16px;
-  display: flex;
-  padding: 20px;
-  gap: 16px;
-  border-radius: 4px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+.cards {
+  background-color: $color_p1_mild2;
 
-  .c_left {
-    background-color: $color_p1_mild;
-    height: 50px;
-    width: 50px;
-    border-radius: inherit;
-    @include flexCenter;
-    color: $color_p1;
-    font-size: 30px;
+  .card_wrap {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 5px;
+
+    .BCard {
+      display: flex;
+      padding: 20px;
+      gap: 16px;
+      border-radius: 4px;
+      align-items: center;
+
+      .c_left {
+        background-color: white;
+        height: 70px;
+        width: 70px;
+        border-radius: inherit;
+        @include flexCenter;
+        color: $color_p1;
+        font-size: 40px;
+        border-radius: 50%;
+      }
+
+      .c_right {
+        p {
+          font-weight: 600;
+          font-size: 35px;
+          line-height: 40px;
+        }
+
+        small {
+          color: $color_g2;
+          font-size: 18px;
+        }
+      }
+    }
   }
 
-  .c_right {
-    p {
-      font-weight: 600;
-    }
+  @include respond-below(md) {
+    .card_wrap {
+      flex-direction: column;
+      padding: 0;
+      justify-content: center;
+      align-items: center;
+      // gap: 20px;
 
-    small {
-      color: $color_g2;
+      .BCard {
+        .c_left {
+          height: 50px;
+          width: 50px;
+          font-size: 20px;
+        }
+
+        .c_right {
+          p {
+            font-size: 24px;
+            line-height: 24px;
+          }
+
+          small {
+            font-size: 16px;
+          }
+        }
+      }
     }
   }
 }
