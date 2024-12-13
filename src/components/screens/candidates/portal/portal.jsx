@@ -88,7 +88,9 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       id: "4",
       title: "Profile",
       icon: <PersonCircle />,
-      component: <ProfileTab currentUser={currentUser} />,
+      component: (
+        <ProfileTab currentUser={currentUser} setCurrentUser={setCurrentUser} />
+      ),
     },
   ];
 

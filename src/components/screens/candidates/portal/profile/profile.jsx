@@ -5,14 +5,29 @@ import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import React, { useState } from "react";
 import styles from "./profile.module.scss";
 import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
+import { useUpdateCandidate } from "@/hooks/candidate_hooks/candidate_hooks";
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
-const ProfileTab = ({ currentUser }) => {
+const ProfileTab = ({ currentUser, setCurrentUser }) => {
   const [values, setValues] = useState({ ...currentUser });
+
+  const { mutateAsync, isLoading } = useUpdateCandidate();
+
+  const updateProfile = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await mutateAsync(values);
+      setCurrentUser(res?.data);
+    } catch (error) {
+      console.log("error");
+    }
+  };
 
   return (
     <MainFrame head="Profile">
+      {isLoading && <LoadingScreen />}
       <div className={styles.ProfileTab}>
-        <form>
+        <form onSubmit={updateProfile}>
           <div>
             <CustomInput
               value={values?.first_name}
