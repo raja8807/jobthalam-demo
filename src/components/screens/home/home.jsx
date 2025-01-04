@@ -12,10 +12,10 @@ const HomeScreen = () => {
   return (
     <main>
       <BannerSection />
-      <DiscoverSection />
-      <ExploreSection />
       <VacanciesSection />
+      <ExploreSection />
       <HowItWorks />
+      <DiscoverSection />
       <FaqSection />
       <RegisterSection />
       <NewsLetterSection />

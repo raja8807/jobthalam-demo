@@ -1,5 +1,5 @@
 .DiscoverSection {
-  padding: 100px 0;
+  padding: 100px 0 0 0;
 
   .top {
     display: flex;
@@ -29,7 +29,7 @@
   }
 
   .jobs {
-    margin-top: 100px;
+    margin-top: 50px;
     // padding: 0 70px;
   }
 
@@ -60,51 +60,67 @@
 }
 
 .jobCard {
-  background-color: #f8f8f8;
-  @include flexCenter;
-  flex-direction: column;
-  gap: 20px;
-  border-radius: 4px;
-  width: 300px;
-  margin-bottom: 50px;
-  padding: 20px;
-
+  // background-color: #f8f8f8;
+  padding: 30px;
+  margin-bottom: 70px;
+  max-width: 800px;
+  margin: auto;
   text-align: center;
-
-  .text {
+  .Ctop {
+    margin-bottom: 20px;
     p {
-      font-weight: bold;
+      font-size: 24px;
+      margin-top: 24px;
     }
 
     small {
+      font-size: 16px;
       color: $color_g3;
     }
-  }
 
-  .type {
-    background-color: $color_p1_mild;
-    color: $color_p1;
-    padding: 4px 20px;
-  }
-
-  .btn {
-    // background-color: $color_p1_mild;
-    border: 1px solid $color_p1;
-
-    color: $color_p1;
-    padding: 4px 20px;
-    border-radius: 20px;
-    svg {
-      font-size: 14px;
-      margin-bottom: 2px;
+    img {
+      border: 2px solid $color_p1;
+      border-radius: 50%;
     }
   }
 
-  img {
-    border-radius: 50%;
+  .text {
+    font-size: 24px;
   }
 
   @include respond-below(md) {
-    margin: 0 auto 50px auto;
+    .Ctop {
+      p {
+        font-size: 20px;
+      }
+
+      small {
+        font-size: 14px;
+      }
+    }
+
+    .text {
+      font-size: 20px;
+    }
   }
+  // .Ctop {
+  //   display: flex;
+  //   margin-bottom: 10px;
+  //   gap: 20px;
+
+  //   img {
+  //   }
+
+  //   p {
+  //     font-size: 20px;
+  //   }
+
+  //   small {
+  //     color: $color_g3;
+  //   }
+  // }
+
+  // h3 {
+  //   font-size: 24px;
+  // }
 }

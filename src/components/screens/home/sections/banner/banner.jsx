@@ -81,7 +81,7 @@ const BannerSection = () => {
                 </p>
               </div>
             </div>
-            <Image src="/assets/hero.png" alt="hero" fluid />
+            <Image src="/assets/hero1.png" alt="hero" fluid />
           </div>
         </div>
       </CustomContainer>
