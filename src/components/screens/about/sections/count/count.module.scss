@@ -1,0 +1,54 @@
+.CustomersSection {
+  // margin-bottom: 50px;
+  // background-color: $color_p5;
+  // background-color: #FCDC94;
+  // background-image: linear-gradient( white,$color_p1);
+  background-color: #ea205309;
+  padding: 20px;
+  margin-bottom: 50px;
+
+  h2 {
+    color: $color_p1;
+    font-size: 24px;
+  }
+  .wrap {
+    // background-color: $color_p2;
+    margin: 20px 20px;
+    border-radius: 20px;
+  }
+}
+
+.Box {
+  background-color: #ea205309;
+  border-radius: 5px;
+  padding: 20px;
+  color: $color_p1;
+  margin: auto;
+  // * {
+  //   color: black;
+  // }
+
+  p {
+    font-size: 20px;
+  }
+
+  display: flex;
+  align-items: center;
+  //   flex-direction: column;
+
+  .right {
+    padding-left: 24px;
+    width: 100%;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 70px;
+
+    margin-bottom: 0;
+  }
+
+  @include respond-below(md) {
+    margin-bottom: 20px;
+  }
+}

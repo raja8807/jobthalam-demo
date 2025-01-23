@@ -1,0 +1,92 @@
+.AboutSection {
+  .BannerSection {
+    // padding-bottom: 50px;
+    padding: 100px 0;
+    background-color: #ea205309;
+
+    .wrap {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 50px;
+
+      .left {
+        //   padding: 100px 50px 0 0;
+        width: 60%;
+        @include flexCenter;
+        flex-direction: column;
+        align-items: flex-start;
+
+        h1 {
+          font-size: 70px;
+          font-weight: 600;
+          color: $color_p2;
+
+          span {
+            color: $color_p1;
+          }
+        }
+
+        p {
+          color: $color_g2;
+          margin: 20px 0;
+        }
+      }
+
+      .right {
+        width: 40%;
+        position: relative;
+        @include flexCenter;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    @include respond-below(lg) {
+      .wrap {
+        flex-direction: column;
+
+        .left {
+          width: 100%;
+          padding: 50px 0 0 0;
+          text-align: center;
+
+          h1 {
+            font-size: 50px;
+          }
+        }
+
+        .right {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .sec {
+    // padding: 100px 0;
+    .txt {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      height: 100%;
+      padding: 50px 0;
+
+      h2 {
+        color: $color_p1;
+        font-size: 24px;
+      }
+
+      p {
+        color: $color_g3;
+      }
+    }
+  }
+}
+
+.strn {
+  padding: 150px 0 0px 0;
+}
