@@ -2,7 +2,7 @@ import React from "react";
 import Tab from "./tab/tab";
 import styles from "./tabs.module.scss";
 
-const Tabs = ({
+const CustomTabs = ({
   tabs = [],
   currentTab,
   setCurrentTab = () => {},
@@ -28,4 +28,4 @@ const Tabs = ({
   );
 };
 
-export default Tabs;
+export default CustomTabs;

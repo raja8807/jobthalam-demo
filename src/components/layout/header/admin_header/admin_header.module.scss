@@ -1,0 +1,10 @@
+.AdminHeader {
+  padding: 10px 20px;
+  border-bottom: 2px solid $color_g1;
+
+  .title{
+    color: $color_p2;
+    font-weight: bold;
+    font-size: 19px;
+  }
+}

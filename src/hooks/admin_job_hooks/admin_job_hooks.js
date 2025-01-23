@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const URL = "/api/admin_job";
@@ -12,12 +12,12 @@ const fetchAllAdminJobs = async () => {
 };
 
 export const useFetchAllAdminJobs = () => {
-  const { mutateAsync, isPending, error, isSuccess, data, isError } =
-    useMutation({
-      mutationFn: fetchAllAdminJobs,
-    });
+  const { isPending, error, isSuccess, data, isError, isFetching } = useQuery({
+    queryKey: ["ADMIN_JOBS"],
+    queryFn: fetchAllAdminJobs,
+  });
 
-  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
+  return { isLoading: isPending, error, isSuccess, data, isError, isFetching };
 };
 
 const createAdminJob = async (adminJob) => {
@@ -29,9 +29,13 @@ const createAdminJob = async (adminJob) => {
 };
 
 export const useCreateAdminJob = () => {
+  const queryClient = useQueryClient();
   const { mutateAsync, isPending, error, isSuccess, data, isError } =
     useMutation({
       mutationFn: createAdminJob,
+      onSuccess: () => {
+        queryClient.invalidateQueries(["ADMIN_JOBS"]);
+      },
     });
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };

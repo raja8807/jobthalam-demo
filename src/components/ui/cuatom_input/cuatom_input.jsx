@@ -27,7 +27,7 @@ const CustomInput = ({
             onChange(e, e.target.value);
           }}
           value={value}
-          placeholder={placeHolder}
+          placeholder={placeHolder || label}
           type={type}
           required={required}
           {...props}

@@ -1,0 +1,52 @@
+.LeftMenu {
+  background-color: #36404e;
+  max-width: 250px;
+  height: calc(100dvh);
+  overflow-y: auto;
+
+  .logo {
+    padding: 16px;
+  }
+
+  .menu {
+    .MenuItem {
+      font-size: 15px;
+      color: $color_g2;
+      .title {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        > div {
+          align-items: center;
+          display: flex;
+          gap: 10px;
+          svg {
+            font-size: 20px;
+          }
+        }
+        cursor: pointer;
+
+        &.activeTitle {
+          color: white;
+          background-color: #313a46;
+        }
+
+        &:hover {
+          color: white;
+        }
+      }
+
+      .subMenu {
+        a {
+          display: block;
+          margin: 10px 0 16px 50px; 
+          color: $color_g2;
+          &:hover,&.active {
+            color: $color_p1;
+          }
+        }
+      }
+    }
+  }
+}

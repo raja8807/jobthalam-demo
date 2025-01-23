@@ -39,21 +39,6 @@ const MainHeader = ({ currentUser, session }) => {
                 Logout
               </CustomButton>
             )}
-            
-            {/* {currentUser ? (
-              <User currentUser={currentUser} />
-            ) : (
-              <>
-                <CustomButton variant={4}>Employer Login</CustomButton>
-                <CustomButton
-                  onClick={() => {
-                    setShowLogin(true);
-                  }}
-                >
-                  Candidate Login
-                </CustomButton>
-              </>
-            )} */}
           </div>
         </div>
       </CustomContainer>

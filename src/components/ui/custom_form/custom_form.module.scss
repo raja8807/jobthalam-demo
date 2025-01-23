@@ -1,0 +1,13 @@
+.CustomForm {
+  border: 1px solid $color_g4;
+  padding: 20px;
+  border-radius: 4px;
+  margin: auto;
+  //   max-width: 800px;
+
+  .head {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+}

@@ -3,8 +3,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 6px 12px;
+  font-size: 15px;
+  margin-bottom: 12px;
   gap: 10px;
+  
 
   &.v1 {
     input {
@@ -26,7 +29,7 @@
   }
 
   &:has(input:focus-visible) {
-    border: 2px solid $color_p1;
+    border: 1px solid $color_p1;
   }
 
   &.error {

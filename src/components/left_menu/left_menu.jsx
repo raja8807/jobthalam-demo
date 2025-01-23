@@ -33,12 +33,14 @@ const LeftMenu = ({
               className={styles.chevron}
             />
           ) : (
-            <List
-              onClick={() => {
-                setIsExpanded(true);
-              }}
-              className={styles.list}
-            />
+            <div>
+              <List
+                onClick={() => {
+                  setIsExpanded(true);
+                }}
+                className={styles.list}
+              />
+            </div>
           )}
         </div>
         <div className={styles.wrap}>

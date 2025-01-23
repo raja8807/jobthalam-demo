@@ -1,15 +1,15 @@
 import styles from "./header.module.scss";
-import MainHeader from "./main_header/main_header";
-// import SubHeader from "./sub_header/sub_header";
 import TopHeader from "./top_header/top_header";
 
-const Header = ({ currentUser, session }) => {
+const Header = ({ currentUser, session, isIsAdminPanel,setExpanded }) => {
   return (
     <header className={`${styles.header} `}>
-      <TopHeader session={session} />
-
-      <MainHeader currentUser={currentUser} session={session} />
-      {/* <SubHeader /> */}
+      <TopHeader
+        session={session}
+        currentUser={currentUser}
+        isIsAdminPanel={isIsAdminPanel}
+        setExpanded={setExpanded}
+      />
     </header>
     // Jobthalam@#$%1
   );
