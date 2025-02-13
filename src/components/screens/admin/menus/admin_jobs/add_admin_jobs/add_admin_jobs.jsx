@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AdminJobsForm from "../components/admin_job_form/admin_job_form";
 import CustomTabs from "../../../../../ui/tabs/tabs";
+import UploadJobs from "./upload_jobs/upload_jobs";
 
 const AddAdminJobsScreen = () => {
   const tabs = [
@@ -10,7 +11,7 @@ const AddAdminJobsScreen = () => {
     },
     {
       title: "Multiple Jobs",
-      component: <p>multi</p>,
+      component: <UploadJobs setAllJobs={() => {}} />,
     },
   ];
 

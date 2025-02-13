@@ -1,0 +1,33 @@
+.maze {
+  .row {
+    display: flex;
+
+    .cell {
+      border: 1px solid black;
+      width: 30px;
+      font-size: 10px;
+      aspect-ratio: 1 / 1;
+      @include flexCenter;
+      cursor: pointer;
+
+      &:hover{
+        background-color: rgba(0, 0, 255, 0.285);
+      }
+
+      &.selected {
+        background-color: rgb(189, 230, 8);
+      }
+
+      &.wall {
+        background-color: rgb(98, 98, 98);
+      }
+
+      &.start {
+        background-color: rgb(47, 154, 47);
+      }
+      &.end {
+        background-color: rgb(154, 47, 47);
+      }
+    }
+  }
+}

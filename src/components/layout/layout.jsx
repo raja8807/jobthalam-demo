@@ -14,7 +14,7 @@ import {
 
 const Layout = ({ children, currentUser, session }) => {
   const router = useRouter();
-  
+
   const isIsAdminPanel = router?.asPath && router.asPath.includes("/admin");
   const [expanded, setExpanded] = useState(true);
 
@@ -93,6 +93,21 @@ const Layout = ({ children, currentUser, session }) => {
         {
           title: "Manage Requests",
           href: "requests",
+        },
+      ],
+    },
+    {
+      title: "Landing page",
+      href: "landing",
+      icon: <People />,
+      subMenus: [
+        {
+          title: "Candidate Landing ",
+          href: "candidate",
+        },
+        {
+          title: "Employer Landing",
+          href: "employer",
         },
       ],
     },

@@ -1,132 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomForm from "../../../../../ui/custom_form/custom_form";
 import { useFetchAllAdminJobs } from "../../../../../../hooks/admin_job_hooks/admin_job_hooks";
 import CustomButton from "../../../../../ui/custom_button/custom_button";
 import { PlusCircleFill } from "react-bootstrap-icons";
-
-import { AgGridReact } from "ag-grid-react";
-
-import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
-import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
-import "ag-grid-community/styles/ag-theme-balham.css"; // Optional Theme applied to the Data Grid
-import { formatDate } from "../../../../../../utils/helpers/helpers";
+import ActiveJobs from "./tabs/paid_jobs/active_jobs";
+import CustomTabs from "@/components/ui/tabs/tabs";
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const ManageAdminJobsScreen = () => {
   const { data, isLoading: adminJobsIsLoading } = useFetchAllAdminJobs();
-  const [res, setRes] = useState(0);
-
   const isLoading = adminJobsIsLoading;
 
-  const calculateNoOfWhiteBallsToBeTakenOut = () => {
-    const noOfBlackBalls = 10;
-    let noOfWhiteBalls = 990;
-    // -----------OUTPUT---------------------------------------
-    const percentageOfWBallsOutput = 98;
-    // -----------OUTPUT---------------------------------------
+  const [jobsData, setJobsData] = useState([]);
 
-    // ---------------------------------------------
-    let out = 0;
+  const tabs = [
+    {
+      title: "Paid Jobs",
+      where: {
+        status: "Active",
+        is_free: false,
+      },
+    },
+    {
+      title: "Free Jobs",
+      where: {
+        status: "Active",
+        is_free: true,
+      },
+    },
+    {
+      title: "Deleted Jobs",
+      isDeletedTab: true,
+      where: {
+        status: "Deleted",
+        is_free: "Any",
+      },
+    },
+  ];
 
-    for (
-      let indexOfWhiteBall = noOfWhiteBalls;
-      indexOfWhiteBall >= 0;
-      indexOfWhiteBall--
-    ) {
-      const total = noOfBlackBalls + indexOfWhiteBall;
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
 
-      if ((indexOfWhiteBall / total) * 100 == percentageOfWBallsOutput) {
-        out = noOfWhiteBalls - indexOfWhiteBall;
-      }
+  useEffect(() => {
+    if (data?.data && !jobsData?.[0]) {         
+      setJobsData(data?.data);
     }
+  }, [data]);
 
-    return out;
-  };
+  
+  
 
-  // for (let i = 0; i <= 100; i++) {
-  //   let total = noOfBlackBalls + noOfWhiteBalls;
-  //   if (
-  //     Math.ceil((noOfWhiteBalls / total) * 100 == percentageOfWBallsOutput)
-  //   ) {
-  //     return i;
-  //   }
-  //   noOfWhiteBalls--;
-  // }
   return (
-    <CustomForm>
+    <div>
+      {isLoading && <LoadingScreen />}
+      <CustomTabs
+        tabs={tabs}
+        stayTop
+        currentTab={currentTab}
+        setCurrentTab={setCurrentTab}
+      />
       <div>
-        <CustomButton>
-          Add <PlusCircleFill />
-        </CustomButton>
-      </div>
-      <div
-        className="ag-theme-balham" // applying the Data Grid theme
-        style={{ height: "calc(100dvh - 300px)", fontSize: "14px" }} // the Data Grid will fill the size of the parent container
-      >
-        {calculateNoOfWhiteBallsToBeTakenOut()}
-        <AgGridReact
-          loading={isLoading}
-          rowData={
-            data?.data
-              ? data?.data.map((aj, idx) => {
-                  return {
-                    ...aj,
-                    index: idx + 1,
-                  };
-                })
-              : []
-          }
-          rowStyle={{
-            cursor: "pointer",
-            padding: "5px 0",
-          }}
-          rowHeight={40}
-          unSortIcon
-          columnDefs={[
-            {
-              field: "index",
-              headerName: "#",
-              width: 100,
-            },
-            {
-              field: "skill",
-              filter: true,
-            },
-            {
-              field: "industry",
-            },
+        <ActiveJobs
+          jobsData={jobsData?.filter((j) => {
 
-            {
-              field: "createdAt",
-              headerName: "Created on",
-              cellDataType: "date",
-              filter: true,
-              valueFormatter: (d) => formatDate(d),
-            },
-            {
-              field: "is_admin",
-              headerName: "Created by admin",
-              filter: true,
-              showDisabledCheckboxes: true,
-            },
-            {
-              field: "is_active",
-              headerName: "Active",
-              editable: true,
-              onCellValueChanged: (x) => {
-                const idx = skillsToUpdate.current.findIndex(
-                  (s) => s.id === x.data.id
-                );
-                if (idx === -1) {
-                  skillsToUpdate.current = [...skillsToUpdate.current, x.data];
-                } else {
-                  skillsToUpdate.current[idx] = x.data;
-                }
-              },
-            },
-          ]}
+            if (currentTab?.where?.is_free === "Any") {
+              return j.status === currentTab?.where?.status;
+            }
+
+            return (
+              j.status === currentTab?.where?.status &&
+              j.is_free === currentTab?.where?.is_free
+            );
+          })}
+          isLoading={isLoading}
+          isDeletedTab={currentTab?.isDeletedTab}
+          setJobsData={setJobsData}
         />
       </div>
-    </CustomForm>
+    </div>
   );
 };
 

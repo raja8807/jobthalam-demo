@@ -8,8 +8,10 @@ import CustomTextArea from "../../../../../../ui/custom_textarea/custom_textarea
 import { useFetchAllSkills } from "../../../../../../../hooks/api_hooks/skill_hooks/skill_hooks";
 import CustomButton from "../../../../../../ui/custom_button/custom_button";
 import { useCreateAdminJob } from "../../../../../../../hooks/admin_job_hooks/admin_job_hooks";
+import { EDUCATIONS, EXPERIENCES, JOB_TYPES } from "@/constants/job";
 
-const AdminJobsForm = () => {
+const AdminJobsForm = ({ jobToUpdate, handleUpdateJob }) => {
+  const isUpdate = !!jobToUpdate;
   const styles = {};
   const { data: skillsData } = useFetchAllSkills();
   const [skills, setSkills] = useState([]);
@@ -39,7 +41,7 @@ const AdminJobsForm = () => {
     setSkills(industry);
   }, [skillsData]);
 
-  const initialValues = {
+  const initialValues = jobToUpdate || {
     // Company ------
     company_name: "",
     company_email: "",
@@ -65,10 +67,14 @@ const AdminJobsForm = () => {
   const [values, setValues] = useState(initialValues);
 
   const handleSave = async () => {
-    await createAdminJobAsync({
-      ...values,
-    });
-    setValues(initialValues);
+    if (isUpdate) {
+      await handleUpdateJob({ ...values });
+    } else {
+      await createAdminJobAsync({
+        ...values,
+      });
+      setValues(initialValues);
+    }
   };
 
   return (
@@ -180,7 +186,7 @@ const AdminJobsForm = () => {
                 required
                 label="Required Experience"
                 placeholder="Select Experience"
-                options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                options={EXPERIENCES}
               />
             </div>
           </Col>
@@ -194,11 +200,7 @@ const AdminJobsForm = () => {
                 required
                 label="Minimum Education"
                 placeholder="Select Education"
-                options={[
-                  "No Education Required",
-                  "Bachelor Degree",
-                  "Master Degree",
-                ]}
+                options={EDUCATIONS}
               />
             </div>
           </Col>
@@ -245,7 +247,7 @@ const AdminJobsForm = () => {
                 }}
                 label="Type"
                 required
-                options={["Full time", "Part time"]}
+                options={JOB_TYPES}
               />
             </div>
           </Col>
@@ -286,6 +288,7 @@ const AdminJobsForm = () => {
         <input
           type="checkBox"
           value={values.is_free}
+          checked={values?.is_free}
           onChange={(e) => {
             setValues((prev) => ({ ...prev, is_free: e.target.checked }));
           }}
