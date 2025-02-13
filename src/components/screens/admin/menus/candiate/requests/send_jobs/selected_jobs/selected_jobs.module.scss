@@ -1,0 +1,12 @@
+.SelectedJobs {
+  .top {
+    padding: 5px 10px;
+    display: flex;
+    border-bottom: 1px solid $color_g1;
+    justify-content: space-between;
+  }
+
+  .wrap {
+    padding: 10px;
+  }
+}

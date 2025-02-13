@@ -1,12 +1,19 @@
+import Candidate from "@/libs/sequelize/Models/Candidate";
 import Request from "@/libs/sequelize/Models/Request";
-import sequelize from "@/libs/sequelize/sequelize";
 
 const handler = async (req, res) => {
-
   if (req.method === "GET") {
     try {
-    //   await sequelize.sync({ force: true });
-      const result = await Request.findAll();
+      //   await sequelize.sync({ force: true });
+      const result = await Request.findAll({
+        include: [
+          {
+            model: Candidate,
+            as: "candidate",
+            // attributes: ["first_name"],
+          },
+        ],
+      });
       return res.status(200).json(result);
     } catch (err) {
       console.log(err.message);
@@ -17,7 +24,7 @@ const handler = async (req, res) => {
   }
   if (req.method === "POST") {
     try {
-    //   await sequelize.sync({ force: true });
+      //   await sequelize.sync({ force: true });
       const result = await Request.create(req.body, {
         returning: true,
       });

@@ -1,0 +1,14 @@
+.sendJobs {
+  .col {
+    border: 1px solid $color_g1;
+    height: calc(100dvh - 180px);
+    overflow: auto;
+    width: 100%;
+  }
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

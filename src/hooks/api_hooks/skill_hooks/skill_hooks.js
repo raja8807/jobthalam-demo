@@ -18,6 +18,7 @@ const useIndustryList = () => {
     queryKey: ["INDUSTRY_LIST"], // queryKey should be an array
 
     queryFn: getIndustryList,
+
     // queryFn takes the function directly
   });
 

@@ -8,6 +8,7 @@ import {
   Briefcase,
   Buildings,
   Grid,
+  Laptop,
   ListColumnsReverse,
   People,
 } from "react-bootstrap-icons";
@@ -24,6 +25,7 @@ const Layout = ({ children, currentUser, session }) => {
       isMainPage: true,
       icon: <Grid />,
     },
+
     {
       title: "Admin Jobs",
       href: "admin_job",
@@ -99,7 +101,7 @@ const Layout = ({ children, currentUser, session }) => {
     {
       title: "Landing page",
       href: "landing",
-      icon: <People />,
+      icon: <Laptop />,
       subMenus: [
         {
           title: "Candidate Landing ",
