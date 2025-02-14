@@ -33,7 +33,6 @@ const AboutPageTab = ({ aboutData }) => {
 
   const handlesSave = async () => {
     setIsLoading(true);
-
     try {
       const id = aboutData?.id || v4();
       const res = await addData(
@@ -45,8 +44,6 @@ const AboutPageTab = ({ aboutData }) => {
         },
         id
       );
-
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -183,7 +180,36 @@ const AboutPageTab = ({ aboutData }) => {
                 </div>
               );
             }
+
+            if (sd.type == "clients") {
+              return (
+                <div className={styles.clients}>
+                  <br />
+                  {sd?.data &&
+                    sd?.data.map((src, imgIdx) => {
+                      return (
+                        <div key={`img_idx_${imgIdx}`} className={styles.img}>
+                          <Image src={src} width={100} />
+                          <XCircleFill
+                            className={styles.x}
+                            onClick={() => {
+                              setSectionsData((prev) => {
+                                const data = [...prev];
+                                data[sIdx].data = data[sIdx].data.filter(
+                                  (u, i) => u !== src
+                                );
+                                return data;
+                              });
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
+                </div>
+              );
+            }
           })}
+          <br />
           <CustomButton onClick={handlesSave}>Save</CustomButton>
         </CustomForm>
       </div>

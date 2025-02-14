@@ -26,4 +26,22 @@
       }
     }
   }
+
+  .clients {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    margin-top: 20px;
+    width: fit-content;
+
+    .img {
+      position: relative;
+      .x {
+        position: absolute;
+        color: red;
+        right: 0;
+        cursor: pointer;
+      }
+    }
+  }
 }
