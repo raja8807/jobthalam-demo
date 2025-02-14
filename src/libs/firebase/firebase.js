@@ -92,7 +92,6 @@ export const generateUid = function () {
 };
 
 export const addData = async (collectionName, data, id) => {
-  console.log("ok");
   try {
     const res = await setDoc(doc(db, collectionName, id), data);
     return data;
@@ -112,7 +111,6 @@ export const addMultipleData = async function (collectionName, documents = []) {
     return docsToUpload;
   } catch (err) {
     throw new Error(err);
-
   }
 };
 
@@ -120,7 +118,7 @@ export const updateData = async (collectionName, data, id) => {
   try {
     const updateRef = doc(db, collectionName, id);
     const res = await updateDoc(updateRef, data);
-    return data ;
+    return data;
   } catch (err) {
     throw new Error(err);
   }
