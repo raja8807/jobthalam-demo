@@ -27,6 +27,82 @@ const BCard = ({ data }) => {
 };
 
 const AboutSection = () => {
+  const banner = {
+    heading: [
+      {
+        text: "About",
+      },
+      {
+        text: "Jobthalam",
+        tag: "span",
+      },
+    ],
+    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste debitis quidem, cupiditate voluptate quasi. Temporibus animi ipsam incidunt repudiandae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aliquid quo repellendus officia eum cupiditate ex asperiores a eveniet sequi?",
+    img: "/logo/logo_f_v.png",
+  };
+
+  const sections = [
+    {
+      type: "row",
+      head: "Who We Are",
+      caption:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, harum?",
+      text: "Jobthalam is an all-inclusive online job search portal created to connect jobseekers with potential employers by providing a comprehensive and easy-to-use service for discovering employment opportunities",
+      img: "/assets/abt_banner.svg",
+    },
+    {
+      type: "clients",
+      data: [
+        "/assets/Google_2015_logo.svg.webp",
+        "/assets/Google_2015_logo.svg.webp",
+        "/assets/Google_2015_logo.svg.webp",
+        "/assets/Google_2015_logo.svg.webp",
+        "/assets/Google_2015_logo.svg.webp",
+        "/assets/Google_2015_logo.svg.webp",
+      ],
+    },
+    {
+      type: "row",
+
+      head: "Who We Are",
+      caption:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, harum?",
+      text: "Jobthalam is an all-inclusive online job search portal created to connect jobseekers with potential employers by providing a comprehensive and easy-to-use service for discovering employment opportunities",
+      img: "/assets/abt_banner.svg",
+    },
+    {
+      type: "count",
+      data: [
+        {
+          id: "ex",
+          title: "Jobseekers have used Jobthalam",
+          number: 10,
+          add: "M",
+        },
+        {
+          id: "cl",
+          title: "Current Vacancies",
+          number: 15,
+          add: "M",
+        },
+        {
+          id: "aw",
+          title: "States in which we are present",
+          number: 20,
+        },
+      ],
+    },
+    {
+      type: "row",
+
+      head: "Who We Are",
+      caption:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, harum?",
+      text: "Jobthalam is an all-inclusive online job search portal created to connect jobseekers with potential employers by providing a comprehensive and easy-to-use service for discovering employment opportunities",
+      img: "/assets/abt_banner.svg",
+    },
+  ];
+
   const bCards = [
     {
       id: "1",
@@ -47,6 +123,7 @@ const AboutSection = () => {
       icon: <People />,
     },
   ];
+  let rowIdx = 0;
 
   return (
     <div className={styles.AboutSection}>
@@ -55,26 +132,76 @@ const AboutSection = () => {
           <div className={styles.wrap}>
             <div className={styles.left}>
               <h1>
-                About <span>Jobthalam</span>
+                {/* About <span>Jobthalam</span> */}
+                {banner?.heading &&
+                  banner?.heading?.map((e) => {
+                    if (e.tag === "span") {
+                      return <span>{e.text}&nbsp;</span>;
+                    }
+                    return <>{e.text}&nbsp;</>;
+                  })}
               </h1>
 
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                iste debitis quidem, cupiditate voluptate quasi. Temporibus
-                animi ipsam incidunt repudiandae? Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Adipisci aliquid quo repellendus
-                officia eum cupiditate ex asperiores a eveniet sequi?
-              </p>
+              <p>{banner.text}</p>
             </div>
 
             <div className={styles.right}>
-              <Image src="/logo/logo_f_v.png" alt="hero" fluid />
+              <Image src={banner.img} alt="hero" fluid />
             </div>
           </div>
         </CustomContainer>
       </div>
 
-      <div className={styles.sec}>
+      {sections.map((section, i) => {
+        if (section.type === "row") {
+          rowIdx = rowIdx + 1;
+          if (rowIdx % 2) {
+            return (
+              <div className={styles.sec} key={`sec_${i}`}>
+                <CustomContainer>
+                  <Row>
+                    <Col md={6}>
+                      <div className={styles.txt}>
+                        <h2>{section.head}</h2>
+                        <h3>{section.caption}</h3>
+                        <p>{section.text}</p>
+                      </div>
+                    </Col>
+                    <Col>
+                      <Image src={section.img} alt="hero" fluid />
+                    </Col>
+                  </Row>
+                </CustomContainer>
+              </div>
+            );
+          }
+          return (
+            <div className={styles.sec} key={`sec_${i}`}>
+              <CustomContainer>
+                <Row>
+                  <Col md={6}>
+                    <Image src={section.img} alt="hero" fluid />
+                  </Col>
+                  <Col md={6}>
+                    <div className={styles.txt}>
+                      <h2>{section.head}</h2>
+                      <h3>{section.caption}</h3>
+                      <p>{section.text}</p>
+                    </div>
+                  </Col>
+                </Row>
+              </CustomContainer>
+            </div>
+          );
+        }
+        if (section.type === "clients") {
+          return <ClientsSection data={section.data} />;
+        }
+        if (section.type === "count") {
+          return <CountSection data={section.data} />;
+        }
+      })}
+      {/* <div className={styles.sec}>
         <CustomContainer>
           <Row>
             <Col md={6}>
@@ -101,34 +228,31 @@ const AboutSection = () => {
       <br />
       <br />
       <ClientsSection />
-      <div className={styles.strn}>
-        <div className={styles.sec}>
-          <CustomContainer>
-            <Row>
-              <Col>
-                <Image src="/assets/abt_banner.svg" alt="hero" fluid />
-              </Col>
-              <Col md={6}>
-                <div className={styles.txt}>
-                  <h2>What’s Our Strength</h2>
-                  <h3>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Repellat, harum?
-                  </h3>
-                  <p>
-                    On average, jobseekers spend between 4.5 to 6 months
-                    searching for employment, often exploring a minimum of 15
-                    job portals and subscribing to job notifications. With
-                    Jobthalam, you can get your perfect job alerts through
-                    Whatsapp Instantly without any hassle and loss of money,
-                    considerably reducing the amount of time typically spent
-                    searching for work.
-                  </p>
-                </div>
-              </Col>
-            </Row>
-          </CustomContainer>
-        </div>
+      <div className={styles.sec}>
+        <CustomContainer>
+          <Row>
+            <Col>
+              <Image src="/assets/abt_banner.svg" alt="hero" fluid />
+            </Col>
+            <Col md={6}>
+              <div className={styles.txt}>
+                <h2>What’s Our Strength</h2>
+                <h3>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Repellat, harum?
+                </h3>
+                <p>
+                  On average, jobseekers spend between 4.5 to 6 months searching
+                  for employment, often exploring a minimum of 15 job portals
+                  and subscribing to job notifications. With Jobthalam, you can
+                  get your perfect job alerts through Whatsapp Instantly without
+                  any hassle and loss of money, considerably reducing the amount
+                  of time typically spent searching for work.
+                </p>
+              </div>
+            </Col>
+          </Row>
+        </CustomContainer>
       </div>
 
       <CountSection />
@@ -164,7 +288,7 @@ const AboutSection = () => {
             </Col>
           </Row>
         </CustomContainer>
-      </div>
+      </div> */}
     </div>
   );
 };

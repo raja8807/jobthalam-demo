@@ -37,15 +37,8 @@ const Banner = ({ images, isBack }) => {
   );
 };
 
-const ClientsSection = () => {
-  const images = [
-    "/assets/Google_2015_logo.svg.webp",
-    "/assets/Google_2015_logo.svg.webp",
-    "/assets/Google_2015_logo.svg.webp",
-    "/assets/Google_2015_logo.svg.webp",
-    "/assets/Google_2015_logo.svg.webp",
-    "/assets/Google_2015_logo.svg.webp",
-  ].map((image) => ({
+const ClientsSection = ({ data = [] }) => {
+  const images = data.map((image) => ({
     id: Math.random(),
     image,
   }));

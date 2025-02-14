@@ -67,26 +67,26 @@ const Box = ({ data }) => {
   );
 };
 
-const CountSection = () => {
-  const data = [
-    {
-      id: "ex",
-      title: "Jobseekers have used Jobthalam",
-      number: 10,
-      add: "M",
-    },
-    {
-      id: "cl",
-      title: "Current Vacancies",
-      number: 15,
-      add: "M",
-    },
-    {
-      id: "aw",
-      title: "States in which we are present",
-      number: 20,
-    },
-  ];
+const CountSection = ({data}) => {
+  // const data = [
+  //   {
+  //     id: "ex",
+  //     title: "Jobseekers have used Jobthalam",
+  //     number: 10,
+  //     add: "M",
+  //   },
+  //   {
+  //     id: "cl",
+  //     title: "Current Vacancies",
+  //     number: 15,
+  //     add: "M",
+  //   },
+  //   {
+  //     id: "aw",
+  //     title: "States in which we are present",
+  //     number: 20,
+  //   },
+  // ];
 
   return (
     <div className={styles.CustomersSection}>
