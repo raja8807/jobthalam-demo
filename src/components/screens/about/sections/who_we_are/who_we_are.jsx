@@ -62,11 +62,11 @@ const AboutSection = ({ aboutData }) => {
               <h1>
                 {/* About <span>Jobthalam</span> */}
                 {banner?.heading &&
-                  banner?.heading?.map((e) => {
-                    if (e.tag === "span") {
-                      return <span>{e.text}&nbsp;</span>;
+                  banner?.heading?.map((e, i) => {
+                    if (e.tag === "highlight") {
+                      return <span key={`x_${i}`}>{e.text}&nbsp;</span>;
                     }
-                    return <>{e.text}&nbsp;</>;
+                    return <x key={`x_${i}`}>{e.text}&nbsp;</x>;
                   })}
               </h1>
 
@@ -124,10 +124,10 @@ const AboutSection = ({ aboutData }) => {
           );
         }
         if (section.type === "clients") {
-          return <ClientsSection data={section.data} />;
+          return <ClientsSection data={section.data} key={`sec_${i}`}/>;
         }
         if (section.type === "count") {
-          return <CountSection data={section.data} />;
+          return <CountSection data={section.data} key={`sec_${i}`}/>;
         }
       })}
       {/* <div className={styles.sec}>
