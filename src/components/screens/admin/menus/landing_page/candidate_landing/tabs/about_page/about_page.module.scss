@@ -33,6 +33,7 @@
     margin-top: 20px;
     margin-top: 20px;
     width: fit-content;
+    align-items: center;
 
     .img {
       position: relative;
@@ -43,5 +44,16 @@
         cursor: pointer;
       }
     }
+  }
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+  .count {
+    border: 1px solid $color_g2;
+    padding: 10px;
   }
 }

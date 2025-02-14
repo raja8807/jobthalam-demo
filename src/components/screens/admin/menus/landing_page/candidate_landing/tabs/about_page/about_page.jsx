@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import styles from "./about_page.module.scss";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import { Image } from "react-bootstrap";
-import { X, XCircleFill } from "react-bootstrap-icons";
+import { Plus, X, XCircleFill } from "react-bootstrap-icons";
 import { addData, updateData, uploadFile } from "@/libs/firebase/firebase";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { v4 } from "uuid";
@@ -13,7 +13,27 @@ import { v4 } from "uuid";
 const AboutPageTab = ({ aboutData }) => {
   const [bannerData, setBannerData] = useState(aboutData.banner || {});
   const [sectionsData, setSectionsData] = useState(aboutData.sections || []);
+  const [newClientImg, setNewClientImg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handlesSave = async () => {
+    setIsLoading(true);
+    try {
+      const id = aboutData?.id || v4();
+      const res = await addData(
+        "aboutPageData",
+        {
+          banner: bannerData,
+          sections: sectionsData,
+          id,
+        },
+        id
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
 
   const handleUpload = async (img, sIdx) => {
     setIsLoading(true);
@@ -31,19 +51,20 @@ const AboutPageTab = ({ aboutData }) => {
     setIsLoading(false);
   };
 
-  const handlesSave = async () => {
+  const handleClientImageUpload = async (sIdx) => {
     setIsLoading(true);
     try {
-      const id = aboutData?.id || v4();
-      const res = await addData(
-        "aboutPageData",
-        {
-          banner: bannerData,
-          sections: sectionsData,
-          id,
-        },
-        id
-      );
+      const url = await uploadFile(newClientImg, "/landing/about/clients");
+
+      setSectionsData((prev) => {
+        console.log("ok");
+        const data = [...prev];
+        data[sIdx].data = [...data[sIdx].data, url];
+        return data;
+      });
+
+      
+      setNewClientImg(null);
     } catch (error) {
       console.log(error);
     }
@@ -183,28 +204,97 @@ const AboutPageTab = ({ aboutData }) => {
 
             if (sd.type == "clients") {
               return (
-                <div className={styles.clients}>
+                <div key={`s_${sIdx}`}>
+                  <div className={styles.clients}>
+                    <br />
+                    {sd?.data &&
+                      sd?.data.map((src, imgIdx) => {
+                        return (
+                          <div key={`img_idx_${imgIdx}`} className={styles.img}>
+                            <Image src={src} width={100} />
+                            <XCircleFill
+                              className={styles.x}
+                              onClick={() => {
+                                setSectionsData((prev) => {
+                                  const data = [...prev];
+                                  data[sIdx].data = data[sIdx].data.filter(
+                                    (u, i) => u !== src
+                                  );
+                                  return data;
+                                });
+                              }}
+                            />
+                          </div>
+                        );
+                      })}
+                  </div>
                   <br />
-                  {sd?.data &&
-                    sd?.data.map((src, imgIdx) => {
-                      return (
-                        <div key={`img_idx_${imgIdx}`} className={styles.img}>
-                          <Image src={src} width={100} />
-                          <XCircleFill
-                            className={styles.x}
-                            onClick={() => {
-                              setSectionsData((prev) => {
-                                const data = [...prev];
-                                data[sIdx].data = data[sIdx].data.filter(
-                                  (u, i) => u !== src
-                                );
-                                return data;
-                              });
-                            }}
-                          />
-                        </div>
-                      );
-                    })}
+                  <CustomInput
+                    type="file"
+                    onChange={(e) => {
+                      setNewClientImg(e.target.files[0]);
+                    }}
+                  />
+                  {newClientImg && (
+                    <div>
+                      <Image
+                        src={URL.createObjectURL(newClientImg)}
+                        width={100}
+                      />
+                      <CustomButton
+                        onClick={async () => {
+                          await handleClientImageUpload(sIdx);
+                        }}
+                      >
+                        Upload
+                      </CustomButton>
+                    </div>
+                  )}
+                </div>
+              );
+            }
+            if (sd.type == "count") {
+              return (
+                <div key={`s_${sIdx}`} className={styles.counts}>
+                  <br />
+                  {sd.data.map((cd, cIdx) => {
+                    return (
+                      <div key={`c_${cIdx}`} className={styles.count}>
+                        <CustomInput
+                          type="number"
+                          value={cd.number}
+                          onChange={(e) => {
+                            setSectionsData((prev) => {
+                              const data = [...prev];
+                              data[sIdx].data[cIdx].number = e.target.value;
+                              return data;
+                            });
+                          }}
+                        />
+                        <CustomInput
+                          value={cd.add}
+                          onChange={(e) => {
+                            setSectionsData((prev) => {
+                              const data = [...prev];
+                              data[sIdx].data[cIdx].add = e.target.value;
+                              return data;
+                            });
+                          }}
+                        />
+
+                        <CustomInput
+                          value={cd.title}
+                          onChange={(e) => {
+                            setSectionsData((prev) => {
+                              const data = [...prev];
+                              data[sIdx].data[cIdx].title = e.target.value;
+                              return data;
+                            });
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               );
             }
