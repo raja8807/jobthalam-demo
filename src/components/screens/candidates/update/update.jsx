@@ -13,6 +13,7 @@ import ControlLabel from "@/components/ui/contol_label/control_label";
 import { useCreateCandidate } from "@/hooks/candidate_hooks/candidate_hooks";
 import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
+import { EDUCATIONS, EXPERIENCES } from "@/constants/job";
 
 const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
   const [isMobile, setIsMobile] = useState(true);
@@ -163,7 +164,7 @@ const Form2 = ({
     >
       <div className={styles.name}>
         <CustomSelect
-          options={["Bachelor", "Master"]}
+          options={EDUCATIONS}
           value={values.education}
           onChange={(e, value) => {
             setValues((prev) => ({ ...prev, education: value }));
@@ -173,7 +174,7 @@ const Form2 = ({
         />
 
         <CustomSelect
-          options={[0, 1, 2, 3, 4, 5, 6, 8, 9, 10]}
+          options={EXPERIENCES}
           value={values.experience}
           onChange={(e, value) => {
             setValues((prev) => ({ ...prev, experience: value }));

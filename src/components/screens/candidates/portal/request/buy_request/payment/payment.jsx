@@ -37,8 +37,6 @@ const PaymentPortal = ({
   const [agreed, setAgreed] = useState(false);
 
   const purchaseRequest = async () => {
-    console.log(skill);
-    
     try {
       let paymentId = null;
       if (!isFree) {
@@ -96,7 +94,12 @@ const PaymentPortal = ({
         setShow={() => {}}
         onConfirm={() => {
           setCurrentTabIndex(0);
-          router.reload();
+
+          setTimeout(() => {
+            router.reload();
+          }, 100);
+
+          router.replace("/candidate");
         }}
         hasCancel={false}
       />

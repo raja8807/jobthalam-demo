@@ -70,6 +70,9 @@ AdminJob.init(
     is_free: {
       type: DataTypes.BOOLEAN,
     },
+    is_admin_job: {
+      type: DataTypes.BOOLEAN,
+    },
   },
   {
     sequelize,
