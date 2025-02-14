@@ -26,82 +26,10 @@ const BCard = ({ data }) => {
   );
 };
 
-const AboutSection = () => {
-  const banner = {
-    heading: [
-      {
-        text: "About",
-      },
-      {
-        text: "Jobthalam",
-        tag: "span",
-      },
-    ],
-    text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iste debitis quidem, cupiditate voluptate quasi. Temporibus animi ipsam incidunt repudiandae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aliquid quo repellendus officia eum cupiditate ex asperiores a eveniet sequi?",
-    img: "/logo/logo_f_v.png",
-  };
+const AboutSection = ({ aboutData }) => {
+  const banner = aboutData?.banner || {};
 
-  const sections = [
-    {
-      type: "row",
-      head: "Who We Are",
-      caption:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, harum?",
-      text: "Jobthalam is an all-inclusive online job search portal created to connect jobseekers with potential employers by providing a comprehensive and easy-to-use service for discovering employment opportunities",
-      img: "/assets/abt_banner.svg",
-    },
-    {
-      type: "clients",
-      data: [
-        "/assets/Google_2015_logo.svg.webp",
-        "/assets/Google_2015_logo.svg.webp",
-        "/assets/Google_2015_logo.svg.webp",
-        "/assets/Google_2015_logo.svg.webp",
-        "/assets/Google_2015_logo.svg.webp",
-        "/assets/Google_2015_logo.svg.webp",
-      ],
-    },
-    {
-      type: "row",
-
-      head: "Who We Are",
-      caption:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, harum?",
-      text: "Jobthalam is an all-inclusive online job search portal created to connect jobseekers with potential employers by providing a comprehensive and easy-to-use service for discovering employment opportunities",
-      img: "/assets/abt_banner.svg",
-    },
-    {
-      type: "count",
-      data: [
-        {
-          id: "ex",
-          title: "Jobseekers have used Jobthalam",
-          number: 10,
-          add: "M",
-        },
-        {
-          id: "cl",
-          title: "Current Vacancies",
-          number: 15,
-          add: "M",
-        },
-        {
-          id: "aw",
-          title: "States in which we are present",
-          number: 20,
-        },
-      ],
-    },
-    {
-      type: "row",
-
-      head: "Who We Are",
-      caption:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat, harum?",
-      text: "Jobthalam is an all-inclusive online job search portal created to connect jobseekers with potential employers by providing a comprehensive and easy-to-use service for discovering employment opportunities",
-      img: "/assets/abt_banner.svg",
-    },
-  ];
+  const sections = aboutData?.sections || [];
 
   const bCards = [
     {
@@ -151,7 +79,8 @@ const AboutSection = () => {
           </div>
         </CustomContainer>
       </div>
-
+      <br />
+      <br />
       {sections.map((section, i) => {
         if (section.type === "row") {
           rowIdx = rowIdx + 1;

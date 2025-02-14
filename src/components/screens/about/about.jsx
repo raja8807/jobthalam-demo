@@ -7,12 +7,12 @@ import NewsLetterSection from "../home/sections/news_letter/news_letter";
 import DiscoverSection from "../home/sections/discover/discover";
 import RegisterSection from "../home/sections/register/register";
 
-const AboutScreen = () => {
+const AboutScreen = ({ aboutData }) => {
   return (
     <>
-      <WhoWeAreSection />
-      <DiscoverSection/>
-      <RegisterSection/>
+      <WhoWeAreSection aboutData={aboutData} />
+      <DiscoverSection />
+      <RegisterSection />
       <NewsLetterSection />
       <Footer />
     </>
