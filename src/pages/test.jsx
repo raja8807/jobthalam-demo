@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import styles from "./test.module.scss";
 import CustomButton from "@/components/ui/custom_button/custom_button";
+import axios from "axios";
 
 const TestPage = () => {
   const maze = [
@@ -115,8 +116,18 @@ const TestPage = () => {
     }
   };
 
+  const x = async () => {
+    
+    try {
+      await axios.get("/api/test");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <>
+      <CustomButton onClick={x}>Test</CustomButton>
       <div className={styles.maze}>
         {maze.map((row, ri) => {
           return (
