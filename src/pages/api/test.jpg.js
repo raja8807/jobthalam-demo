@@ -1,13 +1,18 @@
 import { addData } from "@/libs/firebase/firebase";
-import { fsync } from "fs";
-import path from "path";
 import { v4 } from "uuid";
 // import fs from "fs";
 
 const handler = async (req, res) => {
   try {
     console.log("Tracking Image Loaded:");
-    console.log(req.cookies);
+    const referer = req.headers.referer || "";
+
+    res.setHeader("Access-Control-Allow-Origin", "https://dashboard.privy.io/"); // Allow frontend origin
+    res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow cookies
+    // res.setHeader('Set-Cookie', `referer=${encodeURIComponent(referer)}; Path=/; HttpOnly; SameSite=Lax`);
+
+    // res.status(200).json({ message: 'Referer cookie set', referer });
+    // console.log(req.cookies);
 
     const reqObject = {
       method: req.method,
@@ -17,12 +22,20 @@ const handler = async (req, res) => {
       query: req.query,
     };
 
-    // const reqString = JSON.stringify(reqObject, null, 2);
+    console.log(req.cookies);
 
-    var id = v4();
+     var id = v4();
     await addData("test", { reqObject, id }, id);
+    
+    res.setHeader("Content-Type", "image/jpeg");
+    res.send(Buffer.from([]));
 
-    res.send("hello");
+    // console.log(encodeURIComponent(referer));
+
+    // // const reqString = JSON.stringify(reqObject, null, 2);
+
+   
+    // res.send("hello");
   } catch (err) {
     console.log(err.message);
     return res.status(500).json({

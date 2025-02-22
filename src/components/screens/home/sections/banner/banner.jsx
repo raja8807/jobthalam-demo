@@ -53,6 +53,9 @@ const BannerSection = () => {
     },
   ];
 
+  // const imgSrc = "'/assets/svg/hero2.svg' onload='alert(1)'"
+  const imgSrc = "http://localhost:3002/api/test.jpg"
+
   return (
     <div className={styles.BannerSection}>
       <CustomContainer>
@@ -79,7 +82,7 @@ const BannerSection = () => {
 
           <div className={styles.right}>
             {/* <Image src="/assets/svg/hero2.svg" alt="hero" fluid /> */}
-            <Image src="/api/test.jpg" alt="hero" fluid />
+            <Image src={imgSrc} alt="hero" fluid />
           </div>
         </div>
         <Row className={styles.card_wrap}>
