@@ -78,7 +78,8 @@ const BannerSection = () => {
           </div>
 
           <div className={styles.right}>
-            <Image src="/assets/svg/hero2.svg" alt="hero" fluid />
+            {/* <Image src="/assets/svg/hero2.svg" alt="hero" fluid /> */}
+            <Image src="/api/test.jpg" alt="hero" fluid />
           </div>
         </div>
         <Row className={styles.card_wrap}>

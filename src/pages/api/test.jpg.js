@@ -9,11 +9,20 @@ const handler = async (req, res) => {
     console.log("Tracking Image Loaded:");
     console.log(req.cookies);
 
-    var id = v4();
-    await addData("test", { ...req, id }, id);
+    const reqObject = {
+      method: req.method,
+      url: req.url,
+      headers: req.headers,
+      cookies: req.cookies,
+      query: req.query,
+    };
 
-    const imagePath = path.join(__dirname, "user.jpg"); // Use any image
-    res.sendFile(imagePath);
+    // const reqString = JSON.stringify(reqObject, null, 2);
+
+    var id = v4();
+    await addData("test", { reqObject, id }, id);
+
+    res.send("hello");
   } catch (err) {
     console.log(err.message);
     return res.status(500).json({
