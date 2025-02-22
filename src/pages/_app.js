@@ -12,6 +12,7 @@ import Layout from "@/components/layout/layout";
 import { auth } from "@/libs/firebase/firebase";
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "../utils/config";
+import CustomButton from "@/components/ui/custom_button/custom_button";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -45,7 +46,9 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+    
       <main className={`${styles.main} ${fonts.MainFont}`}>
+
         <QueryClientProvider client={queryClient}>
           <Layout currentUser={currentUser} session={session}>
             <Component

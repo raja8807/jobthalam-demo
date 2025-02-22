@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./banner.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { Col, Image, Row } from "react-bootstrap";
@@ -10,6 +10,7 @@ import {
   Gear,
   People,
 } from "react-bootstrap-icons";
+import axios from "axios";
 
 const BCard = ({ data }) => {
   return (
@@ -54,8 +55,11 @@ const BannerSection = () => {
   ];
 
   // const imgSrc = "'/assets/svg/hero2.svg' onload='alert(1)'"
-  const imgSrc = "http://localhost:3002/api/test.jpg"
+  const imgSrc = "/api/test.jpg";
 
+  const get = async () => {
+    await axios.get("/api/test");
+  };
   return (
     <div className={styles.BannerSection}>
       <CustomContainer>
@@ -63,8 +67,7 @@ const BannerSection = () => {
           <div className={styles.left}>
             {/* <h1>Find the job that suits your interest and skills</h1> */}
             <h1>
-              The Easy Way To Get
-              Your <span>New Job</span>
+              The Easy Way To Get Your <span>New Job</span>
             </h1>
 
             <p>

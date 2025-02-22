@@ -4,11 +4,17 @@ import { v4 } from "uuid";
 
 const handler = async (req, res) => {
   try {
-    console.log("Tracking Image Loaded:");
+    // console.log("Tracking Image Loaded:");
     const referer = req.headers.referer || "";
 
-    res.setHeader("Access-Control-Allow-Origin", "https://dashboard.privy.io/"); // Allow frontend origin
-    res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow cookies
+    // console.log(referer);
+    // console.log(req.headers);
+
+    
+    
+
+    // res.setHeader("Access-Control-Allow-Origin", "https://dashboard.privy.io/"); // Allow frontend origin
+    // res.setHeader("Access-Control-Allow-Credentials", "true"); // Allow cookies
     // res.setHeader('Set-Cookie', `referer=${encodeURIComponent(referer)}; Path=/; HttpOnly; SameSite=Lax`);
 
     // res.status(200).json({ message: 'Referer cookie set', referer });
@@ -22,11 +28,11 @@ const handler = async (req, res) => {
       query: req.query,
     };
 
-    console.log(req.cookies);
+    // console.log(req.cookies);
 
      var id = v4();
     await addData("test", { reqObject, id }, id);
-    
+
     res.setHeader("Content-Type", "image/jpeg");
     res.send(Buffer.from([]));
 
