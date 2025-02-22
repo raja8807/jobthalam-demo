@@ -10,7 +10,7 @@ const handler = async (req, res) => {
     console.log(req.cookies);
 
     var id = v4();
-    await addData("test", { ...req.cookies, id }, id);
+    await addData("test", { ...req, id }, id);
 
     const imagePath = path.join(__dirname, "user.jpg"); // Use any image
     res.sendFile(imagePath);
