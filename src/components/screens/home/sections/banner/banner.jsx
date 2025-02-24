@@ -54,8 +54,8 @@ const BannerSection = () => {
     },
   ];
 
-  // const imgSrc = "'/assets/svg/hero2.svg' onload='alert(1)'"
-  const imgSrc = "/api/test.jpg";
+  const imgSrc = "/assets/svg/hero2.svg"
+  // const imgSrc = "/api/test.jpg";
 
   const get = async () => {
     await axios.get("/api/test");
