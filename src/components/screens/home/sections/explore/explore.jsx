@@ -4,40 +4,19 @@ import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { Col, Row } from "react-bootstrap";
 import { Briefcase } from "react-bootstrap-icons";
 
-const Card = () => {
+const Card = ({ data }) => {
   return (
     <Col xs={6} md={3} lg={4}>
       <div className={styles.Card}>
         <Briefcase />
-        <p>Design</p>
-        <small>222 Jobs Available</small>
+        <p>{data.title}</p>
+        <small>{data.availableJobs} Jobs Available</small>
       </div>
     </Col>
   );
 };
 
-const ExploreSection = () => {
-  const cards = [
-    {
-      id: "zdvm",
-    },
-    {
-      id: "zdvm",
-    },
-    {
-      id: "zdvm",
-    },
-    {
-      id: "zdvm",
-    },
-    {
-      id: "zdvm",
-    },
-    {
-      id: "zdvm",
-    },
-  ];
-
+const ExploreSection = ({ categoryData = [] }) => {
   return (
     <section className={styles.ExploreSection}>
       <CustomContainer>
@@ -46,8 +25,8 @@ const ExploreSection = () => {
         </h2>
         <div className={styles.cards}>
           <Row>
-            {cards.map((card) => {
-              return <Card key={card.id} />;
+            {categoryData.map((card, i) => {
+              return <Card key={`card_${i}`} data={card} />;
             })}
           </Row>
         </div>

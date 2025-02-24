@@ -1,5 +1,7 @@
 .CategorySection {
   padding: 50px 0;
+  max-width: 100dvw;
+  overflow: hidden;
   h2 {
     font-size: 45px;
     font-weight: bold;
@@ -26,26 +28,56 @@
 }
 
 .scroller {
-  position: relative;
-  display: flex;
-  overflow: hidden;
+  top: 60%;
+  left: 0;
+  z-index: 1000;
+  height: fit-content;
+  width: 100dvw;
 
-  .scrollHolder {
-    display: flex;
-    align-items: center;
-    // padding: 50px 0;
-    animation: scroll 60s linear infinite;
-    margin-top: 0px;
+  .inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 85px;
+
+    .wrapper {
+      position: absolute;
+      display: flex;
+
+      section {
+        display: flex;
+        align-items: center;
+        animation: swipe var(--speed) linear infinite backwards;
+
+        img {
+          // max-width: 150px;
+          // padding: 0 15px;
+          height: 50px;
+          margin: 20px 50px;
+          filter: grayscale(1);
+          // object-fit: cover;
+          &:last-of-type {
+            padding-left: 0;
+          }
+
+          &:hover {
+            filter: grayscale(0);
+          }
+        }
+      }
+    }
   }
 
-  &:hover {
-    overflow-x: auto;
-    .scrollHolder {
-      animation-play-state: paused;
+  &.back {
+    .inner {
+      .wrapper {
+        section {
+          animation: swipeLeft var(--speed) linear infinite backwards;
+        }
+      }
     }
   }
 }
-
 
 @keyframes scroll {
   from {
@@ -53,6 +85,25 @@
   }
 
   to {
+    transform: translate(-100%);
+  }
+}
+
+@keyframes swipe {
+  0% {
+    transform: translate(-100%);
+  }
+
+  100% {
+    transform: translate(0%);
+  }
+}
+@keyframes swipeLeft {
+  0% {
+    transform: translate(0%);
+  }
+
+  100% {
     transform: translate(-100%);
   }
 }

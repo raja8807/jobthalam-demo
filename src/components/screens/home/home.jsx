@@ -8,15 +8,17 @@ import ExploreSection from "./sections/explore/explore";
 import FaqSection from "./sections/faq/faq";
 import NewsLetterSection from "./sections/news_letter/news_letter";
 
-const HomeScreen = () => {
+const HomeScreen = ({ candidateHomePageData = {} }) => {
   return (
     <main>
-      <BannerSection />
-      <VacanciesSection />
-      <ExploreSection />
+      <BannerSection bannerData={candidateHomePageData.bannerData} />
+      <VacanciesSection vacanciesData={candidateHomePageData?.vacanciesData} />
+      <ExploreSection categoryData={candidateHomePageData.categoryData} />
       <HowItWorks />
-      <DiscoverSection />
-      <FaqSection />
+      <DiscoverSection
+        testimonials={candidateHomePageData.candidateTestimonialsData}
+      />
+      <FaqSection faqs={candidateHomePageData.candidateFaqData} />
       <RegisterSection />
       <NewsLetterSection />
       <Footer />

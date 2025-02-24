@@ -3,7 +3,7 @@ import { Image } from "react-bootstrap";
 import styles from "./clients.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 
-const Banner = ({ images, isBack }) => {
+const Scroller = ({ images, isBack }) => {
   const speed = 20000;
 
   return (
@@ -45,7 +45,7 @@ const ClientsSection = ({ data = [] }) => {
 
   return (
     <div className={styles.ClientsSection}>
-      <Banner images={images} isBack />
+      <Scroller images={images} isBack />
       <CustomContainer>
         <div className={styles.x}></div>
       </CustomContainer>
