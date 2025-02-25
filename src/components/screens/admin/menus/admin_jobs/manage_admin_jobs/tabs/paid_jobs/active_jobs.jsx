@@ -47,6 +47,7 @@ const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
       console.log(error);
     }
   };
+  
   const handleUpdateJob = async (job) => {
     try {
       await mutateAsync({ ...job });

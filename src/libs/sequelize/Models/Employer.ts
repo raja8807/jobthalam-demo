@@ -1,6 +1,7 @@
 // models/User.ts
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../sequelize";
+import Job from "./Job";
 
 class Employer extends Model {
   public id!: number;
@@ -45,11 +46,18 @@ Employer.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    jobs_pending: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,
     modelName: "Employer",
   }
 );
+
+Employer.hasMany(Job, { foreignKey: "employer_id", as: "jobs" });
+Job.belongsTo(Employer, { foreignKey: "employer_id", as: "jobs" });
 
 export default Employer;

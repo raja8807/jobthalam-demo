@@ -14,7 +14,7 @@ import {
 } from "react-bootstrap-icons";
 import { formatDate } from "@/utils/helpers/helpers";
 
-const JobDetails = ({ job, setJob, actionButton, employer }) => {
+const JobDetails = ({ job, setJob, actionButton, employer}) => {
   const close = () => {
     setJob(null);
   };

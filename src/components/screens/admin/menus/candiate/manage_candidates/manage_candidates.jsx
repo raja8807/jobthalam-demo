@@ -1,8 +1,8 @@
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import useFetchAllCandidates from "@/hooks/api_hooks/candidates_hooks/candidates_hooks";
-import { AgGridReact } from "ag-grid-react";
 import React from "react";
 
+import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
 import "ag-grid-community/styles/ag-theme-balham.css"; // Optional Theme applied to the Data Grid
@@ -121,7 +121,7 @@ const ManageCandidatesScreen = () => {
             ]}
           />
         )}
-      </div>
+      </div> 
     </div>
   );
 };

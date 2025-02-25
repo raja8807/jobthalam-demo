@@ -1,0 +1,125 @@
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
+import useFetchAllEmployers from "@/hooks/employer_hooks/employer_hooks";
+import React from "react";
+
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the Data Grid
+import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the Data Grid
+import "ag-grid-community/styles/ag-theme-balham.css"; // Optional Theme applied to the Data Grid
+import { formatDate } from "@/utils/helpers/helpers";
+import Link from "next/link";
+
+
+const ManageEmployersScreen = () => {
+  const { data, isLoading } = useFetchAllEmployers();
+
+  return (
+    <div>
+      {isLoading && <LoadingScreen />}
+      <div
+        className="ag-theme-balham" // applying the Data Grid theme
+        style={{ height: "calc(100dvh - 150px)", fontSize: "13px" }} // the Data Grid will fill the size of the parent container
+      >
+        {data && (
+          <AgGridReact
+            rowData={data?.data || []}
+            isLoading={isLoading}
+            rowStyle={{
+              padding: "5px 0",
+            }}
+            rowHeight={40}
+            unSortIcon
+            columnDefs={[
+              {
+                field: "company_name",
+              },
+              {
+                headerName: "HR Name",
+                width: 220,
+                valueGetter: (row) => {
+                  return `${row?.data?.first_name} ${row?.data?.last_name}`;
+                },
+              },
+
+              {
+                field: "createdAt",
+                headerName: "signed up on",
+                cellDataType: "date",
+                filter: true,
+                valueFormatter: (d) => formatDate(d),
+              },
+
+              {
+                field: "email",
+              },
+              {
+                field: "phone_number",
+              },
+              {
+                headerName: "Jobs Posted",
+                cellRenderer: (row) => {
+                  return (
+                    <p>
+                      {row?.data?.jobs?.length || 0} &nbsp; &nbsp;{" "}
+                      <Link
+                        style={{
+                          textDecoration: "underline",
+                          color: "blue",
+                        }}
+                        href={`/admin/employer/manage_jobs?id=${row?.data?.id}`}
+                      >
+                        View Jobs
+                      </Link>
+                    </p>
+                  );
+                },
+                // valueGetter: (row) => {
+                //   return row?.data?.jobs?.length || 0;
+                // },
+              },
+              {
+                field: "jobs_pending",
+              },
+              {
+                field: "updatedAt",
+                headerName: "Last updated",
+                cellDataType: "date",
+                filter: true,
+                valueFormatter: (d) => formatDate(d),
+              },
+
+              // {
+              //   headerName: "Actions",
+              //   cellRenderer: (row) => {
+              //     return (
+              //       <>
+              //         <Download
+              //           style={{
+              //             color: "blue",
+              //           }}
+              //         />
+              //         &nbsp; &nbsp;
+              //         <BriefcaseFill
+              //           style={{
+              //             color: "orange",
+              //           }}
+              //         />
+              //         &nbsp; &nbsp;
+              //         <XCircleFill
+              //           style={{
+              //             color: "red",
+              //           }}
+              //         />
+              //       </>
+              //     );
+              //   },
+              // },
+            ]}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ManageEmployersScreen;
