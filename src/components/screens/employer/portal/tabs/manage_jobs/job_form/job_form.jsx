@@ -11,6 +11,7 @@ import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/c
 import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import NewSkillPopupButton from "./new_skill_popup/new_skill_popup";
+import { EDUCATIONS, EXPERIENCES, JOB_TYPES, LOCATIONS } from "@/constants/job";
 
 const JobForm = ({
   isUpdate,
@@ -173,7 +174,7 @@ const JobForm = ({
                 required
                 label="Required Experience"
                 placeholder="Select Experience"
-                options={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                options={EXPERIENCES}
               />
             </div>
           </Col>
@@ -187,11 +188,7 @@ const JobForm = ({
                 required
                 label="Minimum Education"
                 placeholder="Select Education"
-                options={[
-                  "No Education Required",
-                  "Bachelor Degree",
-                  "Master Degree",
-                ]}
+                options={EDUCATIONS}
               />
             </div>
           </Col>
@@ -223,7 +220,7 @@ const JobForm = ({
                   setValues((prev) => ({ ...prev, location: v }));
                 }}
                 label="Job Location"
-                options={["Chennai", "Coimbatore"]}
+                options={LOCATIONS}
                 placeholder="Select Location"
                 required
               />
@@ -238,7 +235,7 @@ const JobForm = ({
                 }}
                 label="Type"
                 required
-                options={["Full time", "Part time"]}
+                options={JOB_TYPES}
               />
             </div>
           </Col>
