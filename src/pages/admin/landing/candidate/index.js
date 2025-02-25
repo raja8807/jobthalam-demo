@@ -2,7 +2,8 @@ import CandidateLandingScreen from "@/components/screens/admin/menus/landing_pag
 import { getAllData } from "@/libs/firebase/firebase";
 import React from "react";
 
-const CandidateLandingPage = ({ aboutData = [] }) => {
+const CandidateLandingPage = ({ aboutData = [], candidateHomePageData }) => {
+
   //   const aboutData = {
   //     banner: {
   //       heading: [
@@ -82,7 +83,12 @@ const CandidateLandingPage = ({ aboutData = [] }) => {
   //     ],
   //   };
 
-  return <CandidateLandingScreen aboutData={aboutData?.[0]} />;
+  return (
+    <CandidateLandingScreen
+      aboutData={aboutData?.[0]}
+      candidateHomePageData={candidateHomePageData}
+    />
+  );
 };
 
 export default CandidateLandingPage;
@@ -90,7 +96,18 @@ export default CandidateLandingPage;
 export async function getServerSideProps() {
   // Fetch data from external API
   const aboutData = await getAllData("aboutPageData");
+  const homePageData =
+    (await getAllData("candidateHomePageData")) || [];
+  const candidateTestimonialsData =
+    (await getAllData("candidateTestimonialsData")) || [];
+  const candidateFaqData = (await getAllData("candidateFaqData")) || [];
+
+  const candidateHomePageData = {
+    homePageData: homePageData?.[0] || null,
+    candidateTestimonialsData: candidateTestimonialsData?.[0] || null,
+    candidateFaqData: candidateFaqData || [],
+  };
 
   // Pass data to the page via props
-  return { props: { aboutData } };
+  return { props: { aboutData, candidateHomePageData } };
 }
