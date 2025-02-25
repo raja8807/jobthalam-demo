@@ -4,7 +4,11 @@ import sequelize from "@/libs/sequelize/sequelize";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
-      const result = await Skill.findAll();
+      const result = await Skill.findAll({
+        where: {
+          is_active: true,
+        },
+      });
       return res.status(200).json(result);
     } catch (err) {
       console.log(err.message);
