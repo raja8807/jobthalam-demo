@@ -63,7 +63,6 @@ const AboutPageTab = ({ aboutData }) => {
         return data;
       });
 
-      
       setNewClientImg(null);
     } catch (error) {
       console.log(error);
@@ -129,7 +128,18 @@ const AboutPageTab = ({ aboutData }) => {
               Add Highlight
             </CustomButton> */}
           </div>
-          <CustomTextArea value={bannerData.text} label="Banner Text" />
+          <CustomTextArea
+            value={bannerData.text}
+            label="Banner Text"
+            onChange={(e, v) => {
+              setBannerData((bd) => {
+                const data = { ...bd };
+                data.text = v;
+
+                return data;
+              });
+            }}
+          />
         </CustomForm>
       </div>
       <br />
@@ -139,9 +149,39 @@ const AboutPageTab = ({ aboutData }) => {
             if (sd.type === "row") {
               return (
                 <div key={`s_${sIdx}`} className={styles.row}>
-                  <CustomInput value={sd.head} label="Heading" />
-                  <CustomTextArea value={sd.caption} label="Caption" />
-                  <CustomTextArea value={sd.text} label="Text" />
+                  <CustomInput
+                    value={sd.head}
+                    label="Heading"
+                    onChange={(e, v) => {
+                      setSectionsData((prev) => {
+                        const data = [...prev];
+                        data[sIdx].head = v;
+                        return data;
+                      });
+                    }}
+                  />
+                  <CustomTextArea
+                    value={sd.caption}
+                    label="Caption"
+                    onChange={(e, v) => {
+                      setSectionsData((prev) => {
+                        const data = [...prev];
+                        data[sIdx].caption = v;
+                        return data;
+                      });
+                    }}
+                  />
+                  <CustomTextArea
+                    value={sd.text}
+                    label="Text"
+                    onChange={(e, v) => {
+                      setSectionsData((prev) => {
+                        const data = [...prev];
+                        data[sIdx].text = v;
+                        return data;
+                      });
+                    }}
+                  />
                   {sd.img ? (
                     <div className={styles.img_prev}>
                       <Image src={sd.img} width={200} />
