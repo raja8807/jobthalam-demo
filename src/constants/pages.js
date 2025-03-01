@@ -15,7 +15,7 @@ const PAGES = [
 
   {
     name: "FAQ",
-    href: "/faq",
+    href: "/#faq",
   },
   {
     name: "Contact",

@@ -77,7 +77,7 @@ const FaqSection = ({faqs=[]}) => {
   const [showAnsIndex, setShowAnsIndex] = useState(null);
 
   return (
-    <section className={styles.FaqSection}>
+    <section className={styles.FaqSection} id="faq">
       <CustomContainer>
         <h2>
           Frequently Asked <span>Questions</span>

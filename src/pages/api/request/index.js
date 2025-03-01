@@ -41,9 +41,7 @@ const handler = async (req, res) => {
           experience: currentUser.experience,
         },
       });
-
-      console.log(AdminJobs.length);
-
+      
       const availableAdminJobs = AdminJobs.filter((aj) => {
         return !featuredJobs.some((fj) => fj.admin_job_id === aj.id);
       });
