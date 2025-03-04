@@ -105,7 +105,7 @@ export async function getServerSideProps() {
 
   const candidateHomePageData = {
     homePageData: homePageData?.[0] || null,
-    candidateTestimonialsData: candidateTestimonialsData?.[0] || null,
+    candidateTestimonialsData: candidateTestimonialsData|| null,
     candidateFaqData: candidateFaqData || [],
     candidateContactData: candidateContactData || null,
   };

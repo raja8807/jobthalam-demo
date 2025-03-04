@@ -13,12 +13,12 @@ import {
   XCircleFill,
 } from "react-bootstrap-icons";
 import { v4 } from "uuid";
+import TestimonialsSection from "./testimonails/testimonials";
 
-const GeneralTab = ({ candidateFaqData }) => {
+const GeneralTab = ({ candidateFaqData, candidateTestimonialsData }) => {
   const [values, setValues] = useState(candidateFaqData);
-  const [showTestimonials, setShowTestimonials] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [showFAQ, setShowFaq] = useState(true);
+  const [showFAQ, setShowFaq] = useState(false);
 
   const handleSaveFaq = async (faq) => {
     setIsLoading(true);
@@ -157,6 +157,11 @@ const GeneralTab = ({ candidateFaqData }) => {
           </div>
         )}
       </CustomForm>
+      <br/>
+      <TestimonialsSection
+        setIsLoading={setIsLoading}
+        candidateTestimonialsData={candidateTestimonialsData}
+      />
     </>
   );
 };
