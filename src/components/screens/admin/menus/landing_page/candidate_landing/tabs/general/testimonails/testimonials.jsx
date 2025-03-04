@@ -67,7 +67,7 @@ const TestimonialsSection = ({
   const handleSaveTestimonial = async (testimonial) => {
     setIsLoading(true);
     try {
-      await addData("candidateTestimonialsData", testimonial, testimonial.id);
+      await updateData("candidateTestimonialsData", testimonial, testimonial.id);
     } catch (error) {
       console.log(error);
     }
