@@ -9,6 +9,8 @@ import FaqSection from "./sections/faq/faq";
 import NewsLetterSection from "./sections/news_letter/news_letter";
 
 const HomeScreen = ({ candidateHomePageData = {} }) => {
+  // console.log();
+
   return (
     <main>
       <BannerSection bannerData={candidateHomePageData.bannerData} />
@@ -19,7 +21,7 @@ const HomeScreen = ({ candidateHomePageData = {} }) => {
         testimonials={candidateHomePageData.candidateTestimonialsData}
       />
       <FaqSection faqs={candidateHomePageData.candidateFaqData} />
-      <RegisterSection />
+      <RegisterSection cards={candidateHomePageData?.cards} />
       <NewsLetterSection />
       <Footer />
     </main>

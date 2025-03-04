@@ -2,8 +2,6 @@ import HomePage from "@/components/screens/home/home";
 import { getAllData } from "@/libs/firebase/firebase";
 
 const Home = ({ data }) => {
-  console.log(data);
-
   const candidateHomePageData = {
     bannerData: data?.homePageData?.[0]?.bannerData || {
       title: [
@@ -198,6 +196,8 @@ const Home = ({ data }) => {
             answer: "We accept all types of payment methods",
           },
         ],
+
+    cards: data?.homePageData?.[0]?.cards,
   };
   return <HomePage candidateHomePageData={candidateHomePageData} />;
 };
