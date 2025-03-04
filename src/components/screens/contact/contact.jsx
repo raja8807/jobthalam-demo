@@ -9,11 +9,16 @@ import Footer from "@/components/layout/footer/footer";
 import FaqSection from "../home/sections/faq/faq";
 import NewsLetterSection from "../home/sections/news_letter/news_letter";
 
-const ContactScreen = ({candidateFaqData}) => {
-  const candidateContactData = {
+const ContactScreen = ({
+  candidateFaqData,
+  candidateContactData = {
     head: "We Care About Customer Service",
     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.Corporis perferendis, voluptas quos quaerat incidunt harum?Dolor eum modi doloremque sunt minima, laudantium, numquamquidem soluta, adipisci ea eaque cupiditate nisi!",
-  };
+  },
+}) => {
+
+  
+  
 
   return (
     <>
@@ -23,8 +28,8 @@ const ContactScreen = ({candidateFaqData}) => {
             <div className={styles.box}>
               <div className={styles.left}>
                 <div>
-                  <h3>{candidateContactData.head}</h3>
-                  <p>{candidateContactData.text}</p>
+                  <h3>{candidateContactData?.head}</h3>
+                  <p>{candidateContactData?.text}</p>
                   <CustomButton variant={2}>Email Support</CustomButton>
                 </div>
               </div>
@@ -42,12 +47,12 @@ const ContactScreen = ({candidateFaqData}) => {
           </div>
         </CustomContainer>
       </div>
-      <FaqSection faqs={candidateFaqData}/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <NewsLetterSection/>
+      <FaqSection faqs={candidateFaqData} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <NewsLetterSection />
       <Footer />
     </>
   );
