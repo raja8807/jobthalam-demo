@@ -2,29 +2,52 @@ import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomForm from "@/components/ui/custom_form/custom_form";
 import React, { useState } from "react";
 import styles from "./home_section.module.scss";
-import { Col, Row } from "react-bootstrap";
+import { Col, Image, Row } from "react-bootstrap";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import { X, XCircle, XCircleFill } from "react-bootstrap-icons";
-import { addData, updateData } from "@/libs/firebase/firebase";
+import { addData, updateData, uploadFile } from "@/libs/firebase/firebase";
 import { v4 } from "uuid";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const HomeSection = ({ homePageData }) => {
-  const [values, setValues] = useState(homePageData);
+  const [values, setValues] = useState({
+    ...homePageData,
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSave = async () => {
     setIsLoading(true);
     try {
-      const id = v4();
-
       const res = await updateData(
         "candidateHomePageData",
         { ...values },
         homePageData.id
       );
-      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
+  const [tempImage, setTempImage] = useState(null);
+
+  const uploadImage = async () => {
+    setIsLoading(true);
+    try {
+      const url = await uploadFile(tempImage, "homepage/banner");
+
+      setValues((prev) => {
+        const data = { ...prev };
+        data.bannerData.image = url;
+        return data;
+      });
+
+      setTimeout(async () => {
+        await handleSave();
+      }, 1000);
+
+      setTempImage(null);
     } catch (error) {
       console.log(error);
     }
@@ -81,6 +104,54 @@ const HomeSection = ({ homePageData }) => {
                 });
               }}
             />
+          </Col>
+          <Col xs={12} md={6}>
+            <div>
+              {values?.bannerData?.image ? (
+                <div>
+                  <Image src={values?.bannerData?.image} fluid />
+                  <CustomButton
+                    onClick={() => {
+                      setValues((prev) => {
+                        const x = { ...prev };
+                        x.bannerData.image = null;
+                        return x;
+                      });
+                    }}
+                  >
+                    Delete
+                  </CustomButton>
+                </div>
+              ) : (
+                <div>
+                  <CustomInput
+                    type="file"
+                    label="Image"
+                    onChange={(e, v) => {
+                      setTempImage(e.target.files[0]);
+                    }}
+                  />
+                  <br />
+                  {tempImage && (
+                    <div>
+                      <Image src={URL.createObjectURL(tempImage)} width={200} />
+                      <div>
+                        <CustomButton onClick={uploadImage}>
+                          Upload
+                        </CustomButton>
+                        <CustomButton
+                          onClick={() => {
+                            setTempImage(null);
+                          }}
+                        >
+                          Delete
+                        </CustomButton>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </Col>
         </Row>
       </div>
@@ -217,6 +288,60 @@ const HomeSection = ({ homePageData }) => {
             Add +
           </CustomButton>
         </div>
+      </div>
+      <br />
+      <hr />
+      <div className={styles.box}>
+        <Row>
+          {values.cards.map((card, cIdx) => {
+            return (
+              <Col xs={12} md={6} key={`card_${cIdx}`}>
+                <div>
+                  <CustomInput
+                    value={card.head}
+                    onChange={(e, v) => {
+                      setValues((prev) => {
+                        const pd = { ...prev };
+                        pd.cards[cIdx].head = v;
+                        return pd;
+                      });
+                    }}
+                  />
+                  <CustomTextArea
+                    value={card.text}
+                    onChange={(e, v) => {
+                      setValues((prev) => {
+                        const pd = { ...prev };
+                        pd.cards[cIdx].text = v;
+                        return pd;
+                      });
+                    }}
+                  />
+                  <CustomInput
+                    value={card.btnTxt}
+                    onChange={(e, v) => {
+                      setValues((prev) => {
+                        const pd = { ...prev };
+                        pd.cards[cIdx].btnTxt = v;
+                        return pd;
+                      });
+                    }}
+                  />
+                  <CustomInput
+                    value={card.link}
+                    onChange={(e, v) => {
+                      setValues((prev) => {
+                        const pd = { ...prev };
+                        pd.cards[cIdx].link = v;
+                        return pd;
+                      });
+                    }}
+                  />
+                </div>
+              </Col>
+            );
+          })}
+        </Row>
       </div>
       <br />
       <CustomButton onClick={handleSave}>Save</CustomButton>
