@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import AboutPageTab from "./tabs/about_page/about_page";
 import HomePageTab from "./tabs/home_page/home_page";
 import GeneralTab from "./tabs/general/general_tab";
+import ContactPageTab from "./tabs/contact_page/contact_page";
 
 const CandidateLandingScreen = ({ aboutData, candidateHomePageData }) => {
 
@@ -75,6 +76,10 @@ const CandidateLandingScreen = ({ aboutData, candidateHomePageData }) => {
     {
       title: "About",
       component: <AboutPageTab aboutData={aboutData} />,
+    },
+    {
+      title: "Contact",
+      component: <ContactPageTab candidateContactData={candidateHomePageData.candidateContactData?.[0]} />,
     },
     {
       title: "General",

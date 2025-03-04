@@ -101,11 +101,13 @@ export async function getServerSideProps() {
   const candidateTestimonialsData =
     (await getAllData("candidateTestimonialsData")) || [];
   const candidateFaqData = (await getAllData("candidateFaqData")) || [];
+  const candidateContactData = (await getAllData("candidateContactData")) || [];
 
   const candidateHomePageData = {
     homePageData: homePageData?.[0] || null,
     candidateTestimonialsData: candidateTestimonialsData?.[0] || null,
     candidateFaqData: candidateFaqData || [],
+    candidateContactData: candidateContactData || null,
   };
 
   // Pass data to the page via props
