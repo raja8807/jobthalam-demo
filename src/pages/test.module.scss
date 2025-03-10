@@ -10,7 +10,7 @@
       @include flexCenter;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         background-color: rgba(0, 0, 255, 0.285);
       }
 
@@ -27,6 +27,25 @@
       }
       &.end {
         background-color: rgb(154, 47, 47);
+      }
+    }
+  }
+}
+
+.sandSim {
+  border: 2px solid green;
+  .row {
+    background-color: black;
+    display: flex;
+    width: fit-content;
+
+    .cell {
+      width: 10px;
+      aspect-ratio: 1 / 1;
+      // border: 0.5px solid rgb(230, 230, 230);
+      &.hasParticle {
+        border-radius: 50%;
+        // background-color: red;
       }
     }
   }
