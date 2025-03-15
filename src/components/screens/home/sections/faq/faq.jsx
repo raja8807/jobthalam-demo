@@ -23,9 +23,7 @@ const Faq = ({ setShowAnsIndex, showAnsIndex, data, index }) => {
   );
 };
 
-const FaqSection = ({faqs=[]}) => {
- 
-
+const FaqSection = ({ faqs = [] }) => {
   // const faqs = [
   //   {
   //     id: "adf",
@@ -103,9 +101,8 @@ const FaqSection = ({faqs=[]}) => {
               <Image src="/logo/logo_s.png" width={100} />
               <h3>Do you have more questions?</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-                distinctio illum itaque quidem sunt est fuga, laborum veritatis
-                voluptate enim.
+                If you have any questions about our jobthalam portal, don&apos;t
+                hesitate to contact us.
               </p>
               <CustomButton>Contact Us</CustomButton>
             </div>

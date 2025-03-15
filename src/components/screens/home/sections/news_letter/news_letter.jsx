@@ -9,10 +9,10 @@ const NewsLetterSection = () => {
       <CustomContainer>
         <div className={styles.wrap}>
           <h2>Get <span>Latest </span>News</h2>
-          <p>
+          {/* <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate,
             nulla.
-          </p>
+          </p> */}
           <div>
             <input placeholder="Your Email" />
             <CustomButton>Subscribe</CustomButton>

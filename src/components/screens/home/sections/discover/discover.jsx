@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 // import required modules
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 
-const JobCard = ({ data }) => {
+const TestimonialCard = ({ data }) => {
   return (
     <div className={styles.jobCard}>
       <div className={styles.Ctop}>
@@ -26,15 +26,14 @@ const JobCard = ({ data }) => {
           <small>{data.title}</small>
         </div>
       </div>
-      <p className={styles.text}>{data.text}</p>
+      <p className={styles.text}>
+        <i>{data.text}</i>
+      </p>
     </div>
   );
 };
 
-const DiscoverSection = ({testimonials=[]}) => {
-  
-
-
+const DiscoverSection = ({ testimonials = [] }) => {
   return (
     <section className={styles.DiscoverSection}>
       <CustomContainer>
@@ -48,11 +47,8 @@ const DiscoverSection = ({testimonials=[]}) => {
           </div>
           <div className={styles.right}>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi
-              obcaecati assumenda voluptate, voluptatibus est delectus
-              aspernatur molestiae cum magnam velit nisi fuga dignissimos
-              officiis repudiandae corrupti quibusdam officiis repudiandae
-              corrupti quibusdam officiis repudiandae corrupti quibusdam
+              For the first time in South India, We will send you the job alerts
+              you are looking for in a minute viw Whatsapp for free
             </p>
           </div>
         </div>
@@ -67,9 +63,10 @@ const DiscoverSection = ({testimonials=[]}) => {
             loop
             navigation={true}
             autoplay={{
-              delay: 2000,
+              delay: 3000,
               disableOnInteraction: true,
             }}
+            speed={1500}
             breakpoints={{
               640: {
                 slidesPerView: 1,
@@ -80,7 +77,7 @@ const DiscoverSection = ({testimonials=[]}) => {
                 spaceBetween: 10,
               },
               1024: {
-                slidesPerView:1,
+                slidesPerView: 1,
                 spaceBetween: 10,
               },
             }}
@@ -90,7 +87,7 @@ const DiscoverSection = ({testimonials=[]}) => {
             {testimonials.map((card, idx) => {
               return (
                 <SwiperSlide key={`card_${idx}`}>
-                  <JobCard data={card} />
+                  <TestimonialCard data={card} />
                 </SwiperSlide>
               );
             })}

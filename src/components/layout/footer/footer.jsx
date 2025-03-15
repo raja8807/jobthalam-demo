@@ -36,12 +36,12 @@ const Footer = () => {
           <Col xs={12} md={6} lg={5}>
             <div className={`${styles.sec} ${styles.sec1}`}>
               <Image src="/logo/logo_f_v.png" alt="logo" width={250} className={styles.logo}/>
-              <p>
+              {/* <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
                 ad quos ratione asperiores qui molestiae itaque amet et
                 reiciendis magni vel incidunt dolor libero, inventore,
                 voluptatibus deserunt doloribus optio sit?
-              </p>
+              </p> */}
             </div>
           </Col>
           <Col xs={6} md={6} lg={2}>
