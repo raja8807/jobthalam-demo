@@ -44,6 +44,24 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
+
+        .check {
+          display: flex;
+          gap: 20px;
+        }
+      }
+    }
+  }
+
+  @include respond-below(md) {
+    padding-top: 50px;
+    .box {
+      flex-direction: column;
+      gap: 24px;
+
+      .left,
+      .right {
+        width: 100%;
       }
     }
   }

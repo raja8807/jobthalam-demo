@@ -12,8 +12,8 @@ const CustomInput = ({
   error,
   label,
   rightElement,
+  pre,
   ...props
-  
 }) => {
   // <input
   //     placeholder="Date"
@@ -33,6 +33,7 @@ const CustomInput = ({
           error ? styles.error : ""
         }`}
       >
+        {pre}
         <input
           onChange={(e) => {
             onChange(e, e.target.value);
@@ -41,14 +42,14 @@ const CustomInput = ({
           placeholder={placeHolder}
           type={type === "date" ? dateType : type}
           required={required}
-          onFocus={()=>{
-            if(type === "date" ){
-              setDateType("date")
+          onFocus={() => {
+            if (type === "date") {
+              setDateType("date");
             }
           }}
-          onBlur={()=>{
-            if(type === "date" ){
-              setDateType("text")
+          onBlur={() => {
+            if (type === "date") {
+              setDateType("text");
             }
           }}
           {...props}

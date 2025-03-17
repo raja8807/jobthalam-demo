@@ -66,22 +66,23 @@
   }
 
   .sec {
-    // padding: 100px 0;
     .txt {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 10px;
       height: 100%;
       padding: 50px 0;
 
       h2 {
         color: $color_p1;
-        font-size: 24px;
+        font-size: 40px;
+        font-weight: bold;
+        margin: 0;
       }
 
       p {
         color: $color_g3;
+        margin-top: 12px;
       }
     }
   }

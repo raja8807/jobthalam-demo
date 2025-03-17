@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./contact.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
-import { Col, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
@@ -16,9 +16,10 @@ const ContactScreen = ({
     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.Corporis perferendis, voluptas quos quaerat incidunt harum?Dolor eum modi doloremque sunt minima, laudantium, numquamquidem soluta, adipisci ea eaque cupiditate nisi!",
   },
 }) => {
-
-  
-  
+  const [values, setValues] = useState({
+    phone: "",
+    isCandidate: true,
+  });
 
   return (
     <>
@@ -38,8 +39,32 @@ const ContactScreen = ({
                   <h3>Get In Touch</h3>
                   <CustomInput placeHolder="Name" />
                   <CustomInput placeHolder="Email" />
-                  <CustomInput placeHolder="Subject" />
-                  <CustomTextArea placeHolder="Message" />
+                  <CustomInput placeHolder="Phone Number" pre="+91" />
+                  <CustomTextArea placeHolder="Description" />
+                  <div className={styles.check}>
+                    <Form.Check
+                      type="checkBox"
+                      label="Candidate"
+                      checked={values.isCandidate}
+                      onChange={(e) => {
+                        setValues((prev) => ({
+                          ...prev,
+                          isCandidate: e.target.checked,
+                        }));
+                      }}
+                    />
+                    <Form.Check
+                      type="checkBox"
+                      label="Recruiter"
+                      checked={!values.isCandidate}
+                      onChange={(e) => {
+                        setValues((prev) => ({
+                          ...prev,
+                          isCandidate: !e.target.checked,
+                        }));
+                      }}
+                    />
+                  </div>
                   <CustomButton>Submit</CustomButton>
                 </form>
               </div>

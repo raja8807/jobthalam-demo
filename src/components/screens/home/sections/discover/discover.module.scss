@@ -66,26 +66,43 @@
   max-width: 800px;
   margin: auto;
   text-align: center;
+  // background-color: $color_g1;
+  min-height: 420px;
+  border-radius: 10px;
+
+  transform: scale(0.9);
   .Ctop {
     margin-bottom: 20px;
     p {
-      font-size: 22px;
-      margin-top: 24px;
+      font-size: 18px;
+      margin-top: 16px;
     }
 
     small {
-      font-size: 16px;
+      font-size: 15px;
       color: $color_g3;
     }
 
     img {
       border: 2px solid $color_p1;
       border-radius: 50%;
+      margin-bottom: 16px;
+    }
+
+    .stars{
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      color: gold;
+      svg{
+        font-size: 18px;
+      }
+
     }
   }
 
   .text {
-    font-size: 22px;
+    font-size: 18px;
     color: rgb(74, 74, 74);
   }
 
