@@ -47,7 +47,7 @@ const Card = ({ data, isInternship, isLoading }) => {
               <p>{data.company_name}</p>
             </div>
             <div>
-              <Image src={data.logo_url || "company_logo_placeholder.png"} alt="logo" width={50} />
+              <Image src={data.logo_url || "/company_logo_placeholder.png"} alt="logo" width={50} />
             </div>
           </div>
           <div className={styles.details}>
