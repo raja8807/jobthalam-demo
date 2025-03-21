@@ -13,6 +13,6 @@ export const EXPERIENCES = ["Fresher", "Experienced"];
 
 export const LOCATIONS = ["Chennai", "Coimbatore"];
 
-export const JOB_TYPES = ["Full time", "Part time"];
+export const JOB_TYPES = ["Full time", "Part time", "Internship"];
 
 

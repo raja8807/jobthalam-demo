@@ -59,6 +59,7 @@ const ManageAdminJobsScreen = () => {
         setCurrentTab={setCurrentTab}
       />
       <div>
+        
         <ActiveJobs
           jobsData={jobsData?.filter((j) => {
 

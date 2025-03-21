@@ -68,7 +68,7 @@ const AdminJobsForm = ({ jobToUpdate, handleUpdateJob }) => {
 
   const handleSave = async () => {
     if (isUpdate) {
-      await handleUpdateJob({ ...values });
+      await handleUpdateJob({ ...values, is_featured: false });
     } else {
       await createAdminJobAsync({
         ...values,
@@ -251,6 +251,24 @@ const AdminJobsForm = ({ jobToUpdate, handleUpdateJob }) => {
               />
             </div>
           </Col>
+          {values.type === "Internship" && (
+            <Row>
+              <Col xs={12} md={6} lg={4}>
+                <div className={styles.control}>
+                  <CustomInput
+                    value={values.duration}
+                    onChange={(e, v) => {
+                      setValues((prev) => ({ ...prev, duration: v }));
+                    }}
+                    label="Duration (Months)"
+                    required
+                    type="number"
+                  />
+                </div>
+              </Col>
+            </Row>
+          )}
+
           <Col>
             <div className={styles.control}>
               <br />

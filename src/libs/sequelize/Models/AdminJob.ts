@@ -79,6 +79,12 @@ AdminJob.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    is_featured: {
+      type: DataTypes.BOOLEAN,
+    },
+    duration: {
+      type: DataTypes.STRING,
+    },
   },
   {
     sequelize,

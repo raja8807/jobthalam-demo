@@ -13,6 +13,7 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import { ArrowClockwise, PencilSquare, Trash } from "react-bootstrap-icons";
 import { Modal } from "react-bootstrap";
 import AdminJobsForm from "../../../components/admin_job_form/admin_job_form";
+import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 
 const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
   const { mutateAsync, isLoading: deleteIsLoading } = useUpdateAdminJob();
@@ -47,7 +48,21 @@ const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
       console.log(error);
     }
   };
-  
+  const handleToggleFeatured = async (job, is_featured) => {
+    try {
+      await mutateAsync({ ...job, is_featured });
+      setJobsData((prev) => {
+        const allJobs = [...prev];
+        return allJobs.map((j) => ({
+          ...j,
+          is_featured: j?.id === job.id ? is_featured : j.is_featured,
+        }));
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleUpdateJob = async (job) => {
     try {
       await mutateAsync({ ...job });
@@ -60,6 +75,8 @@ const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
       console.log(error);
     }
   };
+
+  const [includeInternships, setIncludeInternships] = useState(true);
 
   return (
     <div
@@ -83,6 +100,14 @@ const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
         </Modal.Body>
       </Modal>
       {deleteIsLoading && <LoadingScreen />}
+      <input
+        type="checkbox"
+        checked={includeInternships}
+        onChange={(e) => {
+          setIncludeInternships(e.target.checked);
+        }}
+      />{" "}
+      &nbsp;Include Internships
       <br />
       <AgGridReact
         animateRows={false}
@@ -90,12 +115,20 @@ const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
         loading={isLoading}
         rowData={
           jobsData?.[0]
-            ? jobsData.map((aj, idx) => {
-                return {
-                  ...aj,
-                  index: idx + 1,
-                };
-              })
+            ? jobsData
+                .filter((job) => {
+                  if (!includeInternships) {
+                    return job.type !== "Internship";
+                  }
+
+                  return job;
+                })
+                .map((aj, idx) => {
+                  return {
+                    ...aj,
+                    index: idx + 1,
+                  };
+                })
             : []
         }
         rowStyle={{
@@ -138,6 +171,10 @@ const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
             filter: true,
           },
           {
+            field: "type",
+            filter: true,
+          },
+          {
             field: "is_free",
             headerName: "Free",
             filter: true,
@@ -145,6 +182,16 @@ const ActiveJobs = ({ isLoading, jobsData, setJobsData, isDeletedTab }) => {
             editable: true,
             onCellValueChanged: (row) => {
               handleToggleFree(row?.data, row?.data?.is_free);
+            },
+          },
+          {
+            field: "is_featured",
+            headerName: "Featured",
+            filter: true,
+            width: 150,
+            editable: true,
+            onCellValueChanged: (row) => {
+              handleToggleFeatured(row?.data, row?.data?.is_featured);
             },
           },
           {

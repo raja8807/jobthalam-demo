@@ -81,8 +81,8 @@ const UploadJobs = () => {
             <div>
               <br />
               <Link
-                href="/templates/upload_exams_template.xlsx"
-                download="upload_exams_template"
+                href="/templates/upload_jobs_template.xlsx"
+                download="upload_jobs_template"
                 target="_blank"
               >
                 <CustomButton variant={3}>Download Template</CustomButton>
