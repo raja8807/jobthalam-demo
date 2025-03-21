@@ -7,6 +7,7 @@ import DiscoverSection from "./sections/discover/discover";
 import ExploreSection from "./sections/explore/explore";
 import FaqSection from "./sections/faq/faq";
 import NewsLetterSection from "./sections/news_letter/news_letter";
+import JobsSection from "./sections/jobs/jobs";
 
 const HomeScreen = ({ candidateHomePageData = {} }) => {
   // console.log();
@@ -15,7 +16,8 @@ const HomeScreen = ({ candidateHomePageData = {} }) => {
     <main>
       <BannerSection bannerData={candidateHomePageData.bannerData} />
       <VacanciesSection vacanciesData={candidateHomePageData?.vacanciesData} />
-      <ExploreSection categoryData={candidateHomePageData.categoryData} />
+      <JobsSection/>
+      {/* <ExploreSection categoryData={candidateHomePageData.categoryData} /> */}
       <HowItWorks />
       <DiscoverSection
         testimonials={candidateHomePageData.candidateTestimonialsData}
