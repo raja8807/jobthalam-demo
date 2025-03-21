@@ -1,7 +1,7 @@
 import HomePage from "@/components/screens/home/home";
 import { getAllData } from "@/libs/firebase/firebase";
 
-const Home = ({ data }) => {
+const Home = ({ data,setShowLogin }) => {
   const candidateHomePageData = {
     bannerData: data?.homePageData?.[0]?.bannerData || {
       title: [
@@ -199,7 +199,7 @@ const Home = ({ data }) => {
 
     cards: data?.homePageData?.[0]?.cards,
   };
-  return <HomePage candidateHomePageData={candidateHomePageData} />;
+  return <HomePage candidateHomePageData={candidateHomePageData} setShowLogin={setShowLogin} />;
 };
 
 export default Home;

@@ -33,10 +33,9 @@ const LogoutButton = ({ session, currentUser }) => {
   );
 };
 
-const Header = ({ currentUser, session }) => {
+const Header = ({ currentUser, session ,showLogin, setShowLogin}) => {
   const router = useRouter();
 
-  const [showLogin, setShowLogin] = useState(false);
   const [showHeader, setShowHeader] = useState(false);
 
   return (

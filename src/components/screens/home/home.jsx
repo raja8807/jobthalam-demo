@@ -9,14 +9,14 @@ import FaqSection from "./sections/faq/faq";
 import NewsLetterSection from "./sections/news_letter/news_letter";
 import JobsSection from "./sections/jobs/jobs";
 
-const HomeScreen = ({ candidateHomePageData = {} }) => {
+const HomeScreen = ({ setShowLogin,candidateHomePageData = {} }) => {
   // console.log();
 
   return (
     <main>
       <BannerSection bannerData={candidateHomePageData.bannerData} />
       <VacanciesSection vacanciesData={candidateHomePageData?.vacanciesData} />
-      <JobsSection/>
+      <JobsSection setShowLogin={setShowLogin}/>
       {/* <ExploreSection categoryData={candidateHomePageData.categoryData} /> */}
       <HowItWorks />
       <DiscoverSection

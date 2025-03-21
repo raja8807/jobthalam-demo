@@ -8,7 +8,16 @@ import { getJoinTableQuery } from "@/utils/helpers/helpers";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
-      const jobs = await AdminJob.findAll();
+      const jobs = await AdminJob.findAll({
+        where: [
+          {
+            is_featured: true,
+          },
+          {
+            status: "Active",
+          },
+        ],
+      });
 
       return res.status(200).json(jobs);
     } catch (err) {
