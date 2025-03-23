@@ -1,9 +1,5 @@
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import styles from "./header.module.scss";
-import MainHeader from "./main_header/main_header";
-// import SubHeader from "./sub_header/sub_header";
-import TopHeader from "./top_header/top_header";
-import axios from "axios";
 import { Image } from "react-bootstrap";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import Link from "next/link";
@@ -15,6 +11,7 @@ import OtpVerify from "./main_header/otp_verify/otp_verify";
 import { List, PersonCircle } from "react-bootstrap-icons";
 import HeaderDrawer from "./top_header/header_drawer/header_drawer";
 import { auth } from "@/libs/firebase/firebase";
+import InternShipFormModal from "@/components/ui/internship_form/internship_form";
 
 const LogoutButton = ({ session, currentUser }) => {
   return (
@@ -33,15 +30,16 @@ const LogoutButton = ({ session, currentUser }) => {
   );
 };
 
-const Header = ({ currentUser, session ,showLogin, setShowLogin}) => {
+const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
   const router = useRouter();
 
   const [showHeader, setShowHeader] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   return (
     <header className={`${styles.header} `}>
       <OtpVerify showLogin={showLogin} setShowLogin={setShowLogin} />
-
+      <InternShipFormModal show={showForm} setShow={setShowForm} />
       <CustomContainer>
         <div className={styles.wrap}>
           <div className={styles.logo}>
@@ -117,6 +115,15 @@ const Header = ({ currentUser, session ,showLogin, setShowLogin}) => {
                       <PersonCircle />
                       Candidate Login
                     </p>
+                  </CustomButton>
+                  &nbsp; &nbsp;
+                  <CustomButton
+                    onClick={() => {
+                      setShowForm(true);
+                    }}
+                    variant={5}
+                  >
+                    <p className={styles.login}>Register For Internships</p>
                   </CustomButton>
                 </div>
               </>

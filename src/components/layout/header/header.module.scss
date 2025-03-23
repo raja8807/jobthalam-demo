@@ -70,8 +70,14 @@
         }
       }
       .right {
-        width: fit-content;
         margin: 0px auto 0 auto;
+        .btns {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
 
         .btns {
           margin-top: 20px;
