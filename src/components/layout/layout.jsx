@@ -99,6 +99,18 @@ const Layout = ({ children, currentUser, session }) => {
       ],
     },
     {
+      title: "Forms",
+      href: "forms",
+      icon: <People />,
+      subMenus: [
+        {
+          title: "Internships",
+          href: "internships",
+        },
+        
+      ],
+    },
+    {
       title: "Landing page",
       href: "landing",
       icon: <Laptop />,
