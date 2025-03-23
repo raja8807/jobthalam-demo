@@ -14,11 +14,14 @@
 
 .card {
   padding: 20px;
-  cursor: pointer;
 
   &.notLoading {
+    cursor: pointer;
     background-color: white;
     box-shadow: rgba(99, 99, 99, 0.1) 0px 1px 4px 0px;
+    &:hover {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
   }
   display: flex;
   flex-direction: column;
@@ -27,9 +30,7 @@
   border-radius: 10px;
   margin-bottom: 50px;
   height: 300px;
-  &:hover {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  }
+
   .label {
     color: $color_g2;
     font-weight: lighter;

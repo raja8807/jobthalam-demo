@@ -28,10 +28,44 @@ import "react-loading-skeleton/dist/skeleton.css";
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import CustomButton from "@/components/ui/custom_button/custom_button";
+import { useCreateSubmission } from "@/hooks/form_hooks/form_hooks";
+import JobDetails from "@/components/jobs/job_details/job_details";
 
 const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
   const loading = isLoading || !data;
   const [showModal, setShowModal] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(false);
+  const [values, setValues] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    year: "",
+    department: "",
+    duration: "",
+  });
+
+  const { mutateAsync, isLoading: submitIsLoading } = useCreateSubmission();
+
+  const handleSubmit = async () => {
+    try {
+      await mutateAsync({
+        ...values,
+        admin_job_id: data?.id,
+      });
+      setValues({
+        name: "",
+        phone: "",
+        email: "",
+        year: "",
+        department: "",
+        duration: "",
+      });
+      alert("Thank you for showing interest. We will get back to you soon");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -54,23 +88,84 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
           </div>
         </Modal.Header>
         <Modal.Body>
-          <div className={styles.form}>
+          <form
+            className={styles.form}
+            onSubmit={async (e) => {
+              e.preventDefault();
+              await handleSubmit();
+            }}
+          >
             <div className={styles.controls}>
-              <CustomInput placeHolder="Name" />
-              <CustomInput placeHolder="Year" />
+              <CustomInput
+                placeHolder="Name"
+                required
+                onChange={(e, v) => {
+                  setValues((prev) => ({ ...prev, name: v }));
+                }}
+                value={values.name}
+              />
+              <CustomInput
+                placeHolder="Phone"
+                required
+                onChange={(e, v) => {
+                  setValues((prev) => ({ ...prev, phone: v }));
+                }}
+                value={values.phone}
+                // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                // type="tel"
+                pre={"+91"}
+              />
+              <CustomInput
+                placeHolder="Email"
+                required
+                onChange={(e, v) => {
+                  setValues((prev) => ({ ...prev, email: v }));
+                }}
+                value={values.email}
+                type="email"
+              />
               <CustomSelect
                 placeholder="Department"
                 options={["Engineering", "Arts & Science"]}
+                onChange={(e, v) => {
+                  setValues((prev) => ({ ...prev, department: v }));
+                }}
+                value={values.department}
               />
-              <CustomInput placeHolder="Duration" type="number" />
+              <CustomInput
+                placeHolder="Passed out year"
+                onChange={(e, v) => {
+                  setValues((prev) => ({ ...prev, year: v }));
+                }}
+                value={values.year}
+                type="number"
+                min={1970}
+              />
+
+              <CustomInput
+                placeHolder="Duration"
+                type="number"
+                onChange={(e, v) => {
+                  setValues((prev) => ({ ...prev, duration: v }));
+                }}
+                value={values.duration}
+                min={1}
+              />
               <div className={styles.agree}>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  onChange={(e) => {
+                    setIsAgreed(e.target.checked);
+                  }}
+                />
                 <p>
                   Agree to our <span>Terms and Conditions.</span>
                 </p>
               </div>
               <br />
-              <CustomButton>Submit</CustomButton>
+              <CustomButton isLoading={submitIsLoading} disabled={!isAgreed}>
+                Submit
+              </CustomButton>
             </div>
 
             <div className={styles.signup}>
@@ -89,14 +184,31 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
                 Register As Candidate
               </CustomButton>
             </div>
-          </div>
+          </form>
         </Modal.Body>
       </Modal>
+      {showDetail && (
+        <JobDetails
+          isAdminJob
+          job={data}
+          setJob={setShowDetail}
+          isHidden
+          onDetailButtonClick={() => {
+            sessionStorage.setItem("enq_job_id", data?.id);
+            setShowDetail(false);
+            if (isInternship) {
+              setShowModal(true);
+            } else {
+              setShowLogin(true);
+            }
+          }}
+        />
+      )}
       <div
         className={`${styles.card} ${!loading ? styles.notLoading : ""}`}
         onClick={() => {
           if (!isLoading) {
-            setShowModal(true);
+            setShowDetail(true);
           }
         }}
       >

@@ -1,9 +1,4 @@
 import AdminJob from "@/libs/sequelize/Models/AdminJob";
-import Employer from "@/libs/sequelize/Models/Employer";
-import FeaturedJob from "@/libs/sequelize/Models/FeaturedJob";
-import Job from "@/libs/sequelize/Models/Job";
-import sequelize from "@/libs/sequelize/sequelize";
-import { getJoinTableQuery } from "@/utils/helpers/helpers";
 
 const handler = async (req, res) => {
   if (req.method === "GET") {
@@ -16,6 +11,19 @@ const handler = async (req, res) => {
           {
             status: "Active",
           },
+        ],
+        attributes: [
+          "id",
+          "company_name",
+          "location",
+          "salary",
+          "duration",
+          "experience",
+          "type",
+          "title",
+          'education',
+          'createdAt',
+          'description'
         ],
       });
 

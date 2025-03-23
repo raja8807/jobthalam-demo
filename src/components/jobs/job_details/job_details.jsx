@@ -14,12 +14,22 @@ import {
 } from "react-bootstrap-icons";
 import { formatDate } from "@/utils/helpers/helpers";
 
-const JobDetails = ({ job, setJob, actionButton, isAdminJob, employer }) => {
+const JobDetails = ({
+  job,
+  setJob,
+  actionButton,
+  isAdminJob,
+  employer,
+  isHidden,
+  onDetailButtonClick,
+}) => {
   const close = () => {
     setJob(null);
   };
 
   const companyName = isAdminJob ? job?.company_name : employer?.company_name;
+
+  console.log(job);
 
   return (
     <Modal
@@ -95,11 +105,19 @@ const JobDetails = ({ job, setJob, actionButton, isAdminJob, employer }) => {
                   <p>JOB LEVEL:</p>
                   <span>Entry Level</span>
                 </div> */}
-                <div>
-                  <CalendarDate />
-                  <p>EXPERIENCE:</p>
-                  <span>{job?.experience} Year(s)</span>
-                </div>
+                {job?.duration ? (
+                  <div>
+                    <CalendarDate />
+                    <p>DURATION:</p>
+                    <span>{job?.duration} Month(s)</span>
+                  </div>
+                ) : (
+                  <div>
+                    <CalendarDate />
+                    <p>EXPERIENCE:</p>
+                    <span>{job?.experience} Year(s)</span>
+                  </div>
+                )}
                 <div>
                   <Briefcase />
                   <p>EDUCATION:</p>
@@ -126,19 +144,36 @@ const JobDetails = ({ job, setJob, actionButton, isAdminJob, employer }) => {
               </div>
             )}
             {isAdminJob && (
-              <div className={styles.box}>
+              <div className={`${styles.box} `}>
                 <h6>Contact</h6>
-                <div className={styles.box3}>
-                  <strong>
-                    <Person /> &nbsp;{job.company_spoc_name}
-                  </strong>
+                <div
+                  className={`${styles.box3} ${isHidden ? styles.hidden : ""}`}
+                >
                   <div>
-                    <EnvelopeAt /> &nbsp;<small>{job?.company_email}</small>
+                    <Person /> &nbsp;
+                    <strong>
+                      {isHidden ? "Mr. John Doe" : job.company_spoc_name}
+                    </strong>
+                  </div>
+                  <div>
+                    <EnvelopeAt /> &nbsp;
+                    <small>
+                      {isHidden ? "Loremipsum@gmail.com" : job?.company_email}
+                    </small>
                   </div>
                   <div>
                     <Phone /> &nbsp;
-                    <small>{job.company_phone_number}</small>
+                    <small>
+                      {isHidden ? "+91 98765 43210" : job.company_phone_number}
+                    </small>
                   </div>
+                  <br />
+                  <hr />
+                  {isHidden && (
+                    <CustomButton onClick={onDetailButtonClick}>
+                      Get Full Details
+                    </CustomButton>
+                  )}
                 </div>
               </div>
             )}
@@ -150,7 +185,26 @@ const JobDetails = ({ job, setJob, actionButton, isAdminJob, employer }) => {
               <p>{job?.description}</p>
               <br />
               <h6>About Company</h6>
-              <p>{isAdminJob ? job?.about_company : employer?.about}</p>
+              {isHidden ? (
+                <p className={styles.hidden}>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Magni voluptates ad fuga aut eaque numquam reiciendis nesciunt
+                  delectus quibusdam doloremque sunt eligendi quo officiis vel
+                  unde cum, optio est commodi. Lorem ipsum dolor, sit amet
+                  consectetur adipisicing elit. Officiis ratione consequatur
+                  tenetur pariatur unde accusantium possimus nemo, voluptatum
+                  architecto quibusdam voluptate nobis! Vitae quas laborum,
+                  aliquam culpa excepturi distinctio voluptate?
+                  <br />
+                  <br />
+                  Officiis ratione consequatur tenetur pariatur unde accusantium
+                  possimus nemo, voluptatum architecto quibusdam voluptate
+                  nobis! Vitae quas laborum, aliquam culpa excepturi distinctio
+                  voluptate?
+                </p>
+              ) : (
+                <p>{isAdminJob ? job?.about_company : employer?.about}</p>
+              )}
             </div>
           </div>
         </div>
