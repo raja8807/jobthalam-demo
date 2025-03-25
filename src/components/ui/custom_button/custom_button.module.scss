@@ -59,5 +59,18 @@
     background-color: $color_s1;
     border: none;
     color: white;
+    animation: blink 1s steps(1, end) infinite;
+    border: 2px solid $color_p1;
+    position: relative;
+
+  }
+}
+
+
+@keyframes blink {
+  50% {
+    background-color: $color_p1;
+    border: 2px solid $color_s1;
+
   }
 }

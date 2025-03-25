@@ -7,7 +7,7 @@ import CustomButton from "../custom_button/custom_button";
 import CustomInput from "../cuatom_input/cuatom_input";
 import CustomSelect from "../select/custom_select/custom_select";
 
-const InternShipFormModal = ({ show, setShow, jobId }) => {
+const InternShipFormModal = ({ show, setShow, jobId,setShowLogin }) => {
   const [isAgreed, setIsAgreed] = useState(false);
 
   const [values, setValues] = useState({

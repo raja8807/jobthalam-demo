@@ -39,7 +39,12 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
 
   return (
     <>
-      <InternShipFormModal show={showModal} setShow={setShowModal} jobId={data?.id}/>
+      <InternShipFormModal
+        show={showModal}
+        setShow={setShowModal}
+        jobId={data?.id}
+        setShowLogin={setShowLogin}
+      />
       {showDetail && (
         <JobDetails
           isAdminJob

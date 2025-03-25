@@ -39,7 +39,7 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
   return (
     <header className={`${styles.header} `}>
       <OtpVerify showLogin={showLogin} setShowLogin={setShowLogin} />
-      <InternShipFormModal show={showForm} setShow={setShowForm} />
+      <InternShipFormModal show={showForm} setShow={setShowForm} setShowLogin={setShowLogin}/>
       <CustomContainer>
         <div className={styles.wrap}>
           <div className={styles.logo}>
@@ -123,6 +123,7 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
                     }}
                     variant={5}
                   >
+                    {/* <div className={styles.badge}>New</div> */}
                     <p className={styles.login}>Register For Internships</p>
                   </CustomButton>
                 </div>
