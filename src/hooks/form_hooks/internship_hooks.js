@@ -20,3 +20,29 @@ export const useFetchAllSubmissions = () => {
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
+
+const deleteBulkInternshipSubmissions = async (ids) => {
+  try {
+    return await axios.post(`${URL}/delete`, {
+      ids,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const useDeleteBulkInternshipSubmissions = () => {
+  const queryClient = useQueryClient();
+  const { mutateAsync, isPending, error, isSuccess, data, isError } =
+    useMutation({
+      mutationFn: deleteBulkInternshipSubmissions,
+      onSuccess: () => {
+        queryClient.invalidateQueries(["INTERNSHIP_SUBMISSIONS"]);
+        // queryClient.setQueryData('INTERNSHIP_SUBMISSIONS', ()=>{
+        //   return []
+        // })
+      },
+    });
+
+  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
+};

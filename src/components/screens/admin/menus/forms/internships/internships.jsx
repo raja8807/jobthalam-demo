@@ -1,5 +1,8 @@
-import { useFetchAllSubmissions } from "@/hooks/form_hooks/internship_hooks";
-import React, { useState } from "react";
+import {
+  useDeleteBulkInternshipSubmissions,
+  useFetchAllSubmissions,
+} from "@/hooks/form_hooks/internship_hooks";
+import React, { useRef, useState } from "react";
 import * as XLSX from "xlsx";
 
 import { AgGridReact } from "ag-grid-react";
@@ -13,7 +16,12 @@ import JobDetails from "@/components/jobs/job_details/job_details";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 
 const InternshipSubmissions = () => {
-  const { data, isLoading } = useFetchAllSubmissions();
+  const { data, isLoading: fetchIsLoading } = useFetchAllSubmissions();
+  const { mutateAsync, isLoading: deleteIsLoading } =
+    useDeleteBulkInternshipSubmissions();
+
+  const isLoading = fetchIsLoading || deleteIsLoading;
+
   const [showJobDetailFor, setSHowJobDetailsFor] = useState(null);
 
   const exportToExcel = () => {
@@ -35,11 +43,26 @@ const InternshipSubmissions = () => {
     XLSX.writeFile(workbook, "data.xlsx");
   };
 
+  const selectedRows = useRef([]);
+
+  const handleDelete = async () => {
+    try {
+      await mutateAsync(selectedRows.current.map((r) => r.id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
-      <CustomButton onClick={exportToExcel}>Download As Xlsx</CustomButton>
-      <br />
-      <br />
+      <div style={{
+        display:'flex',
+        justifyContent:'space-between'
+      }}>
+        <CustomButton onClick={exportToExcel}>Download As Xlsx</CustomButton>
+        <CustomButton onClick={handleDelete}>Delete Selected</CustomButton>
+      </div>
+      <br/>
       <div
         className="ag-theme-balham" // applying the Data Grid theme
         style={{ height: "calc(100dvh - 300px)", fontSize: "14px" }} // the Data Grid will fill the size of the parent container
@@ -49,6 +72,11 @@ const InternshipSubmissions = () => {
         )}
         <AgGridReact
           loading={isLoading}
+          rowSelection={"multiple"}
+          onSelectionChanged={(e) => {
+            selectedRows.current = e.api.getSelectedRows();
+            // setSelectedRows();
+          }}
           rowData={
             data?.data
               ? data?.data.map((row, idx) => {
