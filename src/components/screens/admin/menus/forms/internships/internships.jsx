@@ -2,7 +2,7 @@ import {
   useDeleteBulkInternshipSubmissions,
   useFetchAllSubmissions,
 } from "@/hooks/form_hooks/internship_hooks";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 
 import { AgGridReact } from "ag-grid-react";
@@ -17,6 +17,18 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 
 const InternshipSubmissions = () => {
   const { data, isLoading: fetchIsLoading } = useFetchAllSubmissions();
+
+  
+  
+
+  const [internshipSubmissions, setInternshipSubmissions] = useState([]);
+
+  useEffect(() => {
+    if (data?.data) {
+      setInternshipSubmissions(data?.data);
+    }
+  }, [data?.data]);
+
   const { mutateAsync, isLoading: deleteIsLoading } =
     useDeleteBulkInternshipSubmissions();
 
@@ -30,7 +42,7 @@ const InternshipSubmissions = () => {
 
     // Convert JSON data to a worksheet
     const worksheet = XLSX.utils.json_to_sheet(
-      data?.data.map((d) => ({
+      internshipSubmissions.map((d) => ({
         ...d,
         ...d.AdminJob,
       }))
@@ -47,7 +59,14 @@ const InternshipSubmissions = () => {
 
   const handleDelete = async () => {
     try {
-      await mutateAsync(selectedRows.current.map((r) => r.id));
+      await mutateAsync(selectedRows.current);
+      setInternshipSubmissions((prev) => {
+        return prev.filter((is) => {
+          return !selectedRows.current.includes(is.id);
+        });
+      });
+
+      selectedRows.current = [];
     } catch (error) {
       console.log(error);
     }
@@ -55,14 +74,16 @@ const InternshipSubmissions = () => {
 
   return (
     <div>
-      <div style={{
-        display:'flex',
-        justifyContent:'space-between'
-      }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <CustomButton onClick={exportToExcel}>Download As Xlsx</CustomButton>
         <CustomButton onClick={handleDelete}>Delete Selected</CustomButton>
       </div>
-      <br/>
+      <br />
       <div
         className="ag-theme-balham" // applying the Data Grid theme
         style={{ height: "calc(100dvh - 300px)", fontSize: "14px" }} // the Data Grid will fill the size of the parent container
@@ -74,12 +95,12 @@ const InternshipSubmissions = () => {
           loading={isLoading}
           rowSelection={"multiple"}
           onSelectionChanged={(e) => {
-            selectedRows.current = e.api.getSelectedRows();
+            selectedRows.current = e.api.getSelectedRows().map((x) => x.id);
             // setSelectedRows();
           }}
           rowData={
-            data?.data
-              ? data?.data.map((row, idx) => {
+            internshipSubmissions
+              ? internshipSubmissions.map((row, idx) => {
                   return {
                     ...row,
                     index: idx + 1,

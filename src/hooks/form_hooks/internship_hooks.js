@@ -36,12 +36,6 @@ export const useDeleteBulkInternshipSubmissions = () => {
   const { mutateAsync, isPending, error, isSuccess, data, isError } =
     useMutation({
       mutationFn: deleteBulkInternshipSubmissions,
-      onSuccess: () => {
-        queryClient.invalidateQueries(["INTERNSHIP_SUBMISSIONS"]);
-        // queryClient.setQueryData('INTERNSHIP_SUBMISSIONS', ()=>{
-        //   return []
-        // })
-      },
     });
 
   return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
