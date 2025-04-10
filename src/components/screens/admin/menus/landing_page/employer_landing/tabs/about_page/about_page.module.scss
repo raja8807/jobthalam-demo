@@ -1,0 +1,59 @@
+.AboutPageTab {
+  .banner {
+    .head {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  }
+
+  .sections {
+    .row {
+      padding: 24px 0;
+      border-bottom: 1px solid $color_g2;
+
+      .img_prev {
+        position: relative;
+        margin-top: 20px;
+        width: fit-content;
+        .x {
+          position: absolute;
+          color: red;
+          right: 0;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .clients {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    margin-top: 20px;
+    width: fit-content;
+    align-items: center;
+
+    .img {
+      position: relative;
+      .x {
+        position: absolute;
+        color: red;
+        right: 0;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+  .count {
+    border: 1px solid $color_g2;
+    padding: 10px;
+  }
+}
