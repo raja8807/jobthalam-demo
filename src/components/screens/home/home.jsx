@@ -14,18 +14,7 @@ import { duplicate } from "@/libs/firebase/firebase";
 const HomeScreen = ({ setShowLogin,employerHomePageData = {} }) => {
   return (
     <main>
-      <CustomButton onClick={
-        async ()=>{
-          try {
-            // await duplicate('employerTestimonialsData', 'employerTestimonialsData');
-            console.log('ok');
-            
-          } catch (error) {
-            console.log(error);
-            
-          }
-        }
-      }>run</CustomButton>
+      
       <BannerSection bannerData={employerHomePageData.bannerData} />
       <VacanciesSection vacanciesData={employerHomePageData?.vacanciesData} />
       <JobsSection setShowLogin={setShowLogin}/>
