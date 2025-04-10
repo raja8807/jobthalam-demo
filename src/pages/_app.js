@@ -68,17 +68,25 @@ export default function App({ Component, pageProps }) {
     });
   }, []);
 
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <>
       <main className={`${styles.main} ${fonts.MainFont}`}>
         <QueryClientProvider client={queryClient}>
-          <Layout currentUser={currentUser} session={session}>
+          <Layout
+            currentUser={currentUser}
+            session={session}
+            showLogin={showLogin}
+            setShowLogin={setShowLogin}
+          >
             <Component
               {...pageProps}
               currentUser={currentUser}
               session={session}
               setCurrentUser={setCurrentUser}
               setSession={setSession}
+              setShowLogin={setShowLogin}
             />
           </Layout>
         </QueryClientProvider>

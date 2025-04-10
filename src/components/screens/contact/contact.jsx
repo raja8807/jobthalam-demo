@@ -10,8 +10,8 @@ import FaqSection from "../home/sections/faq/faq";
 import NewsLetterSection from "../home/sections/news_letter/news_letter";
 
 const ContactScreen = ({
-  candidateFaqData,
-  candidateContactData = {
+  employerFaqData,
+  employerContactData = {
     head: "We Care About Customer Service",
     text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit.Corporis perferendis, voluptas quos quaerat incidunt harum?Dolor eum modi doloremque sunt minima, laudantium, numquamquidem soluta, adipisci ea eaque cupiditate nisi!",
   },
@@ -29,8 +29,8 @@ const ContactScreen = ({
             <div className={styles.box}>
               <div className={styles.left}>
                 <div>
-                  <h3>{candidateContactData?.head}</h3>
-                  <p>{candidateContactData?.text}</p>
+                  <h3>{employerContactData?.head}</h3>
+                  <p>{employerContactData?.text}</p>
                   <CustomButton variant={2}>Email Support</CustomButton>
                 </div>
               </div>
@@ -72,7 +72,7 @@ const ContactScreen = ({
           </div>
         </CustomContainer>
       </div>
-      <FaqSection faqs={candidateFaqData} />
+      <FaqSection faqs={employerFaqData} />
       <br />
       <br />
       <br />

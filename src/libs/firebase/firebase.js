@@ -1,4 +1,5 @@
 import { initializeApp, getApp, getApps } from "firebase/app";
+
 import {
   getFirestore,
   doc,
@@ -21,6 +22,7 @@ import {
 } from "firebase/storage";
 
 import { getAuth } from "firebase/auth";
+import { v4 } from "uuid";
 
 export const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -121,14 +123,34 @@ export const deletData = async (collectionName, id) => {
 export const getAllData = async (collectionName) => {
   try {
     const res = [];
-
     const querySnapshot = await getDocs(collection(db, collectionName));
-
     querySnapshot.forEach((doc) => {
       res.push({
         id: doc.id,
         ...doc.data(),
       });
+    });
+
+    return res;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+export const duplicate = async (collectionName, target) => {
+  try {
+    const res = [];
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    querySnapshot.forEach((doc) => {
+      res.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    res.forEach(async (d) => {
+      const id = v4();
+      await addData(target, { ...d, id }, id);
     });
 
     return res;

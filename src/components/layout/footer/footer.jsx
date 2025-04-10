@@ -6,20 +6,10 @@ import Link from "next/link";
 import PAGES from "@/constants/pages";
 import { ArrowRight } from "react-bootstrap-icons";
 
-export const DownloadSection = ({ isAbout }) => {
-  return (
-    <Col xs={12} md={6} lg={3}>
-      <div className={`${styles.sec} ${styles.sec1}`}>
-        {/* <h4>Download Raido</h4> */}
-        {/* <DownloadButtons isHeader /> */}
-        {isAbout && <br />}
-        <h4>Follow Us On</h4>
-      </div>
-    </Col>
-  );
-};
+
 
 const Footer = () => {
+  
   const PRODUCTS = [
     {
       id: "MANGO",
@@ -46,12 +36,12 @@ const Footer = () => {
           <Col xs={12} md={6} lg={5}>
             <div className={`${styles.sec} ${styles.sec1}`}>
               <Image src="/logo/logo_f_v.png" alt="logo" width={250} className={styles.logo}/>
-              <p>
+              {/* <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
                 ad quos ratione asperiores qui molestiae itaque amet et
                 reiciendis magni vel incidunt dolor libero, inventore,
                 voluptatibus deserunt doloribus optio sit?
-              </p>
+              </p> */}
             </div>
           </Col>
           <Col xs={6} md={6} lg={2}>
@@ -91,7 +81,6 @@ const Footer = () => {
             </div>
           </Col>
 
-          <DownloadSection />
         </Row>
         <hr />
       </CustomContainer>

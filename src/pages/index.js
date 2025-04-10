@@ -2,7 +2,7 @@ import HomePage from "@/components/screens/home/home";
 import { getAllData } from "@/libs/firebase/firebase";
 
 const Home = ({ data,setShowLogin }) => {
-  const candidateHomePageData = {
+  const employerHomePageData = {
     bannerData: data?.homePageData?.[0]?.bannerData || {
       title: [
         {
@@ -89,8 +89,8 @@ const Home = ({ data,setShowLogin }) => {
       },
     ],
 
-    candidateTestimonialsData: data?.candidateTestimonialsData?.[0]
-      ? data?.candidateTestimonialsData
+    employerTestimonialsData: data?.employerTestimonialsData?.[0]
+      ? data?.employerTestimonialsData
       : [
           {
             text: "I would like to appreciate  Jobthalam team for extending the continuous cooperation and support. I am happy with the services and would like to continue with the same for fulfilling our hiring needs.",
@@ -138,8 +138,8 @@ const Home = ({ data,setShowLogin }) => {
           },
         ],
 
-    candidateFaqData: data?.candidateFaqData?.[0]
-      ? data?.candidateFaqData
+    employerFaqData: data?.employerFaqData?.[0]
+      ? data?.employerFaqData
       : [
           {
             question: " How frequently are jobs updated on Jobthalam?",
@@ -199,22 +199,22 @@ const Home = ({ data,setShowLogin }) => {
 
     cards: data?.homePageData?.[0]?.cards,
   };
-  return <HomePage candidateHomePageData={candidateHomePageData} setShowLogin={setShowLogin} />;
+  return <HomePage employerHomePageData={employerHomePageData} setShowLogin={setShowLogin} />;
 };
 
 export default Home;
 
 export async function getServerSideProps() {
   try {
-    const homePageData = (await getAllData("candidateHomePageData")) || [];
-    const candidateTestimonialsData =
-      (await getAllData("candidateTestimonialsData")) || [];
-    const candidateFaqData = (await getAllData("candidateFaqData")) || [];
+    const homePageData = (await getAllData("employerHomePageData")) || [];
+    const employerTestimonialsData =
+      (await getAllData("employerTestimonialsData")) || [];
+    const employerFaqData = (await getAllData("employerFaqData")) || [];
 
     const data = {
       homePageData,
-      candidateTestimonialsData,
-      candidateFaqData,
+      employerTestimonialsData,
+      employerFaqData,
     };
     return { props: { data: data || null } };
   } catch (ex) {

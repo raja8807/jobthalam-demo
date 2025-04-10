@@ -31,7 +31,7 @@ const TopHeader = ({ session }) => {
                         router.pathname === p.href ? styles.active : ""
                       }`}
                     >
-                      <Link href={"/employer"}>Employer</Link>
+                      <Link href={"/candidate"}>Candidate</Link>
                     </li>
                   );
                 }

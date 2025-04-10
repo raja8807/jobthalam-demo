@@ -26,9 +26,15 @@ const HeaderDrawer = ({ show, setShow, router, session }) => {
               if (page.isPortal) {
                 if (session) {
                   return (
+                    // <li
+                    //   key={"portal"}
+                    //   className={`${styles.item} ${
+                    //     router.pathname === page.href ? styles.active : ""
+                    //   }`}
+                    // >
                     <Link
                       key={"portal"}
-                      href={"/employer"}
+                      href={"/candidate"}
                       className={
                         router.pathname === page.href ? styles.active : ""
                       }
@@ -36,7 +42,7 @@ const HeaderDrawer = ({ show, setShow, router, session }) => {
                         setShow(false);
                       }}
                     >
-                      Employer
+                      Candidate
                     </Link>
                     // </li>
                   );

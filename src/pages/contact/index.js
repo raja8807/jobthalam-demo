@@ -7,8 +7,8 @@ const ContactPage = ({ data }) => {
 
   return (
     <ContactScreen
-      candidateFaqData={data?.candidateFaqData}
-      candidateContactData={data.candidateContactData}
+      employerFaqData={data?.employerFaqData}
+      employerContactData={data.employerContactData}
     />
   );
 };
@@ -17,13 +17,13 @@ export default ContactPage;
 
 export async function getServerSideProps() {
   try {
-    const candidateFaqData = (await getAllData("candidateFaqData")) || [];
-    const candidateContactData =
-      (await getAllData("candidateContactData")) || null;
+    const employerFaqData = (await getAllData("employerFaqData")) || [];
+    const employerContactData =
+      (await getAllData("employerContactData")) || null;
 
     const data = {
-      candidateFaqData,
-      candidateContactData: candidateContactData?.[0] || null,
+      employerFaqData,
+      employerContactData: employerContactData?.[0] || null,
     };
     return { props: { data: data || null } };
   } catch (ex) {

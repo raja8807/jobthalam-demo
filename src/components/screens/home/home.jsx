@@ -8,22 +8,34 @@ import ExploreSection from "./sections/explore/explore";
 import FaqSection from "./sections/faq/faq";
 import NewsLetterSection from "./sections/news_letter/news_letter";
 import JobsSection from "./sections/jobs/jobs";
+import CustomButton from "@/components/ui/custom_button/custom_button";
+import { duplicate } from "@/libs/firebase/firebase";
 
-const HomeScreen = ({ setShowLogin,candidateHomePageData = {} }) => {
-  // console.log();
-
+const HomeScreen = ({ setShowLogin,employerHomePageData = {} }) => {
   return (
     <main>
-      <BannerSection bannerData={candidateHomePageData.bannerData} />
-      <VacanciesSection vacanciesData={candidateHomePageData?.vacanciesData} />
+      <CustomButton onClick={
+        async ()=>{
+          try {
+            // await duplicate('employerTestimonialsData', 'employerTestimonialsData');
+            console.log('ok');
+            
+          } catch (error) {
+            console.log(error);
+            
+          }
+        }
+      }>run</CustomButton>
+      <BannerSection bannerData={employerHomePageData.bannerData} />
+      <VacanciesSection vacanciesData={employerHomePageData?.vacanciesData} />
       <JobsSection setShowLogin={setShowLogin}/>
-      {/* <ExploreSection categoryData={candidateHomePageData.categoryData} /> */}
+      {/* <ExploreSection categoryData={employerHomePageData.categoryData} /> */}
       <HowItWorks />
       <DiscoverSection
-        testimonials={candidateHomePageData.candidateTestimonialsData}
+        testimonials={employerHomePageData.employerTestimonialsData}
       />
-      <FaqSection faqs={candidateHomePageData.candidateFaqData} />
-      <RegisterSection cards={candidateHomePageData?.cards} />
+      <FaqSection faqs={employerHomePageData.employerFaqData} />
+      <RegisterSection cards={employerHomePageData?.cards} />
       <NewsLetterSection />
       <Footer />
     </main>

@@ -5,6 +5,40 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import User from "./user/user";
 import OtpVerify from "./otp_verify/otp_verify";
 import { auth } from "@/libs/firebase/firebase";
+import CustomDropDown from "@/components/ui/dropdown/dropdown";
+import { CaretDown, CaretDownFill } from "react-bootstrap-icons";
+
+// const LoginDropDown = ({setShowLogin}) => {
+//   return (
+//     <div className={styles.LoginDropDown}>
+//       <CustomDropDown
+//         button={
+//           <div className={styles.login_button}>
+//             <p>
+//               Login <CaretDownFill />
+//             </p>
+//           </div>
+//         }
+//         options={[
+//           {
+//             id: "xx",
+//             title: "Login as Employer",
+//             href:"https://jobthalam-employer.vercel.app/",
+//             target:"_blank"
+//           },
+//           {
+//             id: "aa",
+//             title: "Login as Candidate",
+//             variant: "primary",
+//             onClick: () => {
+//               setShowLogin(true);
+//             },
+//           },
+//         ]}
+//       />
+//     </div>
+//   );
+// };
 
 const MainHeader = ({ currentUser, session }) => {
   const [showLogin, setShowLogin] = useState(false);
@@ -21,15 +55,21 @@ const MainHeader = ({ currentUser, session }) => {
             {!currentUser && !session && (
               <>
                 <div className={styles.btns}>
-                <CustomButton
-                  variant={1}
-                  onClick={() => {
-                    setShowLogin(true);
-                  }}
-                >
-                  Employer Login
-                </CustomButton>
-              </div>
+                  <CustomButton
+                    href="https://jobthalam-employer.vercel.app/"
+                    variant={4}
+                    target="_blank"
+                  >
+                    Employer Login
+                  </CustomButton>
+                  <CustomButton
+                    onClick={() => {
+                      setShowLogin(true);
+                    }}
+                  >
+                    Candidate Login
+                  </CustomButton>
+                </div>
 
               </>
             )}

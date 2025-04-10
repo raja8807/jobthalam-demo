@@ -48,12 +48,12 @@ const HeaderProfile = ({ currentUser }) => {
             <small>{currentUser?.email}</small>
             <br />
             <small>
-              <BriefcaseFill /> &nbsp; Employer
+              <BriefcaseFill /> &nbsp; Candidate
             </small>
             <br />
             <br />
             <Link
-              href="/employer?t=2"
+              href="/candidate?t=3"
               onClick={() => {
                 setShowPopup(false);
               }}
