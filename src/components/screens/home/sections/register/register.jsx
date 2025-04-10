@@ -5,39 +5,27 @@ import { Col, Row } from "react-bootstrap";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import { ArrowRight } from "react-bootstrap-icons";
 
-const RegisterSection = () => {
+const RegisterSection = ({ cards = [] }) => {
   return (
     <div className={styles.RegisterSection}>
       <CustomContainer>
         <Row>
-          <Col xs={12} lg={6}>
-            <div className={`${styles.card} ${styles.card1}`}>
-              <h2>Become a Candidate</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Perferendis, animi. Quisquam dolores sapiente culpa. Quam
-                deleniti deserunt itaque sint dignissimos.
-              </p>
-              <CustomButton variant={3}>
-                Register as a Candidate
-                <ArrowRight />
-              </CustomButton>
-            </div>
-          </Col>
-          <Col xs={12} lg={6}>
-            <div className={`${styles.card} ${styles.card2}`}>
-              <h2>Become an Employer</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Perferendis, animi. Quisquam dolores sapiente culpa. Quam
-                deleniti deserunt itaque sint dignissimos.
-              </p>
-              <CustomButton variant={1}>
-                Register as an Employer
-                <ArrowRight />
-              </CustomButton>
-            </div>
-          </Col>
+          {cards.map((card, cIdx) => {
+            return (
+              <Col xs={12} lg={6} key={`card_${cIdx}`} className={styles.c}>
+                <div className={`${styles.card} ${styles[`card${cIdx + 1}`]}`}>
+                  <div className={styles.top}>
+                    <h2>{card.head}</h2>
+                    <p>{card.text}</p>
+                  </div>
+                  <CustomButton variant={cIdx % 2 ? 1 : 3} href={card.link}>
+                    {card.btnTxt}
+                    <ArrowRight />
+                  </CustomButton>
+                </div>
+              </Col>
+            );
+          })}
         </Row>
       </CustomContainer>
     </div>

@@ -1,0 +1,97 @@
+.JobsSection {
+  padding: 50px 0;
+  background-color: $color_g1;
+  h2 {
+    font-size: 45px;
+    font-weight: bold;
+    color: $color_p2;
+
+    > span {
+      color: $color_p1;
+    }
+  }
+}
+
+.card {
+  padding: 20px;
+
+  &.notLoading {
+    cursor: pointer;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.1) 0px 1px 4px 0px;
+    &:hover {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  height: 300px;
+
+  .label {
+    color: $color_g2;
+    font-weight: lighter;
+    font-size: 13px;
+    border: 1px solid $color_g2;
+    width: fit-content;
+    padding: 1px 10px;
+    border-radius: 4px;
+
+    svg {
+      color: $color_p1;
+    }
+  }
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    p {
+      font-size: 14px;
+      color: $color_g3;
+    }
+  }
+
+  hr {
+    margin: 0 0 10px 0;
+    opacity: 0.2;
+  }
+
+  .details {
+    > div {
+      font-size: 14px;
+      color: $color_g3;
+      margin-bottom: 10px;
+      svg {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    .tag {
+      background-color: $color_g1;
+      padding: 0 16px;
+      border-radius: 2px;
+      font-size: 14px;
+    }
+
+    > div {
+      > p {
+        color: $color_p1;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+

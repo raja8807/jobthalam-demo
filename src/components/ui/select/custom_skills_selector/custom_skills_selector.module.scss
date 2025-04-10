@@ -29,12 +29,14 @@
 
   .bubbles {
     background-color: $color_g1;
+
     min-height: 40px;
     border-radius: 5px;
     display: flex;
-    padding: 8px;
+    padding: 10px;
     gap: 10px;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
+    overflow: auto;
     position: relative;
 
     small {
@@ -52,9 +54,14 @@
       padding: 2px 8px;
       border-radius: 10px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      height: 25px;
+      // min-width: 200px;
+      word-break: unset;
+      justify-content: space-between;
+      white-space: nowrap;
       svg {
-        font-size: 12px;
-        margin-bottom: 1px;
         margin-left: 10px;
       }
     }

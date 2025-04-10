@@ -1,0 +1,68 @@
+.ContactScreen {
+  background-color: $color_p1_mild;
+  // background-color: red;
+
+  .wrap {
+    @include flexCenter;
+    min-height: calc(100dvh - 70px);
+  }
+
+  .box {
+    // background-color: red;
+    width: 1000px;
+    margin: auto;
+    display: flex;
+
+    .left {
+      width: 50%;
+      @include flexCenter;
+      justify-content: start;
+      > div {
+        max-width: 400px;
+
+        h3 {
+          font-size: 40px;
+          font-weight: bold;
+          color: $color_p1;
+        }
+
+        p {
+          margin: 16px 0;
+          color: $color_g3;
+        }
+      }
+    }
+
+    .right {
+      background-color: white;
+      width: 50%;
+      form {
+        padding: 32px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .check {
+          display: flex;
+          gap: 20px;
+        }
+      }
+    }
+  }
+
+  @include respond-below(md) {
+    padding-top: 50px;
+    .box {
+      flex-direction: column;
+      gap: 24px;
+
+      .left,
+      .right {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -17,7 +17,7 @@ const HCard = ({ data, isWhite, isLast, isTwo }) => {
       <div className={`${styles.HCard} ${isWhite ? styles.white : ""} `}>
         <div className={styles.ico}>{icon}</div>
         <p>{title}</p>
-        <small>{caption}</small>
+        {/* <small>{caption}</small> */}
         {!isLast && (
           <Image
             src="/assets/svg/arrow.svg"
@@ -69,7 +69,9 @@ const HowItWorks = () => {
     <div className={styles.HowItWorks}>
       <CustomContainer>
         <div>
-          <h1>How Jobthalam Works</h1>
+          <h2>
+            How <span>Jobthalam</span> Works
+          </h2>
         </div>
         <br />
         <Row>

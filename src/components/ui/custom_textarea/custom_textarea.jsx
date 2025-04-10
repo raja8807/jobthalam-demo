@@ -12,12 +12,11 @@ const CustomTextArea = ({
   error,
   label,
   rows = 3,
-
   ...props
 }) => {
   return (
     <>
-      {label && <ControlLabel label={label} required={required} />}
+      {label && <ControlLabel label={label} />}
       <textarea
         className={`${styles.CustomInput} ${styles[`v${variant}`]} ${
           error ? styles.error : ""

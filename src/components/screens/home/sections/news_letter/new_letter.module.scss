@@ -1,0 +1,40 @@
+.NewsLetterSection {
+  background-color: $color_p1;
+  .wrap {
+    text-align: center;
+    padding: 100px 0;
+
+    h2 {
+        font-size: 45px;
+        font-weight: bold;
+      color: white;
+
+      span{
+        color: $color_p2;
+      }
+    }
+
+    p {
+      color: white;
+      margin: 24px 0;
+    }
+
+    > div {
+      background-color: white;
+      max-width: 600px;
+      //   width: fit-content;
+      margin: auto;
+      padding: 4px;
+      //   width: 100;
+      display: flex;
+
+      input {
+        margin-right: 4px;
+        width: 100%;
+        border: none;
+        outline: none;
+        padding: 0 10px;
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 .customButton {
-  padding: 6px 20px;
+  padding: 4px 16px;
   outline: none;
   height: fit-content !important;
-  border-radius: 5px;
+  border-radius: 2px;
   border-width: 1px;
   border-style: solid;
   &.wFull {
@@ -53,5 +53,24 @@
     background-color: transparent;
     border: none;
     color: $color_p1;
+  }
+
+  &.v5 {
+    background-color: $color_s1;
+    border: none;
+    color: white;
+    animation: blink 1s steps(1, end) infinite;
+    border: 2px solid $color_p1;
+    position: relative;
+
+  }
+}
+
+
+@keyframes blink {
+  50% {
+    background-color: $color_p1;
+    border: 2px solid $color_s1;
+
   }
 }

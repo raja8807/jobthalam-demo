@@ -1,0 +1,144 @@
+.DiscoverSection {
+  padding: 100px 0 0 0;
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+
+    > div {
+      width: 50%;
+    }
+
+    .left {
+      h2 {
+        font-size: 45px;
+        font-weight: bold;
+        color: $color_p2;
+
+        > span {
+          color: $color_p1;
+        }
+      }
+    }
+
+    .right {
+      p {
+        color: $color_g3;
+      }
+    }
+  }
+
+  .jobs {
+    margin-top: 50px;
+    // padding: 0 70px;
+  }
+
+  .stn {
+    width: fit-content;
+    margin: auto;
+  }
+
+  @include respond-below(md) {
+    padding: 80px 0;
+    .top {
+      flex-direction: column;
+
+      gap: 20px;
+      > div {
+        width: 100%;
+        br {
+          display: none;
+        }
+      }
+    }
+
+    .jobs {
+      margin-top: 20px;
+      padding: 0;
+    }
+  }
+}
+
+.jobCard {
+  // background-color: #f8f8f8;
+  padding: 30px;
+  margin-bottom: 70px;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  // background-color: $color_g1;
+  min-height: 420px;
+  border-radius: 10px;
+
+  transform: scale(0.9);
+  .Ctop {
+    margin-bottom: 20px;
+    p {
+      font-size: 18px;
+      margin-top: 16px;
+    }
+
+    small {
+      font-size: 15px;
+      color: $color_g3;
+    }
+
+    img {
+      border: 2px solid $color_p1;
+      border-radius: 50%;
+      margin-bottom: 16px;
+    }
+
+    .stars{
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      color: gold;
+      svg{
+        font-size: 18px;
+      }
+
+    }
+  }
+
+  .text {
+    font-size: 18px;
+    color: rgb(74, 74, 74);
+  }
+
+  @include respond-below(md) {
+    .Ctop {
+      p {
+        font-size: 20px;
+      }
+
+      small {
+        font-size: 14px;
+      }
+    }
+
+    .text {
+      font-size: 20px;
+    }
+  }
+  // .Ctop {
+  //   display: flex;
+  //   margin-bottom: 10px;
+  //   gap: 20px;
+
+  //   img {
+  //   }
+
+  //   p {
+  //     font-size: 20px;
+  //   }
+
+  //   small {
+  //     color: $color_g3;
+  //   }
+  // }
+
+  // h3 {
+  //   font-size: 24px;
+  // }
+}

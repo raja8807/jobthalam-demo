@@ -1,0 +1,102 @@
+.ClientsSection {
+  position: relative;
+  margin-bottom: 100px;
+  padding-top: 100px;
+
+  .wrap {
+    min-height: 700px;
+  }
+
+  .Banner {
+    position: absolute;
+    top: 60%;
+    left: 0;
+    z-index: 1000;
+    height: fit-content;
+    width: 100dvw;
+
+    .inner {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      height: 85px;
+
+      .wrapper {
+        position: absolute;
+        display: flex;
+
+        section {
+          display: flex;
+          align-items: center;
+          animation: swipe var(--speed) linear infinite backwards;
+
+          img {
+            // max-width: 150px;
+            // padding: 0 15px;
+            height: 50px;
+            margin: 20px 50px;
+            filter: grayscale(1);
+            // object-fit: cover;
+            &:last-of-type {
+              padding-left: 0;
+            }
+
+            &:hover{
+              filter: grayscale(0);
+            }
+          }
+        }
+      }
+    }
+
+    &.back {
+      .inner {
+        .wrapper {
+          section {
+            animation: swipeLeft var(--speed) linear infinite backwards;
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-below(md) {
+    .wrap {
+      min-height: fit-content;
+      padding-bottom: 40px;
+    }
+
+    .Banner {
+      transform: none !important;
+    }
+
+    .x {
+      padding-bottom: 100px;
+    }
+  }
+
+  &:hover {
+    * {
+      animation-play-state: paused !important;
+    }
+  }
+}
+
+@keyframes swipe {
+  0% {
+    transform: translate(-100%);
+  }
+
+  100% {
+    transform: translate(0%);
+  }
+}
+@keyframes swipeLeft {
+  0% {
+    transform: translate(0%);
+  }
+
+  100% {
+    transform: translate(-100%);
+  }
+}

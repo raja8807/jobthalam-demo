@@ -1,6 +1,7 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import styles from "./dropdown.module.scss";
 import { Trash } from "react-bootstrap-icons";
+import Link from "next/link";
 
 function CustomDropDown({ button, options }) {
   return (
@@ -13,18 +14,25 @@ function CustomDropDown({ button, options }) {
             <div
               key={`dd0_${i}`}
               onClick={() => {
-                if (o.onclick) {
-                  o.onclick();
+                if (o.onClick) {
+                  o.onClick();
                 }
               }}
               className={`${styles.option} ${
                 o.variant ? styles[`v_${o.variant}`] : ""
               }`}
             >
-              <div>
-                {o.icon && o.icon}
-                {o.title}
-              </div>
+              {o.href ? (
+                <Link href={o.href} target={o.target}>
+                  {o.icon && o.icon}
+                  {o.title}
+                </Link>
+              ) : (
+                <>
+                  {o.icon && o.icon}
+                  {o.title}
+                </>
+              )}
             </div>
           );
         })}

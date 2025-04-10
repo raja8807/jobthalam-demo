@@ -1,0 +1,11 @@
+.SectionHead {
+  h1 {
+    font-size: 45px;
+    font-weight: bold;
+    color: $color_p2;
+
+    > span {
+      color: $color_p1;
+    }
+  }
+}

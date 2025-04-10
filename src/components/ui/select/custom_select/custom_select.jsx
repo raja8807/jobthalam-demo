@@ -10,16 +10,17 @@ const CustomSelect = ({
   onChange = () => {},
   required,
   placeholder,
+  
 }) => {
   return (
     <div className={`${styles.CustomSelect} ${styles[`v${variant}`]}`}>
-      {label && <ControlLabel label={label} required={required} />}
+      {label && <ControlLabel label={label} />}
 
       <select
         onChange={(e) => {
           onChange(e, e.target.value);
         }}
-        required={required}
+        required
         value={value}
         defaultValue={value}
         placeholder={placeholder}
