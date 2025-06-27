@@ -72,7 +72,6 @@ const AboutSection = ({ aboutData }) => {
 
               <p>{banner.text}</p>
 <br/>
-<br/>
 <p>{banner?.text2}</p>
             </div>
 
