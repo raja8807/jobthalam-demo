@@ -70,7 +70,10 @@ const AboutSection = ({ aboutData }) => {
                   })}
               </h1>
 
-              <p>{banner.text}x</p>
+              <p>{banner.text}</p>
+<br/>
+<br/>
+<p>{banner?.text2}</p>
             </div>
 
             <div className={styles.right}>
