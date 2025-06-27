@@ -83,6 +83,7 @@ const Footer = () => {
 
         </Row>
         <hr />
+<p>All rights reserved © 2025 Arvicomm Technologies.</p>
       </CustomContainer>
     </footer>
   );
