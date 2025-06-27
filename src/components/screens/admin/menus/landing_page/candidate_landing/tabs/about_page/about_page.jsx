@@ -140,6 +140,18 @@ const AboutPageTab = ({ aboutData }) => {
               });
             }}
           />
+<CustomTextArea
+            value={bannerData.text2}
+            label="Banner Text 2"
+            onChange={(e, v) => {
+              setBannerData((bd) => {
+                const data = { ...bd };
+                data.text2 = v;
+
+                return data;
+              });
+            }}
+          />
         </CustomForm>
       </div>
       <br />
