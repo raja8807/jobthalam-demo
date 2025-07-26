@@ -13,8 +13,8 @@ import { auth } from "@/libs/firebase/firebase";
 import { QueryClientProvider } from "@tanstack/react-query";
 // import queryClient from "@/libs/react-query";
 import queryClient from "@/libs/react-query";
-import { useFetchCandidateByUid } from "@/hooks/candidate_hooks/candidate_hooks";
-import axios from "axios";
+import { getCurrentCandidateUser } from "@/api_hooks/current_user_hooks/current_user.hooks";
+// import { getCurrentEmployerUser } from "@/api-hooks/current_user_hooks/current_user.hooks";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -40,23 +40,11 @@ export default function App({ Component, pageProps }) {
   const [session, setSession] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // const { mutateAsync, isLoading } = useFetchCandidateByUid();
-
-  const getLoggedInUser = async (user) => {
-    const res = await axios.post(`/api/candidate/${user.uid}`, {
-      user,
-    });
-
-    if (res.status === 200) {
-      return res.data;
-    }
-  };
-
   useEffect(() => {
     auth.onAuthStateChanged(async (user) => {
       if (user?.uid) {
         try {
-          const loggedInUser = await getLoggedInUser(user);
+          const loggedInUser = await getCurrentCandidateUser();
           setCurrentUser(loggedInUser);
         } catch (err) {
           console.log("logged in user error-->", err);

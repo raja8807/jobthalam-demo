@@ -10,10 +10,11 @@ import { Form } from "react-bootstrap";
 import { Whatsapp, X } from "react-bootstrap-icons";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import ControlLabel from "@/components/ui/contol_label/control_label";
-import { useCreateCandidate } from "@/hooks/candidate_hooks/candidate_hooks";
+
 import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { EDUCATIONS, EXPERIENCES } from "@/constants/job";
+import { useCreateCandidate } from "@/api_hooks/candidate_hooks/candidate.hooks";
 
 const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
   const [isMobile, setIsMobile] = useState(true);
@@ -124,7 +125,7 @@ const Form2 = ({
 
   const [updateIsLoading, setUpdateIsLoading] = useState(false);
 
-  const { mutateAsync: createUser, isLoading: candidateIsLoading } =
+  const { mutateAsync: createUser, isPending: candidateIsLoading } =
     useCreateCandidate();
 
   const isLoading = updateIsLoading || candidateIsLoading;
@@ -133,19 +134,19 @@ const Form2 = ({
     setUpdateIsLoading(true);
     try {
       if (session?.uid) {
-        const resume_url = await uploadFile(
-          resumeFile,
-          `resumes/${session?.uid}/resume`
-        );
+        // const resume_url = await uploadFile(
+        //   resumeFile,
+        //   `resumes/${session?.uid}/resume`
+        // );
 
         const res = await createUser({
           ...values,
           phone_number: session?.uid,
-          resume_url,
+          resume_url: "",
         });
 
-        if (res.data) {
-          setCurrentUser(res.data);
+        if (res.success) {
+          setCurrentUser(res.result);
         }
       }
     } catch (err) {
@@ -207,7 +208,7 @@ const Form2 = ({
         <CustomInput
           placeHolder="DOB"
           type="file"
-          required
+          // required
           accept="application/pdf"
           onChange={(e) => {
             setResumeFile(e.target.files[0]);
@@ -277,37 +278,7 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
   const [currentFormIndex, setCurrentFormIndex] = useState(0);
   const [skills, setSkills] = useState([]);
 
-  const { mutateAsync: fetchSkillsAsync, isLoading } = useFetchSkills();
-
-  const fetchSkills = async () => {
-    try {
-      const skillsData = await fetchSkillsAsync();
-
-      const industry = [];
-
-      if (skillsData?.data) {
-        skillsData?.data.forEach((skill) => {
-          if (skill?.isIndustry) {
-            const ind = {
-              id: skill?.id,
-              name: skill?.industry,
-              skills: skillsData?.data
-                ?.filter((s) => !s?.isIndustry && s.industry === skill.industry)
-                .map((x) => x.skill),
-            };
-            industry.push(ind);
-          }
-        });
-      }
-      setSkills(industry || []);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchSkills();
-  }, []);
+  const isLoading = false;
 
   const forms = [
     {

@@ -74,32 +74,4 @@ Candidate.init(
   }
 );
 
-// Candidate.hasMany(Request, );
-
 export default Candidate;
-
-// dob "2024-07-17"
-// (string)
-// education "Bachelor"
-// (string)
-// email "vivek@gmail.com"
-// (string)
-// experience "1"
-// (string)
-// first_name "Vivek"
-// (string)
-// free_requested true
-// (Boolean)
-// gender "Male"
-// (string)
-// id "d632c4fe-b270-4bb9-af94-8573ee2225d5"
-// (string)
-// last_name "P"
-// (string)
-// phone_number "7812804854"
-// (string)
-// resume_url "https://firebasestorage.googleapis.com/v0/b/jt-test-26ac5.appspot.com/o/resumes%2Fd632c4fe-b270-4bb9-af94-8573ee2225d5%2Fresume?alt=media&token=b76a37b5-a1fd-4621-b59b-60991be62876"
-// (string)
-// skills "Computer Programmer,Web Developer,Information Security Analyst,Database Administrator,Market Research Analyst"
-// (string)
-// whatsapp_number "7812804854"
