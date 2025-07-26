@@ -11,24 +11,12 @@ import JobsSection from "./sections/jobs/jobs";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import { duplicate } from "@/libs/firebase/firebase";
 
-const HomeScreen = ({ setShowLogin,employerHomePageData = {} }) => {
+const HomeScreen = ({ setShowLogin, employerHomePageData = {} }) => {
   return (
     <main>
-      <CustomButton onClick={
-        async ()=>{
-          try {
-            // await duplicate('employerTestimonialsData', 'employerTestimonialsData');
-            console.log('ok');
-            
-          } catch (error) {
-            console.log(error);
-            
-          }
-        }
-      }>run</CustomButton>
       <BannerSection bannerData={employerHomePageData.bannerData} />
       <VacanciesSection vacanciesData={employerHomePageData?.vacanciesData} />
-      <JobsSection setShowLogin={setShowLogin}/>
+      <JobsSection setShowLogin={setShowLogin} />
       {/* <ExploreSection categoryData={employerHomePageData.categoryData} /> */}
       <HowItWorks />
       <DiscoverSection

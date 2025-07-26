@@ -1,10 +1,11 @@
 .CustomInput {
-  border-radius: 4px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 8px 16px;
   gap: 10px;
+  border: 1px solid;
 
   &.v1 {
     input {
@@ -26,7 +27,7 @@
   }
 
   &:has(input:focus-visible) {
-    border: 2px solid $color_p1;
+    border: 1px solid $color_p1;
   }
 
   &.error {

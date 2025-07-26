@@ -1,119 +1,70 @@
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import styles from "./job_form.module.scss";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { X } from "react-bootstrap-icons";
-import { useCreateJob, useUpdateJob } from "@/hooks/job_hooks/job_hooks";
-import CustomSkillSelector from "@/components/ui/select/custom_skills_selector/custom_skills_selector";
-import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
+import { useUpdateJob } from "@/hooks/job_hooks/job_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
-import NewSkillPopupButton from "./new_skill_popup/new_skill_popup";
 import { EDUCATIONS, EXPERIENCES, JOB_TYPES, LOCATIONS } from "@/constants/job";
+import SkillSelector from "@/components/skill_selector/skill_selector";
+import {
+  useCreateEmployerJob,
+  useUpadteEmployerJob,
+} from "@/api-hooks/employer_job_hooks/employer_job.hooks";
+import NewSkillPopupButton from "./new_skill_popup/new_skill_popup";
 
 const JobForm = ({
   isUpdate,
   currentUser,
-  setAllJobs,
   showNewJob,
-  index,
-  setAllSkills,
-  allSkills,
-  setCurrentUser,
   setShowNewJob,
+  index,
 }) => {
+  const [selectedSkills, setSelectedSkills] = useState([]);
+
   const initialValues = isUpdate
     ? { ...showNewJob }
     : {
-        title: "",
-        role: "",
-        experience: "",
-        education: "",
-        description: "",
-        location: "",
+        title: "Test",
+        role: "Test role",
+        experience: "Fresher",
+        education: "GED",
+        description: "test desc",
+        location: "Chennai",
         type: "Full time",
-        salary: "",
+        salary: "10000",
         employer_id: currentUser?.id,
         status: "Active",
-        skills: "",
       };
 
   const [values, setValues] = useState(initialValues);
-  const [skills, setSkills] = useState([]);
 
-  const { mutateAsync: createJob, isLoading: createJobIsLoading } =
-    useCreateJob();
-  const { mutateAsync: updateJob, isLoading: updateJobIsLoading } =
-    useUpdateJob();
+  const { mutateAsync: createEmployerJob, isPending: createJobIsLoading } =
+    useCreateEmployerJob(currentUser?.id);
 
-  const { mutateAsync, isLoading: skillsIsLoading } = useFetchSkills();
+  const { mutateAsync: updateEmployerJob, isPending: updateJobIsLoading } =
+    useUpadteEmployerJob(currentUser?.id, index);
 
-  const fetchSkills = async () => {
-    try {
-      const skillsData = await mutateAsync();
-
-      const industry = [];
-
-      if (skillsData?.data) {
-        skillsData?.data.forEach((skill) => {
-          if (skill?.isIndustry) {
-            const ind = {
-              id: skill?.id,
-              name: skill?.industry,
-              skills: skillsData?.data
-                ?.filter((s) => !s?.isIndustry && s.industry === skill.industry)
-                .map((x) => x.skill),
-            };
-            industry.push(ind);
-          }
-        });
-      }
-      setSkills(industry || []);
-      setAllSkills(industry || []);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    if (!allSkills[0]) {
-      fetchSkills();
-    } else {
-      setSkills(allSkills);
-    }
-  }, []);
-
-  const isLoading = createJobIsLoading || updateJobIsLoading || skillsIsLoading;
+  const isLoading = createJobIsLoading || updateJobIsLoading;
 
   const postJob = async () => {
     try {
       if (isUpdate) {
-        const res = await updateJob({ ...showNewJob, ...values });
-        setAllJobs((prev) => {
-          const jobs = [...prev];
-          jobs[index] = { ...res?.data, employer: res.data };
-          return jobs;
-        });
+        await updateEmployerJob({ ...showNewJob, ...values });
       } else {
-        const res = await createJob({
-          job: { ...values },
-          employer: currentUser,
+        await createEmployerJob({
+          ...values,
+          skill_ids: selectedSkills.map((s) => s.id),
         });
-
-        setValues(initialValues);
-        setAllJobs((prev) => [
-          { ...res?.data, employer: currentUser },
-          ...prev,
-        ]);
-        setCurrentUser((prev) => ({
-          ...prev,
-          jobs_pending: prev.jobs_pending - 1,
-        }));
-        setShowNewJob(false);
       }
+      setValues(initialValues);
+      setShowNewJob(false);
+      alert("sucess");
     } catch (error) {
+      alert("error");
       console.log(error);
     }
   };
@@ -239,30 +190,22 @@ const JobForm = ({
               />
             </div>
           </Col>
-          <Col xs={12}>
-            <div className={styles.control}>
-              <CustomSkillSelector
-                onSelect={(a) => {
-                  setValues((prev) => ({ ...prev, skills: a.join() }));
-                }}
-                skills={skills}
-                initialSkills={values.skills ? values.skills.split(",") : []}
-                max={1}
-                disabled={isUpdate}
-              />
-              {!isUpdate && (
-                <NewSkillPopupButton
-                  setAllSkills={setAllSkills}
-                  allSkills={allSkills}
-                  currentUser={currentUser}
-                />
-              )}
-            </div>
-          </Col>
         </Row>
 
         {/* ----------------------------------- */}
         <Row>
+          <Col xs={12}>
+            <div className={styles.control}>
+              <SkillSelector
+                max={5}
+                onChanage={setSelectedSkills}
+                initialSkills={showNewJob?.skills}
+                disabled={isUpdate}
+              />
+              {/* {!isUpdate && <NewSkillPopupButton currentUser={currentUser} />} */}
+            </div>
+          </Col>
+
           <Col>
             <CustomTextArea
               label="Description"
@@ -279,7 +222,7 @@ const JobForm = ({
         <CustomButton
           value={values.description}
           isLoading={isLoading}
-          disabled={!values?.skills}
+          // disabled={!}
         >
           {isUpdate ? "Update" : "Post"} Job
         </CustomButton>

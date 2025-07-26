@@ -75,7 +75,7 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
                           router.pathname === p.href ? styles.active : ""
                         }`}
                       >
-                        <Link href={"/candidate"}>Candidate</Link>
+                        <Link href={"/employer"}>Employer</Link>
                       </li>
                     );
                   }
@@ -116,7 +116,6 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
                       Employer Login
                     </p>
                   </CustomButton>
-
                 </div>
               </>
             )}

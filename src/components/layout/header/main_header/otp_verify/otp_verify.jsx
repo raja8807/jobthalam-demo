@@ -1,13 +1,14 @@
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Form, Modal } from "react-bootstrap";
 import styles from "./otp_verify.module.scss";
 import { Pencil, X } from "react-bootstrap-icons";
 import axios from "axios";
 import { auth } from "@/libs/firebase/firebase";
 import { signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/router";
+import { useSendOtp } from "@/api-hooks/auth_hooks/auth.hooks";
 
 const OtpVerify = ({ showLogin, setShowLogin }) => {
   const [otpSent, setOtpSent] = useState(false);
@@ -15,22 +16,27 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
   const [mobile, setMobile] = useState("");
   const [otp, setOtp] = useState("");
 
-  const [tempOtp, setTempOtp] = useState(null);
+  const [isTestMode, setIsTesMode] = useState(
+    process.env.NEXT_PUBLIC_ENV === "DEV"
+  );
+
+  console.log(process.env.NEXT_PUBLIC_ENV === "DEV");
+
+  const clearStates = () => {
+    setIsLoading(false);
+    setMobile("");
+    setOtp("");
+    setOtpSent("");
+  };
 
   const router = useRouter();
+
+  const { mutateAsync } = useSendOtp();
 
   const sendOtp = async () => {
     setIsLoading(true);
     try {
-      // const res = await axios.post("/api/auth/otp/send", {
-      //   mobile,
-      // });
-      const newOtp = (Math.floor(Math.random() * 10000) + 10000)
-        .toString()
-        .substring(1);
-
-      setTempOtp(newOtp);
-
+      await mutateAsync({ mobile, isTestMode });
       setOtpSent(true);
     } catch (error) {
       console.log(error?.response?.data);
@@ -41,21 +47,21 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
   const loginWithGoogleToken = async () => {
     setIsLoading(true);
     try {
-      const token = await axios.post("/api/auth/getToken", {
+      const token = await axios.post("/api/auth/verify", {
         mobile,
+        otp,
       });
 
-      // console.log(token);
-
-      const session = await signInWithCustomToken(auth, token?.data?.token)
+      const session = await signInWithCustomToken(auth, token?.data?.token);
 
       if (session) {
-        router.push("/candidate");
+        router.push("/employer");
       }
       setShowLogin(false);
       setOtpSent(false);
+      clearStates();
     } catch (err) {
-      console.log(err.message);
+      console.log(err.response.data.message);
     }
     setIsLoading(false);
   };
@@ -63,14 +69,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
   const verifyOtpAndLogin = async () => {
     setIsLoading(true);
     try {
-      if (otp === tempOtp) {
-        await loginWithGoogleToken();
-      }
-      //   const res = await axios.post("/api/auth/otp/verify", {
-      //     otp,
-      //   });
-      //   if (res?.data?.valid) {
-      //   }
+      await loginWithGoogleToken();
     } catch (error) {
       console.log(error.message);
       console.log(error?.response?.data);
@@ -81,7 +80,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
 
   const getDisabled = () => {
     if (otpSent) {
-      if (otp.length !== 4) {
+      if (otp.length !== 6) {
         return true;
       }
     }
@@ -92,14 +91,16 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
     <Modal
       show={showLogin}
       centered
-      //   onHide={() => {
-      //     setShowLogin(false);
-      //   }}
+      onHide={() => {
+        clearStates();
+        setShowLogin(false);
+      }}
       className={styles.OtpVerify}
     >
       <Modal.Body className={styles.modal}>
         <X
           onClick={() => {
+            clearStates();
             setShowLogin(false);
           }}
           className={styles.x}
@@ -130,7 +131,6 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
               <small>
                 Didn&apos;t get otp? <span onClick={sendOtp}>Resend</span>
               </small>
-              <p>opt is {tempOtp}</p>
             </>
           ) : (
             <>
@@ -149,15 +149,32 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Cupiditate, nihil.
               </small>
+              {process.env.NEXT_PUBLIC_ENV === "DEV" && (
+                <>
+                  <Form.Check
+                    label="Test Mode"
+                    checked={isTestMode}
+                    defaultChecked={isTestMode}
+                    onChange={(e) => {
+                      setIsTesMode(e.target.checked);
+                    }}
+                  />
+                  {isTestMode && (
+                    <small>
+                      In test mode <b>123456</b> will be the OTP
+                    </small>
+                  )}
+                </>
+              )}
             </>
           )}
           <hr />
           <CustomButton
             onClick={async () => {
               if (otpSent) {
-                verifyOtpAndLogin();
+                await verifyOtpAndLogin();
               } else {
-                sendOtp();
+                await sendOtp();
               }
             }}
             isLoading={isLoading}

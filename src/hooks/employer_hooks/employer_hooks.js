@@ -1,3 +1,4 @@
+import axiosInstance from "@/utils/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -22,7 +23,7 @@ export const useFetchEmployerByUid = () => {
 
 const createEmployer = async (Employer) => {
   try {
-    return await axios.post(URL, Employer);
+    return await axiosInstance.post("/api/employer", Employer);
   } catch (err) {
     throw new Error(err.message);
   }

@@ -34,7 +34,7 @@ const HeaderDrawer = ({ show, setShow, router, session }) => {
                     // >
                     <Link
                       key={"portal"}
-                      href={"/candidate"}
+                      href={"/employer"}
                       className={
                         router.pathname === page.href ? styles.active : ""
                       }
@@ -42,7 +42,7 @@ const HeaderDrawer = ({ show, setShow, router, session }) => {
                         setShow(false);
                       }}
                     >
-                      Candidate
+                      Employer
                     </Link>
                     // </li>
                   );

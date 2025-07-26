@@ -2,13 +2,16 @@ import React from "react";
 import styles from "./main_frame.module.scss";
 import CustomContainer from "../custom_container/custom_container";
 
-const MainFrame = ({ children, head, caption }) => {
+const MainFrame = ({ children, head, caption, rightElement }) => {
   return (
     <main className={styles.MainFrame}>
       {(head || caption) && (
         <div className={styles.head}>
-          {head && <h3>{head}</h3>}
-          {caption && <p>{caption}</p>}
+          <div>
+            {head && <h3>{head}</h3>}
+            {caption && <p>{caption}</p>}
+          </div>
+          {rightElement}
         </div>
       )}
       {/* <CustomContainer></CustomContainer>

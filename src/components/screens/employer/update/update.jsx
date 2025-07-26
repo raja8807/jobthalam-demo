@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { Link } from "react-bootstrap-icons";
 import { useCreateEmployer } from "@/hooks/employer_hooks/employer_hooks";
+import { useFetCurrentUser } from "@/api-hooks/current_user_hooks/current_user.hooks";
 
 const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
   const [values, setValues] = useState(
@@ -102,8 +103,8 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
 
       <CustomInput
         placeHolder="Website - Eg: https://example.com"
-        type="url"
-        required
+        // type="url"
+        // required
         onChange={(e, value) => {
           setValues((prev) => ({ ...prev, website_url: value }));
         }}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./new_skill_popup.module.scss";
 import AddIndustryPopUp from "../add_industry/add_industry";
 
-const NewSkillPopupButton = ({ setAllSkills, allSkills, currentUser }) => {
+const NewSkillPopupButton = ({ currentUser }) => {
   const [showNew, setShowNew] = useState(false);
 
   return (
@@ -10,8 +10,7 @@ const NewSkillPopupButton = ({ setAllSkills, allSkills, currentUser }) => {
       <AddIndustryPopUp
         show={showNew}
         setShow={setShowNew}
-        setSkills={setAllSkills}
-        allSkills={allSkills}
+        allSkills={[]}
         currentUser={currentUser}
       />
       <p className={styles.NewSkillPopupButton}>
