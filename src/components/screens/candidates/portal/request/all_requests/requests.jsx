@@ -1,3 +1,4 @@
+import { useFetchJobRequests } from "@/api_hooks/request_hooks/request.hooks";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import CustomTable from "@/components/ui/custom_table/custom_table";
 import CustomTableRow from "@/components/ui/custom_table/custom_table_row/custom_table_row";
@@ -11,25 +12,6 @@ import { Col, Row } from "react-bootstrap";
 const AllJobRequests = ({ currentUser, setShowHistory }) => {
   const [requests, setRequests] = useState([]);
 
-  const { mutateAsync, isLoading } = useFetchRequestByUid();
-
-  const fetchJobRequests = async () => {
-    try {
-      const res = await mutateAsync(currentUser?.id);
-
-      if (res.data) {
-        setRequests(res.data || []);
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-    }
-  };
-
-  useEffect(() => {
-    fetchJobRequests();
-  }, []);
-
   const getPendingRequests = () => {
     let totalRequests = 0;
     let jobsSent = 0;
@@ -41,6 +23,8 @@ const AllJobRequests = ({ currentUser, setShowHistory }) => {
 
     return totalRequests - jobsSent;
   };
+
+  const { data, isLoading } = useFetchJobRequests(currentUser?.id);
 
   return (
     <MainFrame>
@@ -57,37 +41,46 @@ const AllJobRequests = ({ currentUser, setShowHistory }) => {
       <br />
 
       <h4>{`Pending Requests: ${getPendingRequests()}`}</h4>
-      <div>
-        <CustomTable
-          head={[
-            {
-              title: "Count",
-            },
-            {
-              title: "Payment Id",
-            },
-            {
-              title: "Requested On",
-            },
-            {
-              title: "Jobs Sent",
-            },
-          ]}
-          title="Requests History"
-          count={requests.length}
-        >
-          {requests.map((r) => {
-            return (
-              <CustomTableRow key={r.id}>
-                <Col>{r.count}</Col>
-                <Col>{r.payment_id || "Free"}</Col>
-                <Col>{formatDate(r.createdAt)}</Col>
-                <Col>{r.jobs_sent}</Col>
-              </CustomTableRow>
-            );
-          })}
-        </CustomTable>
-      </div>
+
+      {data && (
+        <div>
+          <CustomTable
+            head={[
+              {
+                title: "Skill",
+              },
+              {
+                title: "Count",
+              },
+              {
+                title: "Payment Id",
+              },
+              {
+                title: "Requested On",
+              },
+              {
+                title: "Jobs Sent",
+              },
+            ]}
+            title="Requests History"
+            count={requests.length}
+          >
+            {data?.map((r) => {
+              return (
+                <CustomTableRow key={r.id}>
+                  <Col>
+                    <b>{r.skill.name}</b>
+                  </Col>
+                  <Col>{r.package.count}</Col>
+                  <Col>{r.payment_id || "Free"}</Col>
+                  <Col>{formatDate(r.createdAt)}</Col>
+                  <Col>{r.featuredJobs.length}</Col>
+                </CustomTableRow>
+              );
+            })}
+          </CustomTable>
+        </div>
+      )}
     </MainFrame>
   );
 };

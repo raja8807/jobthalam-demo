@@ -1,20 +1,21 @@
 .CustomInput {
-  border-radius: 4px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 6px 16px;
   gap: 10px;
+  background-color: white;
 
   &.v1 {
     input {
-      border-radius: 4px;
+      border-radius: 2px;
       border: none;
       outline: none !important;
       width: 100%;
     }
 
-    border: 1px solid $color_g2;
+    border: 1px solid $color_g4;
   }
 
   &:has(input:active) {
@@ -26,7 +27,7 @@
   }
 
   &:has(input:focus-visible) {
-    border: 2px solid $color_p1;
+    border: 1px solid $color_p1;
   }
 
   &.error {

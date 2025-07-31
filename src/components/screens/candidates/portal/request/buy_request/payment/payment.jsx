@@ -4,33 +4,26 @@ import { Lock } from "react-bootstrap-icons";
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import { Col, Form, Row } from "react-bootstrap";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import { useCreateRequest } from "@/hooks/request_hooks/request_hooks";
-import { useUpdateCandidate } from "@/hooks/candidate_hooks/candidate_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
-import { useCreatePayment } from "@/hooks/payment_hooks/payment_hooks";
-import { v4 } from "uuid";
 import ConfirmPopup from "@/components/ui/popups/confirm_popup/confirm_popup";
 import { useRouter } from "next/router";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
+import { useCreateJobRequests } from "@/api_hooks/request_hooks/request.hooks";
 
 const PaymentPortal = ({
   currentUser,
   packageData,
   setShowPaymentFor,
-  setCurrentUser,
   setCurrentTabIndex,
 }) => {
-  const { price, title, count, isFree } = packageData;
+  const { price, name, count, isFree, id: packageId } = packageData;
 
-  const { mutateAsync, isLoading: createRequestIsLoading } = useCreateRequest();
-  const { mutateAsync: updateUserAsync, isLoading: updateUserIsLoading } =
-    useUpdateCandidate();
+  // const { mutateAsync: updateUserAsync, isLoading: updateUserIsLoading } =
+  //   useUpdateCandidate();
 
-  const { mutateAsync: createPayment, isLoading: paymentIsLoading } =
-    useCreatePayment();
+  const { mutateAsync, isPending } = useCreateJobRequests();
 
-  const isLoading =
-    createRequestIsLoading || updateUserIsLoading || paymentIsLoading;
+  const isLoading = isPending;
 
   const [showSuccess, setShowSuccess] = useState(false);
   const [skill, setSkill] = useState(null);
@@ -39,36 +32,28 @@ const PaymentPortal = ({
   const purchaseRequest = async () => {
     try {
       let paymentId = null;
-      if (!isFree) {
-        const pId = v4();
-        const paymentRes = await createPayment({
-          candidate_id: currentUser?.id,
-          payment_id: pId,
-        });
-        paymentId = paymentRes.id;
-      }
 
       const res = await mutateAsync({
         request: {
-          candidate_id: currentUser.id,
-          count: packageData.count,
-          payment_id: paymentId,
-          jobs_sent: 0,
-          is_free: isFree,
-          skill,
+          skill_id: skill.id,
+          package_id: packageId,
         },
-        currentUser,
+        candidate: {
+          id: currentUser.id,
+        },
       });
 
-      if (!currentUser?.free_requested) {
-        if (res.data) {
-          const updatedUser = await updateUserAsync({
-            ...currentUser,
-            free_requested: true,
-          });
-          setCurrentUser(updatedUser.data);
-        }
-      }
+      console.log(res);
+
+      // if (!currentUser?.free_requested) {
+      //   if (res.data) {
+      //     const updatedUser = await updateUserAsync({
+      //       ...currentUser,
+      //       free_requested: true,
+      //     });
+      //     setCurrentUser(updatedUser.data);
+      //   }
+      // }
 
       setShowSuccess(true);
     } catch (error) {
@@ -94,7 +79,6 @@ const PaymentPortal = ({
         setShow={() => {}}
         onConfirm={() => {
           setCurrentTabIndex(0);
-
           setTimeout(() => {
             router.reload();
           }, 100);
@@ -129,10 +113,10 @@ const PaymentPortal = ({
               <h5>Skill</h5>
 
               <CustomSelect
-                options={currentUser.skills.split(",")}
-                value={skill}
+                options={currentUser.skills.map((s) => s.name)}
+                value={skill?.name}
                 onChange={(e, v) => {
-                  setSkill(v);
+                  setSkill(currentUser.skills.find((s) => s.name === v));
                 }}
               />
             </div>
@@ -143,7 +127,7 @@ const PaymentPortal = ({
             <div className={styles.info}>
               <h5>Package</h5>
 
-              <h4>Name : {title}</h4>
+              <h4>Name : {name}</h4>
               <h4>
                 Price &nbsp;&nbsp;: <span>&#8377; {price}/mo</span>
               </h4>

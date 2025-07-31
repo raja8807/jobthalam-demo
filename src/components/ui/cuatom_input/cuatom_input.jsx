@@ -26,8 +26,8 @@ const CustomInput = ({
   const [dateType, setDateType] = useState("text");
 
   return (
-    <>
-      {label && <ControlLabel label={label} />}
+    <div>
+      {label && <ControlLabel label={label} required={required} />}
       <div
         className={`${styles.CustomInput} ${styles[`v${variant}`]} ${
           error ? styles.error : ""
@@ -56,7 +56,7 @@ const CustomInput = ({
         />
         {rightElement && rightElement}
       </div>
-    </>
+    </div>
   );
 };
 

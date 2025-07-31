@@ -16,32 +16,18 @@ import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import ApplicationsTab from "./applications/applications";
 import { useFetchFeaturedJobsByUid } from "@/hooks/featured_job_hooks/featured_job_hooks";
 import ProfileTab from "./profile/profile";
+import { useFetchFeaturedJobs } from "@/api_hooks/job_hooks/job.hooks";
 
 const PortalScreen = ({ currentUser, setCurrentUser }) => {
   const router = useRouter();
-  const [allJobs, setAllJobs] = useState([]);
+
   const tabIndex = router.query.t;
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { mutateAsync, isLoading: jobsLoading } = useFetchFeaturedJobsByUid();
-
-  const showLoading = isLoading || jobsLoading;
-
-  const getJobs = async () => {
-    try {
-      const res = await mutateAsync(currentUser.id);
-      setAllJobs(res?.data || []);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getJobs();
-  }, []);
-
   const [currentTabIndex, setCurrentTabIndex] = useState(tabIndex || 0);
+
+  const { data: featuredJobs, isLoading } = useFetchFeaturedJobs(
+    currentUser?.id
+  );
 
   const tabs = [
     {
@@ -52,10 +38,9 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
         <Jobs
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
-          allJobs={allJobs}
-          isLoading={isLoading}
-          setAllJobs={setAllJobs}
           setCurrentTabIndex={setCurrentTabIndex}
+          isLoading={isLoading}
+          allJobs={featuredJobs}
         />
       ),
     },
@@ -67,8 +52,9 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
       component: (
         <ApplicationsTab
           currentUser={currentUser}
-          allJobs={allJobs}
-          setIsLoading={setIsLoading}
+          appliedJobs={
+            featuredJobs ? featuredJobs.filter((f) => !!f.application) : []
+          }
         />
       ),
     },
@@ -105,7 +91,7 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
   return (
     <div>
       <CustomContainer>
-        {showLoading && <LoadingScreen />}
+        {isLoading && <LoadingScreen />}
         <Tabs
           tabs={tabs}
           currentTab={currentTab}

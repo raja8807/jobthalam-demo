@@ -39,6 +39,8 @@ const CustomButton = ({
           }`}
           onClick={onClick}
           disabled={disabled || isLoading}
+          type={type}
+          role="button"
         >
           {isLoading ? "Loading..." : children}
         </button>

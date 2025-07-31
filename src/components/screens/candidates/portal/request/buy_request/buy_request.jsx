@@ -5,9 +5,11 @@ import { Col, Row } from "react-bootstrap";
 import styles from "./buy_request.module.scss";
 import { CheckCircleFill } from "react-bootstrap-icons";
 import PaymentPortal from "./payment/payment";
+import { useFetchJobRequests } from "@/api_hooks/request_hooks/request.hooks";
+import { useFetchPackages } from "@/api_hooks/package_hooks/package.hooks";
 
 const Package = ({ data, setShowPaymentFor, currentUser }) => {
-  const { title, price, text, features, isRecommended, isFree } = data;
+  const { name, price, text, features, isRecommended, isFree } = data;
 
   const disabled = isFree && currentUser.free_requested;
 
@@ -20,7 +22,7 @@ const Package = ({ data, setShowPaymentFor, currentUser }) => {
       >
         <div className={styles.reco}>{isRecommended && "Recommended"}</div>
         <div className={styles.wrap}>
-          <h1>{title}</h1>
+          <h1>{name}</h1>
           <p className={styles.price}>
             <span className={styles.ico}>&#8377;</span>
             <span className={styles.amount}>{price}</span>
@@ -42,7 +44,7 @@ const Package = ({ data, setShowPaymentFor, currentUser }) => {
           </div>
 
           <div className={styles.list}>
-            <ul>
+            {/* <ul>
               {features.map((f, i) => (
                 <li key={`feat_${i}`}>
                   <div>
@@ -51,7 +53,7 @@ const Package = ({ data, setShowPaymentFor, currentUser }) => {
                   </div>
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
@@ -165,6 +167,8 @@ const BuyRequests = ({
 
   const [showPaymentFor, setShowPaymentFor] = useState(null);
 
+  const { data } = useFetchPackages();
+
   return (
     <MainFrame>
       {showPaymentFor ? (
@@ -179,16 +183,18 @@ const BuyRequests = ({
         </div>
       ) : (
         <div className={styles.BuyRequests}>
-          <Row>
-            {packages.map((pack) => (
-              <Package
-                key={pack.id}
-                data={pack}
-                setShowPaymentFor={setShowPaymentFor}
-                currentUser={currentUser}
-              />
-            ))}
-          </Row>
+          {data && (
+            <Row>
+              {data.map((pack) => (
+                <Package
+                  key={pack.id}
+                  data={pack}
+                  setShowPaymentFor={setShowPaymentFor}
+                  currentUser={currentUser}
+                />
+              ))}
+            </Row>
+          )}
 
           <br />
           <div className={styles.btns}>

@@ -7,7 +7,7 @@ const ConfirmPopup = ({
   show,
   setShow,
   onConfirm = () => {},
-  message,
+  message = "Are you sure?",
   head,
   hasCancel = true,
   confirmButtonText = "Ok",
@@ -35,7 +35,11 @@ const ConfirmPopup = ({
         <br />
         <div className={styles.btns}>
           <CustomButton onClick={onConfirm}>{confirmButtonText}</CustomButton>
-          {hasCancel && <CustomButton variant={2}>Cancel</CustomButton>}
+          {hasCancel && (
+            <CustomButton variant={2} onClick={() => setShow(false)}>
+              Cancel
+            </CustomButton>
+          )}
         </div>
       </Modal.Body>
     </Modal>

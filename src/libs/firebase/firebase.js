@@ -6,19 +6,11 @@ import {
   updateDoc,
   deleteDoc,
   getDocs,
-  getDoc,
   collection,
   query,
   where,
 } from "firebase/firestore";
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-  listAll,
-} from "firebase/storage";
+import { getStorage } from "firebase/storage";
 
 import { getAuth } from "firebase/auth";
 
@@ -38,52 +30,6 @@ const firebaseApp = !getApps().length
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 const storage = getStorage(firebaseApp);
-
-export const uploadFile = async (file, path) => {
-  // const  = `${folder}/${file.name}`;
-  const storageRef = ref(storage, path);
-  try {
-    await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(ref(storage, path));
-    return url;
-  } catch (err) {
-    throw new Error(err);
-  }
-};
-
-export const deletFile = async (folder, fileName) => {
-  try {
-    const path = `${folder}/${fileName}`;
-    const deleteRef = ref(storage, path);
-
-    await deleteObject(deleteRef);
-    return true;
-  } catch (err) {
-    throw new Error(err);
-  }
-};
-
-async function listItemsInDirectory(directoryPath) {
-  const storageRef = ref(storage, directoryPath);
-  try {
-    const items = await listAll(storageRef);
-    //console.log(items);
-    return items;
-  } catch (error) {
-    console.error("Error listing items in directory:", error);
-    throw error;
-  }
-}
-
-export const deleteFolder = async (path) => {
-  const items = await listItemsInDirectory(path);
-  const promises = items.items.map((itemRef) => deleteObject(itemRef));
-  try {
-    await Promise.all(promises);
-  } catch (error) {
-    throw error;
-  }
-};
 
 export const generateUid = function () {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);

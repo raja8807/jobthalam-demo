@@ -14,7 +14,11 @@ import ControlLabel from "@/components/ui/contol_label/control_label";
 import { useFetchSkills } from "@/hooks/skill_hooks/skill_hooks";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { EDUCATIONS, EXPERIENCES } from "@/constants/job";
-import { useCreateCandidate } from "@/api_hooks/candidate_hooks/candidate.hooks";
+import {
+  useCreateCandidate,
+  useUploadResume,
+} from "@/api_hooks/candidate_hooks/candidate.hooks";
+import SkillSelector from "@/components/skill_selector/skill_selector";
 
 const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
   const [isMobile, setIsMobile] = useState(true);
@@ -117,7 +121,6 @@ const Form2 = ({
   session,
   setCurrentFormIndex,
   setCurrentUser,
-  skills,
 }) => {
   const [isMobile, setIsMobile] = useState(true);
 
@@ -125,24 +128,29 @@ const Form2 = ({
 
   const [updateIsLoading, setUpdateIsLoading] = useState(false);
 
+  const [selectedSkills, setSelectedSkills] = useState([]);
+
   const { mutateAsync: createUser, isPending: candidateIsLoading } =
     useCreateCandidate();
 
   const isLoading = updateIsLoading || candidateIsLoading;
 
+  const { mutateAsync: uploadResume } = useUploadResume();
+
   const updaterUser = async () => {
     setUpdateIsLoading(true);
     try {
       if (session?.uid) {
-        // const resume_url = await uploadFile(
-        //   resumeFile,
-        //   `resumes/${session?.uid}/resume`
-        // );
+        const resume_url = await uploadResume({
+          resume: resumeFile,
+          uid: session?.uid,
+        });
 
         const res = await createUser({
           ...values,
           phone_number: session?.uid,
-          resume_url: "",
+          resume_url,
+          skill_ids: selectedSkills.map((s) => s.id),
         });
 
         if (res.success) {
@@ -185,14 +193,7 @@ const Form2 = ({
         />
       </div>
 
-      <CustomSkillSelector
-        onSelect={(a) => {
-          setValues((prev) => ({ ...prev, skills: a.join() }));
-        }}
-        skills={skills}
-        initialSkills={values.skills ? values.skills.split(",") : []}
-        max={5}
-      />
+      <SkillSelector onChanage={setSelectedSkills} max={5} />
 
       <ControlLabel label="Select Resume (2 MB)" />
       {resumeFile ? (
@@ -206,7 +207,7 @@ const Form2 = ({
         </div>
       ) : (
         <CustomInput
-          placeHolder="DOB"
+          placeHolder="Resume"
           type="file"
           // required
           accept="application/pdf"
@@ -264,14 +265,13 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
     currentUser
       ? { ...currentUser }
       : {
-          first_name: "",
-          last_name: "",
-          gender: "",
-          dob: "",
-          email: "",
+          first_name: "TEst",
+          last_name: "test",
+          gender: "Male",
+          dob: "07/07/2025",
+          email: "abc@c.c",
           whatsapp_number: session.uid,
           phone_number: session.uid,
-          skills: "",
         }
   );
 

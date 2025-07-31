@@ -1,7 +1,8 @@
+import { useCreateApplication } from "@/api_hooks/candidate_hooks/application_hooks/application.hooks";
+import JobCard from "@/components/cards/job_card/job_card";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import JobCard from "@/components/ui/job/job_card/job_card";
 import CustomToolTip from "@/components/ui/tool_tip/tool_tip";
-import { useCreateApplication } from "@/hooks/application_hooks/application_hooks";
+
 import { useUpdateFeaturedJobs } from "@/hooks/featured_job_hooks/featured_job_hooks";
 import { addData, updateData } from "@/libs/firebase/firebase";
 import React, { useState } from "react";
@@ -11,51 +12,14 @@ import {
   QuestionCircle,
   QuestionCircleFill,
 } from "react-bootstrap-icons";
-import { v4 } from "uuid";
 
 import * as XLSX from "xlsx";
 
 const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
-  const [loadingJobId, setLoadingJobId] = useState(null);
-  const { mutateAsync } = useCreateApplication();
-  const { mutateAsync: updateFeaturedJob } = useUpdateFeaturedJobs();
-
-  const employerJobs = allJobs ? allJobs.filter((j) => !j.is_admin_job) : [];
-
-  const adminJobs = allJobs ? allJobs.filter((j) => j.is_admin_job) : [];
-
-  const applyJob = async (job, index) => {
-    setLoadingJobId(job?.id);
-    try {
-      const res = await mutateAsync({
-        candidate_id: currentUser?.id,
-        job_id: job?.job?.id || null,
-        admin_job_id: job?.adminjob?.id || null,
-        request_id: job?.request_id,
-        employer_id: job?.employer?.id || null,
-        featured_job_id: job?.id,
-        status: "Applied",
-      });
-
-      if (res) {
-        const updatedFeaturedJob = await updateFeaturedJob({
-          id: job?.id,
-          status: "Applied",
-        });
-
-        if (updatedFeaturedJob) {
-          setAllJobs((prev) => {
-            const fJobs = [...prev];
-            fJobs[index] = { ...job, status: "Applied" };
-            return fJobs;
-          });
-        }
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    setLoadingJobId(null);
-  };
+  const adminJobs = allJobs ? allJobs.filter((j) => !!j.admin_job_id) : [];
+  const employerJobs = allJobs
+    ? allJobs.filter((j) => !!j.employer_job_id)
+    : [];
 
   const downloadExcel = () => {
     // Data to be written to the Excel file
@@ -137,13 +101,31 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
     link.parentNode.removeChild(link);
   };
 
+  const { mutateAsync: apllyAsync, isPending } = useCreateApplication(
+    currentUser.id
+  );
+
+  const applyJob = async (featuredJob) => {
+    try {
+      const res = await apllyAsync({
+        candidate_id: currentUser.id,
+        featured_job_id: featuredJob.id,
+        employer_job_id: featuredJob.employer_job_id,
+      });
+
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <CustomButton onClick={downloadExcel}>Download as Xls</CustomButton>
       <br />
       <br />
       {employerJobs?.[0] && (
-        <Row>
+        <>
           <p>
             Apply Directly{" "}
             <CustomToolTip message="These jobs are posted by different Employers. You can apply directly from this dashboard">
@@ -151,53 +133,56 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
             </CustomToolTip>
           </p>
           <br />
-          <br />
-          {employerJobs.map((job, idx) => {
-            return (
-              <JobCard
-                key={job.id}
-                job={job}
-                allJobs={allJobs}
-                actionButton={
-                  <CustomButton
-                    onClick={async (e) => {
-                      e.stopPropagation();
-                      await applyJob(job, idx);
-                    }}
-                    isLoading={job.id === loadingJobId}
-                    disabled={
-                      loadingJobId ||
-                      job?.status !== "New" ||
-                      job?.job?.status !== "Active"
-                    }
-                  >
-                    {job?.status === "New" ? (
-                      "Apply"
+          <Row>
+            {employerJobs.map((job, idx) => {
+              return (
+                <JobCard
+                  key={job.id}
+                  jobData={job.employerJob}
+                  featuredJob={job}
+                  actionButton={
+                    job.application ? (
+                      <p>{job.application.status}</p>
                     ) : (
-                      <>
-                        Applied <Check2Circle />
-                      </>
-                    )}
-                  </CustomButton>
-                }
-              />
-            );
-          })}
-        </Row>
+                      <CustomButton
+                        onClick={async () => {
+                          await applyJob(job);
+                        }}
+                        isLoading={isPending}
+                      >
+                        Apply Now
+                      </CustomButton>
+                    )
+                  }
+                />
+              );
+            })}
+          </Row>
+        </>
       )}
+      <hr />
       {adminJobs?.[0] && (
-        <Row>
+        <>
           <p>
             Posted by Admin{" "}
             <CustomToolTip message="These jobs are posted by Admin. You can contact the employers.">
               <QuestionCircleFill />
             </CustomToolTip>
           </p>
-         <p>&nbsp;</p>
-          {adminJobs.map((job, idx) => {
-            return <JobCard key={job.id} job={job} allJobs={allJobs} />;
-          })}
-        </Row>
+          <br />
+          <Row>
+            {adminJobs.map((job, idx) => {
+              return (
+                <JobCard
+                  key={job.id}
+                  jobData={job.adminJob}
+                  isAdminJob
+                  featuredJob={job}
+                />
+              );
+            })}
+          </Row>
+        </>
       )}
     </>
   );
