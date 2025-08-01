@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import PAGES from "@/constants/pages";
 import User from "./main_header/user/user";
 import { useState } from "react";
-import OtpVerify from "./main_header/otp_verify/otp_verify";
+import OtpVerify from "./main_header/otp_verify1/otp_verify";
 import { List, PersonCircle } from "react-bootstrap-icons";
 import HeaderDrawer from "./top_header/header_drawer/header_drawer";
 import { auth } from "@/libs/firebase/firebase";

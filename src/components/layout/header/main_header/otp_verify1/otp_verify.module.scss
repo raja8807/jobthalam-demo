@@ -1,0 +1,58 @@
+.OtpVerify {
+  div[class="modal-content"] {
+    // display: none;
+    width: 400px;
+    margin: auto;
+  }
+
+  .modal {
+    position: relative;
+
+    .x {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 35px;
+      cursor: pointer;
+    }
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    h5 {
+      font-weight: 600;
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      p {
+        font-size: 18px;
+      }
+      > div {
+        width: 100%;
+      }
+    }
+
+    small {
+      color: $color_g3;
+      span {
+        color: $color_p1;
+        cursor: pointer;
+        font-weight: 600;
+      }
+    }
+
+    hr {
+      margin-bottom: 0px;
+    }
+  }
+
+  .edit {
+    color: $color_p1;
+    cursor: pointer;
+  }
+}

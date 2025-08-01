@@ -8,8 +8,7 @@ import axios from "axios";
 import { auth } from "@/libs/firebase/firebase";
 import { signInWithCustomToken } from "firebase/auth";
 import { useRouter } from "next/router";
-import { useSendOtp } from "@/api_hooks/auth_hooks/auth.hooks";
-// import { useSendOtp } from "@/api-hooks/auth_hooks/auth.hooks";
+import { useSendOtp } from "@/api-hooks/auth_hooks/auth.hooks";
 
 const OtpVerify = ({ showLogin, setShowLogin }) => {
   const [otpSent, setOtpSent] = useState(false);

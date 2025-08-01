@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./main_header.module.scss";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import User from "./user/user";
-import OtpVerify from "./otp_verify/otp_verify";
+import OtpVerify from "./otp_verify1/otp_verify";
 import { auth } from "@/libs/firebase/firebase";
 import CustomDropDown from "@/components/ui/dropdown/dropdown";
 import { CaretDown, CaretDownFill } from "react-bootstrap-icons";
@@ -70,7 +70,6 @@ const MainHeader = ({ currentUser, session }) => {
                     Candidate Login
                   </CustomButton>
                 </div>
-
               </>
             )}
             {session && !currentUser && (
