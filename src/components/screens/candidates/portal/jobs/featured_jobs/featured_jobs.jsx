@@ -15,8 +15,9 @@ import {
 
 import * as XLSX from "xlsx";
 
-const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
+const FeaturedJobs = ({ allJobs, currentUser }) => {
   const adminJobs = allJobs ? allJobs.filter((j) => !!j.admin_job_id) : [];
+
   const employerJobs = allJobs
     ? allJobs.filter((j) => !!j.employer_job_id)
     : [];
@@ -40,7 +41,7 @@ const FeaturedJobs = ({ allJobs, currentUser, setAllJobs }) => {
     ];
 
     allJobs.forEach((job) => {
-      if (job.is_admin_job) {
+      if (!job.employerJob) {
         worksheetData.push([
           job?.adminjob?.company_name,
           "",

@@ -141,8 +141,9 @@ const JobsSection = ({ setShowLogin }) => {
 
   useEffect(() => {
     if (data?.data) {
-      setJobs(data.data.filter((j) => j.type !== "Internship"));
-      setInternships(data.data.filter((j) => j.type === "Internship"));
+      // setJobs(data.data.filter((j) => j.type !== "Internship"));
+      setJobs([]);
+      setInternships([]);
     }
   }, [data]);
 
