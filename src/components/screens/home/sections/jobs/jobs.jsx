@@ -31,6 +31,7 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import { useCreateSubmission } from "@/hooks/form_hooks/form_hooks";
 import JobDetails from "@/components/jobs/job_details/job_details";
 import InternShipFormModal from "@/components/ui/internship_form/internship_form";
+import { useFetchHighlightedJobs } from "@/api_hooks/home/home.hooks";
 
 const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
   const loading = isLoading || !data;
@@ -84,7 +85,7 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
             <div className={styles.top}>
               <div>
                 <h3>{data.title}</h3>
-                <p>{data.company_name}</p>
+                <p>{data.companyName}</p>
               </div>
               <div>
                 <Image
@@ -102,15 +103,9 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
               <div>
                 <CurrencyDollar /> {data.salary}
               </div>
-              {isInternship ? (
-                <div>
-                  <Calendar2 /> {data.duration} Months
-                </div>
-              ) : (
-                <div>
-                  <PersonBadge /> {data.experience}
-                </div>
-              )}
+              <div>
+                <PersonBadge /> {data.experience}
+              </div>
             </div>
             <div className={styles.controls}>
               <div className={styles.tag}>{data.type}</div>
@@ -128,7 +123,7 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
 };
 
 const JobsSection = ({ setShowLogin }) => {
-  const { data, isLoading } = useFetchHomePageJobs();
+  const { data, isLoading } = useFetchHighlightedJobs();
   const [jobs, setJobs] = useState([null, null, null, null, null, null]);
   const [internships, setInternships] = useState([
     null,
@@ -140,10 +135,10 @@ const JobsSection = ({ setShowLogin }) => {
   ]);
 
   useEffect(() => {
-    if (data?.data) {
+    if (data) {
       // setJobs(data.data.filter((j) => j.type !== "Internship"));
-      setJobs([]);
-      setInternships([]);
+      setJobs(data.jobs);
+      setInternships(data.internships);
     }
   }, [data]);
 

@@ -6,10 +6,7 @@ import Link from "next/link";
 import PAGES from "@/constants/pages";
 import { ArrowRight } from "react-bootstrap-icons";
 
-
-
 const Footer = () => {
-  
   const PRODUCTS = [
     {
       id: "MANGO",
@@ -35,7 +32,12 @@ const Footer = () => {
         <Row>
           <Col xs={12} md={6} lg={5}>
             <div className={`${styles.sec} ${styles.sec1}`}>
-              <Image src="/logo/logo_f_v.png" alt="logo" width={250} className={styles.logo}/>
+              <Image
+                src="/logo/logo_f_v.png"
+                alt="logo"
+                width={250}
+                className={styles.logo}
+              />
               {/* <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
                 ad quos ratione asperiores qui molestiae itaque amet et
@@ -80,10 +82,20 @@ const Footer = () => {
               ))}
             </div>
           </Col>
-
         </Row>
         <hr />
-<p>All rights reserved © 2025 Arvicomm Technologies.</p>
+        <div className={styles.legal}>
+          <p>All rights reserved © 2025 Arvicomm Technologies.</p>
+          <div>
+            <Link hr href={"/terms-and-conditions"}>
+              Terms & Conditions
+            </Link>
+            |
+            <Link hr href={"/Privacy-Policy"}>
+              Privacy policy
+            </Link>
+          </div>
+        </div>
       </CustomContainer>
     </footer>
   );

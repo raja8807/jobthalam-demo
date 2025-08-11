@@ -29,8 +29,6 @@ const JobDetails = ({
     setJob(null);
   };
 
-  const { companyName } = employerData;
-
   return (
     <Modal
       show={!!job}
@@ -53,7 +51,7 @@ const JobDetails = ({
                 </div>
                 <div className={styles.name}>
                   <h4>{job?.title}</h4>
-                  <p>at {companyName}</p>
+                  <p>at {job?.companyName}</p>
                 </div>
               </div>
 
@@ -102,11 +100,7 @@ const JobDetails = ({
                         </span>
                       </div>
                     )}
-                    {/* <div>
-                  <Layers />
-                  <p>JOB LEVEL:</p>
-                  <span>Entry Level</span>
-                </div> */}
+
                     {job?.duration ? (
                       <div>
                         <CalendarDate />
@@ -128,24 +122,6 @@ const JobDetails = ({
                   </div>
                 </div>
 
-                {/* {employer && (
-                  <div className={styles.box}>
-                    <h6>Contact</h6>
-                    <div className={styles.box3}>
-                      <strong>
-                        <Person /> &nbsp;{employer.first_name}{" "}
-                        {employer.last_name}
-                      </strong>
-                      <div>
-                        <EnvelopeAt /> &nbsp;<small>{employer?.email}</small>
-                      </div>
-                      <div>
-                        <Phone /> &nbsp;
-                        <small>{employer.phone_number}</small>
-                      </div>
-                    </div>
-                  </div>
-                )} */}
                 <div className={`${styles.box} `}>
                   <h6>Contact</h6>
                   <div

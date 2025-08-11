@@ -1,0 +1,44 @@
+.legalPage {
+  header {
+    text-align: center;
+    margin: 50px 0;
+  }
+  h1 {
+    margin: 0;
+    font-size: 1.6rem;
+  }
+  p.lead {
+    color: #444;
+    margin-top: 8px;
+  }
+  section {
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(20, 20, 40, 0.05);
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 1.05rem;
+    margin-top: 0;
+  }
+  ol {
+    margin-left: 1.1rem;
+  }
+  li {
+    margin: 8px 0;
+  }
+  footer {
+    text-align: center;
+    margin-top: 18px;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  a {
+    color: #0b6efd;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
