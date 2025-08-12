@@ -1,0 +1,210 @@
+@import "@/styles/scss/_variables.scss";
+@import "@/styles/scss/_mixins.scss";
+@import "@/styles/scss/_media_queries.scss";
+
+.pricingSection {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      color: $color_p1;
+      margin-bottom: 16px;
+      
+      @include respond-below(md) {
+        font-size: 2rem;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: $color_g3;
+      max-width: 600px;
+      margin: 0 auto;
+      
+      @include respond-below(md) {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .packagesContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include respond-below(md) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  .packageCard {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 2px solid transparent;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    &.popular {
+      border-color: $color_p1;
+      transform: scale(1.05);
+
+      @include respond-below(md) {
+        transform: none;
+      }
+    }
+  }
+
+  .popularBadge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $color_p1;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .packageHeader {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color_p1;
+      margin-bottom: 20px;
+    }
+
+    .price {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+
+      .amount {
+        font-size: 3rem;
+        font-weight: 800;
+        color: $color_p1;
+        line-height: 1;
+      }
+
+      .jobs {
+        font-size: 1.1rem;
+        color: $color_g3;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .features {
+    margin-bottom: 30px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f0f0;
+        color: $color_g3;
+        font-size: 1rem;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        svg {
+          color: $color_s1;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+  .action {
+    text-align: center;
+  }
+
+  .faq {
+    max-width: 800px;
+    margin: 0 auto;
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color_p1;
+      text-align: center;
+      margin-bottom: 40px;
+      
+      @include respond-below(md) {
+        font-size: 1.5rem;
+      }
+    }
+
+    .faqGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+
+      @include respond-below(md) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .faqItem {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      }
+
+      h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $color_p1;
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+
+      p {
+        color: $color_g3;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+  }
+}

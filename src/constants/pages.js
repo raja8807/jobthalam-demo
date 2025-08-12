@@ -12,7 +12,10 @@ const PAGES = [
     name: "About",
     href: "/about",
   },
-
+  {
+    name: "Pricing",
+    href: "/pricing",
+  },
   {
     name: "FAQ",
     href: "/#faq",
