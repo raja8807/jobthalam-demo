@@ -39,7 +39,11 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
   return (
     <header className={`${styles.header} `}>
       <OtpVerify showLogin={showLogin} setShowLogin={setShowLogin} />
-      <InternShipFormModal show={showForm} setShow={setShowForm} setShowLogin={setShowLogin}/>
+      <InternShipFormModal
+        show={showForm}
+        setShow={setShowForm}
+        setShowLogin={setShowLogin}
+      />
       <CustomContainer>
         <div className={styles.wrap}>
           <div className={styles.logo}>
@@ -63,49 +67,50 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
             </div>
           </div>
 
-          <nav>
-            <ul>
-              {PAGES.map((p) => {
-                if (p.isPortal) {
-                  if (session) {
+          {router.pathname !== "/candidate" && (
+            <nav>
+              <ul>
+                {PAGES.map((p) => {
+                  if (p.isPortal) {
+                    if (session) {
+                      return (
+                        <li
+                          key={"portal"}
+                          className={`${styles.item} ${
+                            router.pathname === p.href ? styles.active : ""
+                          }`}
+                        >
+                          <Link href={"/candidate"}>Candidate</Link>
+                        </li>
+                      );
+                    }
+                  } else {
                     return (
                       <li
-                        key={"portal"}
+                        key={p.name}
                         className={`${styles.item} ${
                           router.pathname === p.href ? styles.active : ""
                         }`}
                       >
-                        <Link href={"/candidate"}>Candidate</Link>
+                        <Link href={p.href}>{p.name}</Link>
                       </li>
                     );
                   }
-                } else {
-                  return (
-                    <li
-                      key={p.name}
-                      className={`${styles.item} ${
-                        router.pathname === p.href ? styles.active : ""
-                      }`}
-                    >
-                      <Link href={p.href}>{p.name}</Link>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
-          </nav>
-
+                })}
+              </ul>
+            </nav>
+          )}
           <div className={styles.right}>
             {!currentUser && !session && (
               <>
                 <div className={styles.btns}>
-                  <CustomButton
-                    href="https://jobthalam-employer.vercel.app/"
+                  {/* <CustomButton
+                    href="https://employer.jobthalam.com/"
                     variant={4}
                     target="_blank"
                   >
                     Employer Login
-                  </CustomButton>
+                  </CustomButton> */}
                   <CustomButton
                     onClick={() => {
                       setShowLogin(true);

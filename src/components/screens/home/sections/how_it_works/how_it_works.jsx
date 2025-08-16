@@ -13,7 +13,7 @@ import { Col, Image, Row } from "react-bootstrap";
 const HCard = ({ data, isWhite, isLast, isTwo }) => {
   const { title, caption, icon } = data;
   return (
-    <Col xs={12} md={6} lg={3}>
+    <Col xs={12} md={6} lg={4}>
       <div className={`${styles.HCard} ${isWhite ? styles.white : ""} `}>
         <div className={styles.ico}>{icon}</div>
         <p>{title}</p>
@@ -40,14 +40,14 @@ const HowItWorks = () => {
       caption:
         "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, rem.",
     },
-    {
-      id: "2",
-      title: "Get Personalized Job Posting For Free",
-      icon: <Briefcase />,
-      caption:
-        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, rem.",
-      //   isWhite: true,
-    },
+    // {
+    //   id: "2",
+    //   title: "Get Personalized Job Posting For Free",
+    //   icon: <Briefcase />,
+    //   caption:
+    //     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste, rem.",
+    //   //   isWhite: true,
+    // },
     {
       id: "3",
       title: "Complete Payment Starting at Just 99/-",
@@ -80,7 +80,7 @@ const HowItWorks = () => {
               key={c.id}
               isWhite={c.isWhite}
               data={c}
-              isLast={i === 3}
+              isLast={i === 2}
               isTwo={i === 1}
             />
           ))}

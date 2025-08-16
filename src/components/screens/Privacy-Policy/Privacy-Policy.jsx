@@ -168,7 +168,7 @@ const PrivacyPolicyScreen = () => {
         </main>
 
         <footer>
-          <small>© JobThalam. All rights reserved.</small>
+          <small>All rights reserved © 2025 Arvicomm Technologies.</small>
         </footer>
         <br />
         <br />

@@ -71,8 +71,8 @@ const AboutSection = ({ aboutData }) => {
               </h1>
 
               <p>{banner.text}</p>
-<br/>
-<p>{banner?.text2}</p>
+              <br />
+              <p>{banner?.text2}</p>
             </div>
 
             <div className={styles.right}>
@@ -125,11 +125,11 @@ const AboutSection = ({ aboutData }) => {
             </div>
           );
         }
-        if (section.type === "clients") {
-          return <ClientsSection data={section.data} key={`sec_${i}`}/>;
-        }
+        // if (section.type === "clients") {
+        //   return <ClientsSection data={section.data} key={`sec_${i}`}/>;
+        // }
         if (section.type === "count") {
-          return <CountSection data={section.data} key={`sec_${i}`}/>;
+          return <CountSection data={section.data} key={`sec_${i}`} />;
         }
       })}
       {/* <div className={styles.sec}>

@@ -23,7 +23,7 @@ const BCard = ({ data }) => {
   );
 };
 
-const BannerSection = ({ bannerData }) => {
+const BannerSection = ({ bannerData, setShowLogin, session }) => {
   return (
     <div className={styles.BannerSection}>
       <CustomContainer>
@@ -44,9 +44,20 @@ const BannerSection = ({ bannerData }) => {
             <p>{bannerData?.caption}</p>
 
             <div>
-              <CustomButton>Get Started</CustomButton>
+              <CustomButton
+                href={session && "/candidate"}
+                onClick={() => {
+                  if (!session) {
+                    setShowLogin(true);
+                  }
+                }}
+              >
+                Get Started
+              </CustomButton>
               &nbsp; &nbsp; &nbsp; &nbsp;
-              <CustomButton variant={2}>Know More</CustomButton>
+              <CustomButton variant={2} href={"/about"}>
+                Know More
+              </CustomButton>
             </div>
           </div>
 

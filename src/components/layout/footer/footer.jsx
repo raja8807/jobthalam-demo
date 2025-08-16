@@ -11,18 +11,12 @@ const Footer = () => {
     {
       id: "MANGO",
       name: "Find a Job",
+      href: "#top",
     },
     {
       id: "LYCHEE",
       name: "Post a Job",
-    },
-    {
-      id: "STRAWBERRY",
-      name: "Jobthalam Careers ",
-    },
-    {
-      id: "services",
-      name: "More Services ",
+      href: "https://employer.jobthalam.com/",
     },
   ];
 
@@ -71,7 +65,7 @@ const Footer = () => {
               <h4>Useful Links</h4>
               {PRODUCTS.map((p, i) => (
                 <p key={p.name} className={styles.links}>
-                  <Link href={`/services?t=${i}`}>
+                  <Link href={p.href}>
                     <span>
                       <ArrowRight />
                       &nbsp;

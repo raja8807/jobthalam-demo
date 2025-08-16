@@ -9,10 +9,14 @@ import FaqSection from "./sections/faq/faq";
 import NewsLetterSection from "./sections/news_letter/news_letter";
 import JobsSection from "./sections/jobs/jobs";
 
-const HomeScreen = ({ setShowLogin, candidateHomePageData = {} }) => {
+const HomeScreen = ({ setShowLogin, session, candidateHomePageData = {} }) => {
   return (
     <main>
-      <BannerSection bannerData={candidateHomePageData.bannerData} />
+      <BannerSection
+        bannerData={candidateHomePageData.bannerData}
+        setShowLogin={setShowLogin}
+        session={session}
+      />
       <VacanciesSection vacanciesData={candidateHomePageData?.vacanciesData} />
       <JobsSection setShowLogin={setShowLogin} />
       {/* <ExploreSection categoryData={candidateHomePageData.categoryData} /> */}

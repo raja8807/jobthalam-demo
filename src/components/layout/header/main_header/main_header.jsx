@@ -56,7 +56,7 @@ const MainHeader = ({ currentUser, session }) => {
               <>
                 <div className={styles.btns}>
                   <CustomButton
-                    href="https://jobthalam-employer.vercel.app/"
+                    href="https://employer.jobthalam.com/"
                     variant={4}
                     target="_blank"
                   >
@@ -70,7 +70,6 @@ const MainHeader = ({ currentUser, session }) => {
                     Candidate Login
                   </CustomButton>
                 </div>
-
               </>
             )}
             {session && !currentUser && (
