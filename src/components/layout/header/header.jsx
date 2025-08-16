@@ -104,13 +104,13 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
             {!currentUser && !session && (
               <>
                 <div className={styles.btns}>
-                  {/* <CustomButton
+                  <CustomButton
                     href="https://employer.jobthalam.com/"
                     variant={4}
                     target="_blank"
                   >
                     Employer Login
-                  </CustomButton> */}
+                  </CustomButton>
                   <CustomButton
                     onClick={() => {
                       setShowLogin(true);
