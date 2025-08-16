@@ -16,7 +16,7 @@ const HomeScreen = ({ setShowLogin, employerHomePageData = {} }) => {
     <main>
       <BannerSection bannerData={employerHomePageData.bannerData} />
       <VacanciesSection vacanciesData={employerHomePageData?.vacanciesData} />
-      <JobsSection setShowLogin={setShowLogin} />
+      {/* <JobsSection setShowLogin={setShowLogin} /> */}
       {/* <ExploreSection categoryData={employerHomePageData.categoryData} /> */}
       <HowItWorks />
       <DiscoverSection

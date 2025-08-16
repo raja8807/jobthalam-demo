@@ -6,27 +6,26 @@ import Link from "next/link";
 import PAGES from "@/constants/pages";
 import { ArrowRight } from "react-bootstrap-icons";
 
-
-
 const Footer = () => {
-  
   const PRODUCTS = [
     {
-      id: "MANGO",
+      id: "job",
       name: "Find a Job",
+      href: "https://www.jobthalam.com",
     },
     {
-      id: "LYCHEE",
+      id: "lych",
       name: "Post a Job",
+      href: "#top",
     },
-    {
-      id: "STRAWBERRY",
-      name: "Jobthalam Careers ",
-    },
-    {
-      id: "services",
-      name: "More Services ",
-    },
+    // {
+    //   id: "sta",
+    //   name: "Jobthalam Careers ",
+    // },
+    // {
+    //   id: "ser",
+    //   name: "More Services ",
+    // },
   ];
 
   return (
@@ -35,7 +34,12 @@ const Footer = () => {
         <Row>
           <Col xs={12} md={6} lg={5}>
             <div className={`${styles.sec} ${styles.sec1}`}>
-              <Image src="/logo/logo_f_v.png" alt="logo" width={250} className={styles.logo}/>
+              <Image
+                src="/logo/logo_f_v.png"
+                alt="logo"
+                width={250}
+                className={styles.logo}
+              />
               {/* <p>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
                 ad quos ratione asperiores qui molestiae itaque amet et
@@ -69,7 +73,7 @@ const Footer = () => {
               <h4>Useful Links</h4>
               {PRODUCTS.map((p, i) => (
                 <p key={p.name} className={styles.links}>
-                  <Link href={`/services?t=${i}`}>
+                  <Link href={p.href}>
                     <span>
                       <ArrowRight />
                       &nbsp;
@@ -80,7 +84,6 @@ const Footer = () => {
               ))}
             </div>
           </Col>
-
         </Row>
         <hr />
       </CustomContainer>

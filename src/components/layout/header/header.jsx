@@ -37,7 +37,7 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <header className={`${styles.header} `}>
+    <header className={`${styles.header} `} id="top">
       <OtpVerify showLogin={showLogin} setShowLogin={setShowLogin} />
       {/* <InternShipFormModal show={showForm} setShow={setShowForm} setShowLogin={setShowLogin}/> */}
       <CustomContainer>
