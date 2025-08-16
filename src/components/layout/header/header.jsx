@@ -100,7 +100,7 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
               <>
                 <div className={styles.btns}>
                   <CustomButton
-                    href="https://jobthalam-demo.vercel.app/"
+                    href="https://jobthalam.com/"
                     variant={4}
                     target="_blank"
                   >
