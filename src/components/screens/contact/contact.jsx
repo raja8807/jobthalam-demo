@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styles from "./contact.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
-import { Col, Form, Row } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
 import CustomTextArea from "@/components/ui/custom_textarea/custom_textarea";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import Footer from "@/components/layout/footer/footer";
 import FaqSection from "../home/sections/faq/faq";
 import NewsLetterSection from "../home/sections/news_letter/news_letter";
 
@@ -78,7 +77,6 @@ const ContactScreen = ({
       <br />
       <br />
       <NewsLetterSection />
-      <Footer />
     </>
   );
 };

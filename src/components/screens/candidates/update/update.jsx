@@ -265,11 +265,11 @@ const UpdateForm = ({ currentUser, setCurrentUser, session }) => {
     currentUser
       ? { ...currentUser }
       : {
-          first_name: "TEst",
-          last_name: "test",
+          first_name: "",
+          last_name: "",
           gender: "Male",
-          dob: "07/07/2025",
-          email: "abc@c.c",
+          dob: "",
+          email: "",
           whatsapp_number: session.uid,
           phone_number: session.uid,
         }

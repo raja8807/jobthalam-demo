@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./pricing.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import Footer from "@/components/layout/footer/footer";
+
 import NewsLetterSection from "../home/sections/news_letter/news_letter";
 
 const PricingScreen = ({ session, setShowLogin }) => {
@@ -149,7 +149,6 @@ const PricingScreen = ({ session, setShowLogin }) => {
       </div>
 
       <NewsLetterSection />
-      <Footer />
     </>
   );
 };

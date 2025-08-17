@@ -6,24 +6,31 @@ import { Row } from "react-bootstrap";
 import JobCard from "@/components/ui/job/job_card/job_card";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import FeaturedJobs from "./featured_jobs/featured_jobs";
+import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const Jobs = ({ currentUser, allJobs = [], isLoading, setCurrentTabIndex }) => {
-  return (
-    <MainFrame
-      head={`Hello, ${currentUser.first_name} ${currentUser.last_name}`}
-      caption="Welcome to Jobthalam, Here are the jobs that suits for you!"
-    >
-      {allJobs?.[0] ? (
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (allJobs?.[0]) {
+    return (
+      <MainFrame
+        head={`Hello, ${currentUser.first_name} ${currentUser.last_name}`}
+        caption={
+          allJobs?.[0] &&
+          "Welcome to Jobthalam, Here are the jobs that suits for you!"
+        }
+      >
         <FeaturedJobs allJobs={allJobs} currentUser={currentUser} />
-      ) : (
-        !isLoading && (
-          <NoJobs
-            currentUser={currentUser}
-            setCurrentTabIndex={setCurrentTabIndex}
-          />
-        )
-      )}
-    </MainFrame>
+      </MainFrame>
+    );
+  }
+
+  return (
+    <>
+      <NoJobs setCurrentTabIndex={setCurrentTabIndex} />
+    </>
   );
 };
 

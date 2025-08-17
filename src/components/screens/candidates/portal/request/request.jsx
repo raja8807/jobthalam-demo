@@ -7,7 +7,12 @@ import { useFetchRequestByUid } from "@/hooks/request_hooks/request_hooks";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import BuyRequests from "./buy_request/buy_request";
 
-const JobRequests = ({ currentUser, setCurrentUser, setCurrentTabIndex }) => {
+const JobRequests = ({
+  currentUser,
+  setCurrentUser,
+  setCurrentTabIndex,
+  isHome,
+}) => {
   const [showHistory, setShowHistory] = useState(false);
 
   return (
@@ -23,6 +28,7 @@ const JobRequests = ({ currentUser, setCurrentUser, setCurrentTabIndex }) => {
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
           setCurrentTabIndex={setCurrentTabIndex}
+          isHome={isHome}
         />
       )}
     </>

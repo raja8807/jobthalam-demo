@@ -1,14 +1,17 @@
 import CustomButton from "@/components/ui/custom_button/custom_button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./no_jobs.module.scss";
 import { CheckCircleFill, Whatsapp } from "react-bootstrap-icons";
+import JobRequests from "../../request/request";
 
-const NoJobs = ({ currentUser, setCurrentUser, setCurrentTabIndex }) => {
-  const [isRequested, setIsRequested] = useState(currentUser?.free_requested);
+const NoJobs = ({ currentUser, setCurrentTabIndex }) => {
+  useEffect(() => {
+    setCurrentTabIndex(2);
+  }, []);
 
   return (
     <div className={styles.NoJobs}>
-      {currentUser?.free_requested || isRequested ? (
+      {/* {currentUser?.free_requested || isRequested ? (
         <>
           <CheckCircleFill className={styles.check} />
           <strong>Jobs Requested</strong>
@@ -38,7 +41,7 @@ const NoJobs = ({ currentUser, setCurrentUser, setCurrentTabIndex }) => {
         }}
       >
         Request Assured Jobs at Rs.99/-
-      </CustomButton>
+      </CustomButton> */}
     </div>
   );
 };

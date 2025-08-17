@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./header/header";
 import Footer from "./footer/footer";
+import { useRouter } from "next/router";
 
 const Layout = ({
   children,
@@ -9,6 +10,8 @@ const Layout = ({
   showLogin,
   setShowLogin,
 }) => {
+  const router = useRouter();
+
   return (
     <div>
       <Header
@@ -18,7 +21,9 @@ const Layout = ({
         setShowLogin={setShowLogin}
       />
       {children}
-      {/* <Footer/> */}
+      {!router.pathname.includes("candidate") && (
+        <Footer session={session} setShowLogin={setShowLogin} />
+      )}
     </div>
   );
 };

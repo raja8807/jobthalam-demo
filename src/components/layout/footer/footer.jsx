@@ -5,20 +5,29 @@ import { Col, Image, Row } from "react-bootstrap";
 import Link from "next/link";
 import PAGES from "@/constants/pages";
 import { ArrowRight } from "react-bootstrap-icons";
+import { useRouter } from "next/router";
 
-const Footer = () => {
+const Footer = ({ session, setShowLogin }) => {
   const PRODUCTS = [
     {
       id: "MANGO",
       name: "Find a Job",
-      href: "#top",
+      href: "#",
+      isCandidate: true,
     },
     {
       id: "LYCHEE",
       name: "Post a Job",
       href: "https://employer.jobthalam.com/",
     },
+    {
+      id: "dv",
+      name: "Refund Policy",
+      href: "/Refund-Policy",
+    },
   ];
+
+  const router = useRouter();
 
   return (
     <footer className={styles.footer}>
@@ -65,7 +74,19 @@ const Footer = () => {
               <h4>Useful Links</h4>
               {PRODUCTS.map((p, i) => (
                 <p key={p.name} className={styles.links}>
-                  <Link href={p.href}>
+                  <Link
+                    href={p.href}
+                    target={!p.isCandidate && "_blank"}
+                    onClick={() => {
+                      if (p.isCandidate) {
+                        if (!session) {
+                          setShowLogin(true);
+                        } else {
+                          router.push("/candidate");
+                        }
+                      }
+                    }}
+                  >
                     <span>
                       <ArrowRight />
                       &nbsp;
