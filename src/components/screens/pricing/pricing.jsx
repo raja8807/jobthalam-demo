@@ -23,7 +23,7 @@ const PricingScreen = ({ session, setShowLogin }) => {
     },
     {
       name: "Gold",
-      price: "₹199",
+      price: "₹499",
       jobs: "Unlimited Jobs",
       features: [
         "Access to 50+ job postings",
