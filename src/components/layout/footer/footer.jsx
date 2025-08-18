@@ -72,7 +72,7 @@ const Footer = ({ session, setShowLogin }) => {
                 <p key={p.name} className={styles.links}>
                   <Link
                     href={p.href}
-                    target={!p.isCandidate && "_blank"}
+                    
                     onClick={() => {
                       if (p.isCandidate) {
                         if (!session) {
