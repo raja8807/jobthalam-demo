@@ -11,7 +11,7 @@ const PAGES = [
 {
 name : 'About',
 href : '/about',
-hidded : true
+hidden : true
 },
   
   {
