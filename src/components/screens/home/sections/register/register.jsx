@@ -11,6 +11,10 @@ const RegisterSection = ({ cards = [] }) => {
       <CustomContainer>
         <Row>
           {cards.map((card, cIdx) => {
+
+if(cIdx === 1){
+return null
+}
             return (
               <Col xs={12} lg={6} key={`card_${cIdx}`} className={styles.c}>
                 <div className={`${styles.card} ${styles[`card${cIdx + 1}`]}`}>
