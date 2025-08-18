@@ -107,13 +107,7 @@ return null
             {!currentUser && !session && (
               <>
                 <div className={styles.btns}>
-                  <CustomButton
-                    href="https://employer.jobthalam.com/"
-                    variant={4}
-                    target="_blank"
-                  >
-                    Employer Login
-                  </CustomButton>
+                 
                   <CustomButton
                     onClick={() => {
                       setShowLogin(true);
