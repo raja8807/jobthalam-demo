@@ -101,7 +101,7 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
                 <GeoAlt /> {data.location}
               </div>
               <div>
-                <CurrencyDollar /> {data.salary}
+                ₹ {data.salary}
               </div>
               <div>
                 <PersonBadge /> {data.experience}
