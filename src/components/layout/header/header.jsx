@@ -71,6 +71,9 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
             <nav>
               <ul>
                 {PAGES.map((p) => {
+if(p.hidded){
+return null
+}
                   if (p.isPortal) {
                     if (session) {
                       return (
