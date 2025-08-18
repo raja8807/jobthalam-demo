@@ -15,11 +15,7 @@ const Footer = ({ session, setShowLogin }) => {
       href: "#",
       isCandidate: true,
     },
-    {
-      id: "LYCHEE",
-      name: "Post a Job",
-      href: "https://employer.jobthalam.com/",
-    },
+    
     {
       id: "dv",
       name: "Refund Policy",
