@@ -23,6 +23,10 @@ const HeaderDrawer = ({ show, setShow, router, session }) => {
         <div className={styles.body}>
           <nav>
             {PAGES.map((page) => {
+
+if(page.hidden){
+return null
+}
               if (page.isPortal) {
                 if (session) {
                   return (
