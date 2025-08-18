@@ -8,6 +8,11 @@ const PAGES = [
     href: "/candidate",
     isPortal: true,
   },
+{
+name : 'About',
+href : '/about',
+hidded : true
+},
   
   {
     name: "Pricing",
