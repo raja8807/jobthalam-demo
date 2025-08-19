@@ -139,7 +139,7 @@ const JobDetails = ({
                       <EnvelopeAt /> &nbsp;
                       <small>
                         {isHidden
-                          ? "Loremipsum@gmail.com"
+                          ? "rishiagarwal@gmail.com"
                           : employerData?.companyEmail}
                       </small>
                     </div>
@@ -170,21 +170,7 @@ const JobDetails = ({
                   <h6>About Company</h6>
                   {isHidden ? (
                     <p className={styles.hidden}>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Magni voluptates ad fuga aut eaque numquam reiciendis
-                      nesciunt delectus quibusdam doloremque sunt eligendi quo
-                      officiis vel unde cum, optio est commodi. Lorem ipsum
-                      dolor, sit amet consectetur adipisicing elit. Officiis
-                      ratione consequatur tenetur pariatur unde accusantium
-                      possimus nemo, voluptatum architecto quibusdam voluptate
-                      nobis! Vitae quas laborum, aliquam culpa excepturi
-                      distinctio voluptate?
-                      <br />
-                      <br />
-                      Officiis ratione consequatur tenetur pariatur unde
-                      accusantium possimus nemo, voluptatum architecto quibusdam
-                      voluptate nobis! Vitae quas laborum, aliquam culpa
-                      excepturi distinctio voluptate?
+                      
                     </p>
                   ) : (
                     <p>{isAdminJob ? job?.about_company : employer?.about}</p>
