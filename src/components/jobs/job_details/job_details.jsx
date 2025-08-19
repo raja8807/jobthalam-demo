@@ -170,7 +170,10 @@ const JobDetails = ({
                   <h6>About Company</h6>
                   {isHidden ? (
                     <p className={styles.hidden}>
-                      
+                      Founded with a vision to simplify technology, we specialize in delivering custom software development, mobile & web applications, cloud solutions, and enterprise grade IT services tailored to our clients unique needs.
+<br/>
+<br/>
+Our team of passionate developers, designers, and tech strategists works hand-in-hand with businesses across industries from startups to global enterprises to transform ideas into scalable, secure, and user friendly products.
                     </p>
                   ) : (
                     <p>{isAdminJob ? job?.about_company : employer?.about}</p>
