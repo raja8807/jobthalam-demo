@@ -1,58 +1,372 @@
 .OtpVerify {
   div[class="modal-content"] {
-    // display: none;
     width: 400px;
     margin: auto;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   }
 
   .modal {
     position: relative;
+    padding: 0;
+    border-radius: 0px;
+    overflow: hidden;
 
     .x {
       position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 35px;
+      right: 16px;
+      top: 16px;
+      font-size: 20px;
       cursor: pointer;
+      color: $color_g3;
+      transition: all 0.2s ease;
+      z-index: 10;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.05);
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: $color_g3;
+        transform: scale(1.1);
+      }
     }
   }
+
   .body {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+    padding: 32px;
 
-    h5 {
-      font-weight: 600;
+    // Header Section
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+
+      .iconWrapper {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, $color_p1, $color_p1_mild2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        box-shadow: 0 6px 24px rgba(234, 32, 83, 0.2);
+
+        .headerIcon {
+          font-size: 28px;
+          color: white;
+        }
+      }
+
+      .title {
+        font-size: 24px;
+        font-weight: 700;
+        color: $color_p1;
+        margin-bottom: 8px;
+        line-height: 1.2;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: $color_g3;
+        line-height: 1.4;
+        margin: 0;
+        max-width: 280px;
+        margin: 0 auto;
+      }
     }
 
-    > div {
+    // Back Button
+    .backButton {
       display: flex;
       align-items: center;
-      gap: 5px;
-      p {
-        font-size: 18px;
-      }
-      > div {
-        width: 100%;
-      }
-    }
-
-    small {
+      gap: 6px;
+      background: none;
+      border: none;
       color: $color_g3;
-      span {
+      font-size: 13px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 16px;
+      transition: all 0.2s ease;
+      align-self: flex-start;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
         color: $color_p1;
-        cursor: pointer;
-        font-weight: 600;
+      }
+
+      .backIcon {
+        font-size: 14px;
       }
     }
 
-    hr {
-      margin-bottom: 0px;
+    // Input Section
+    .inputSection {
+
+
+
+      .mobileInput {
+        margin-bottom: 20px;
+
+
+        // position: relative;
+
+
+
+        // &::before {
+        //   content: "+91";
+        //   position: absolute;
+        //   left: 16px;
+        //   top: 50%;
+        //   transform: translateY(-50%);
+        //   color: $color_p1;
+        //   font-weight: 600;
+        //   font-size: 16px;
+        //   z-index: 2;
+        //   pointer-events: none;
+        // }
+
+        >div {
+
+          input {
+            width: 100%;
+            height: 56px;
+            border-radius: 2px;
+            border: 2px solid $color_g4;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding-left: 10px !important;
+            outline: none !important;
+
+            &:hover {
+              border-color: $color_g2;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            &::placeholder {
+              color: $color_g3;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+
+      .testMode {
+        background: rgba(234, 32, 83, 0.1);
+        border: 1px solid rgba(234, 32, 83, 0.2);
+        border-radius: 10px;
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+
+        .form-check {
+          margin-bottom: 8px;
+
+          .form-check-input {
+            &:checked {
+              background-color: $color_p1;
+              border-color: $color_p1;
+            }
+          }
+
+          .form-check-label {
+            font-weight: 600;
+            color: $color_p1;
+            font-size: 13px;
+          }
+        }
+
+        .testModeInfo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .testBadge {
+            background: $color_p1;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+          }
+
+          p {
+            margin: 0;
+            font-size: 13px;
+            color: $color_g3;
+          }
+        }
+      }
+    }
+
+    // OTP Section
+    .otpSection {
+      .mobileDisplay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: $color_g1;
+        padding: 12px;
+        border-radius: 10px;
+        margin-bottom: 16px;
+
+        span {
+          font-size: 16px;
+          font-weight: 600;
+          color: $color_p1;
+        }
+
+        .editButton {
+          background: none;
+          border: none;
+          color: $color_p1;
+          cursor: pointer;
+          padding: 6px;
+          border-radius: 6px;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: rgba(234, 32, 83, 0.1);
+            transform: scale(1.1);
+          }
+
+          .editIcon {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .otpInput {
+        margin-bottom: 16px;
+
+        .otpFields {
+          display: flex;
+          gap: 8px;
+          justify-content: center;
+
+          .otpField {
+            width: 45px;
+            height: 45px;
+            border: 2px solid $color_g4;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: $color_p1;
+            background: white;
+            transition: all 0.2s ease;
+
+            &:focus {
+              outline: none;
+              border-color: $color_p1;
+              box-shadow: 0 0 0 3px rgba(234, 32, 83, 0.1);
+            }
+
+            &::placeholder {
+              color: $color_g4;
+            }
+          }
+        }
+      }
+
+      .resendSection {
+        text-align: center;
+
+        .timer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          color: $color_g3;
+          font-size: 13px;
+
+          .clockIcon {
+            font-size: 14px;
+          }
+        }
+
+        .resendButton {
+          background: none;
+          border: none;
+          color: $color_g3;
+          font-size: 13px;
+          cursor: pointer;
+          padding: 6px 12px;
+          border-radius: 16px;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: $color_p1;
+
+            span {
+              color: $color_p1;
+            }
+          }
+
+          span {
+            color: $color_p1;
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+          }
+        }
+      }
+    }
+
+    // Action Section
+    .actionSection {
+      margin-top: 8px;
     }
   }
 
-  .edit {
-    color: $color_p1;
-    cursor: pointer;
+  // Responsive Design
+  @media (max-width: 576px) {
+    div[class="modal-content"] {
+      width: 90vw;
+      margin: 20px auto;
+    }
+
+    .modal .body {
+      padding: 24px 20px;
+      gap: 16px;
+
+      .header {
+        .iconWrapper {
+          width: 50px;
+          height: 50px;
+
+          .headerIcon {
+            font-size: 24px;
+          }
+        }
+
+        .title {
+          font-size: 20px;
+        }
+
+        .subtitle {
+          font-size: 13px;
+        }
+      }
+
+      .otpSection .otpInput .otpFields .otpField {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
   }
 }

@@ -23,6 +23,8 @@ const CustomInput = ({
   //     onblur="(this.type='text')"
   //     id="date" />
 
+  
+
   const [dateType, setDateType] = useState("text");
 
   return (

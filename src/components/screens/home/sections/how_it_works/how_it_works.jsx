@@ -17,7 +17,6 @@ const HCard = ({ data, isWhite, isLast, isTwo }) => {
       <div className={`${styles.HCard} ${isWhite ? styles.white : ""} `}>
         <div className={styles.ico}>{icon}</div>
         <p>{title}</p>
-        {/* <small>{caption}</small> */}
         {!isLast && (
           <Image
             src="/assets/svg/arrow.svg"
