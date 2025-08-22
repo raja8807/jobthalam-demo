@@ -31,6 +31,10 @@
   margin-bottom: 50px;
   height: 300px;
 
+  .logo {
+    border-radius: 50%;
+    overflow: hidden;
+  }
   .label {
     color: $color_g2;
     font-weight: lighter;
@@ -93,5 +97,3 @@
     }
   }
 }
-
-

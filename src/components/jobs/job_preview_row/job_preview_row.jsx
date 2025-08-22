@@ -9,8 +9,8 @@ const JobPreviewRow = ({
   hasDateApplied,
   job,
   dateColName = "Date Applied",
-  actionBtnText ,
-  onActionClick
+  actionBtnText,
+  onActionClick,
 }) => {
   const [showDetailsFor, setShowDetailsFor] = useState(null);
 
@@ -35,9 +35,7 @@ const JobPreviewRow = ({
             <div className={styles.job_details}>
               <div>
                 <Image
-                  src={
-                    job?.company?.logo_url || "/company_logo_placeholder.png"
-                  }
+                  src={job?.logoUrl || "/company_logo_placeholder.png"}
                   alt="company_logo"
                   width={50}
                 />

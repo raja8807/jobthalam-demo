@@ -87,11 +87,11 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
                 <h3>{data.title}</h3>
                 <p>{data.companyName}</p>
               </div>
-              <div>
+              <div className={styles.logo}>
                 <Image
-                  src={data.logo_url || "/company_logo_placeholder.png"}
+                  src={data.logoUrl || "/company_logo_placeholder.png"}
                   alt="logo"
-                  width={50}
+                  width={55}
                 />
               </div>
             </div>
@@ -100,9 +100,7 @@ const Card = ({ data, isInternship, isLoading, setShowLogin }) => {
               <div>
                 <GeoAlt /> {data.location}
               </div>
-              <div>
-                ₹ {data.salary}
-              </div>
+              <div>₹ {data.salary}</div>
               <div>
                 <PersonBadge /> {data.experience}
               </div>
