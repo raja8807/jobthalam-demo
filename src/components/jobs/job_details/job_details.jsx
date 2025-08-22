@@ -44,7 +44,7 @@ const JobDetails = ({
               <div className={styles.left}>
                 <div className={styles.logo}>
                   <Image
-                    src={job?.company_logo || "/company_logo_placeholder.png"}
+                    src={job?.logoUrl || "/company_logo_placeholder.png"}
                     alt="logo"
                     height={70}
                   />
