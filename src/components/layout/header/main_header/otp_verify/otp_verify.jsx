@@ -240,7 +240,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
                     className={styles.resendButton}
                     onClick={handleResend}
                   >
-                    Didn't receive? <span>Resend</span>
+                    Didn&apos;t receive? <span>Resend</span>
                   </button>
                 )}
               </div>
