@@ -71,17 +71,16 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
             <nav>
               <ul>
                 {PAGES.map((p) => {
-if(p.hidden){
-return null
-}
+                  if (p.hidden) {
+                    return null
+                  }
                   if (p.isPortal) {
                     if (session) {
                       return (
                         <li
                           key={"portal"}
-                          className={`${styles.item} ${
-                            router.pathname === p.href ? styles.active : ""
-                          }`}
+                          className={`${styles.item} ${router.pathname === p.href ? styles.active : ""
+                            }`}
                         >
                           <Link href={"/candidate"}>Candidate</Link>
                         </li>
@@ -91,9 +90,8 @@ return null
                     return (
                       <li
                         key={p.name}
-                        className={`${styles.item} ${
-                          router.pathname === p.href ? styles.active : ""
-                        }`}
+                        className={`${styles.item} ${router.pathname === p.href ? styles.active : ""
+                          }`}
                       >
                         <Link href={p.href}>{p.name}</Link>
                       </li>
@@ -107,7 +105,7 @@ return null
             {!currentUser && !session && (
               <>
                 <div className={styles.btns}>
-                 
+
                   <CustomButton
                     onClick={() => {
                       setShowLogin(true);

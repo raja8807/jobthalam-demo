@@ -1,5 +1,5 @@
 import axiosInstance from "@/utils/axiosInstance";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const fetchHighlightedJobs = async () => {
   try {
@@ -16,4 +16,23 @@ export const useFetchHighlightedJobs = () => {
     queryFn: () => fetchHighlightedJobs(),
     queryKey: [`HIGHLIGHTED_JOBS`],
   });
+};
+
+const URL = "/api/home/intershipEnquiry";
+
+const createIntershipEnquirySubmission = async (data) => {
+  try {
+    return await axiosInstance.post(URL, data);
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const useCreateIntershipEnquirySubmission = () => {
+  const { mutateAsync, isPending, error, isSuccess, data, isError } =
+    useMutation({
+      mutationFn: createIntershipEnquirySubmission,
+    });
+
+  return { mutateAsync, isLoading: isPending, error, isSuccess, data, isError };
 };
