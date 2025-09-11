@@ -22,9 +22,9 @@ export const useFetchJobRequests = (candidateId) => {
 };
 
 // Fetcher function accepts category ID
-const createJobRequests = async (data) => {
+const initiateRequestPayment = async (data) => {
   try {
-    const res = await axiosInstance.post(`/api/candidate/request`, data);
+    const res = await axiosInstance.post(`/api/payment/initiate`, data);
     return res.data;
   } catch (err) {
     throw err;
@@ -32,8 +32,28 @@ const createJobRequests = async (data) => {
 };
 
 // Custom hook accepts category ID
-export const useCreateJobRequests = () => {
+export const useInitiateRequestPayment = () => {
   return useMutation({
-    mutationFn: createJobRequests,
+    mutationFn: initiateRequestPayment,
+  });
+};
+
+const checkPaymentStatusAndSendJob = async (paymentId) => {
+  try {
+    const res = await axiosInstance.post(`/api/payment/status`, {
+      paymentId,
+    });
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// Custom hook accepts category ID
+export const useCheckPaymentStatusAndSendJob = () => {
+  return useMutation({
+    mutationFn: checkPaymentStatusAndSendJob,
+    retry: 0,
+    gcTime: 0,
   });
 };

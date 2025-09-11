@@ -159,7 +159,7 @@ const ProfileTab = ({ currentUser, setCurrentUser }) => {
 
             <div className={styles.skills}>
               <br />
-              <SkillSelector initialSkills={currentUser.skills} disabled />
+              <SkillSelector initialSkills={currentUser.Skills} disabled />
             </div>
           </div>
 

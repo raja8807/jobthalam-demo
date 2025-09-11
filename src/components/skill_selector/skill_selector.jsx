@@ -85,28 +85,26 @@ const SkillSelector = ({
             return (
               <div key={cat.id} className={styles.category}>
                 <h4>{cat.name}</h4>
-                {cat.skills
-                  .filter((s) => {
-                    if (selectedSkills.some((ss) => ss.id === s.id)) {
-                      return false;
-                    }
+                {cat.Skills.filter((s) => {
+                  if (selectedSkills.some((ss) => ss.id === s.id)) {
+                    return false;
+                  }
 
-                    return s.name
-                      .toLowerCase()
-                      .includes(queryvalue.toLowerCase());
-                  })
-                  .map((sk) => (
-                    <p
-                      key={sk.id}
-                      className={"skill"}
-                      onClick={() => {
-                        setQueryValue("");
-                        setSelectedSkills((prev) => [...prev, sk]);
-                      }}
-                    >
-                      {sk.name}
-                    </p>
-                  ))}
+                  return s.name
+                    .toLowerCase()
+                    .includes(queryvalue.toLowerCase());
+                }).map((sk) => (
+                  <p
+                    key={sk.id}
+                    className={"skill"}
+                    onClick={() => {
+                      setQueryValue("");
+                      setSelectedSkills((prev) => [...prev, sk]);
+                    }}
+                  >
+                    {sk.name}
+                  </p>
+                ))}
               </div>
             );
           })}

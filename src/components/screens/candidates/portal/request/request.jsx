@@ -6,6 +6,8 @@ import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import { useFetchRequestByUid } from "@/hooks/request_hooks/request_hooks";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import BuyRequests from "./buy_request/buy_request";
+import { useRouter } from "next/router";
+import CheckPaymentStatus from "./check_status/check_status";
 
 const JobRequests = ({
   currentUser,
@@ -14,6 +16,19 @@ const JobRequests = ({
   isHome,
 }) => {
   const [showHistory, setShowHistory] = useState(false);
+  const router = useRouter();
+
+  // console.log();
+
+  if (router.query.o) {
+    return (
+      <CheckPaymentStatus
+        orderId={router.query.o}
+        router={router}
+        setCurrentTabIndex={setCurrentTabIndex}
+      />
+    );
+  }
 
   return (
     <>

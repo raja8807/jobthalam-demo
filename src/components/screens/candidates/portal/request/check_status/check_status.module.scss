@@ -1,0 +1,5 @@
+.CheckPaymentStatus {
+  height: calc(100dvh - 115px);
+
+  @include flexCenter;
+}

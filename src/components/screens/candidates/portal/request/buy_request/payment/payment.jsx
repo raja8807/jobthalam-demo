@@ -8,7 +8,7 @@ import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 import ConfirmPopup from "@/components/ui/popups/confirm_popup/confirm_popup";
 import { useRouter } from "next/router";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
-import { useCreateJobRequests } from "@/api_hooks/request_hooks/request.hooks";
+import { useInitiateRequestPayment } from "@/api_hooks/request_hooks/request.hooks";
 
 const PaymentPortal = ({
   currentUser,
@@ -17,11 +17,7 @@ const PaymentPortal = ({
   setCurrentTabIndex,
 }) => {
   const { price, name, count, isFree, id: packageId } = packageData;
-
-  // const { mutateAsync: updateUserAsync, isLoading: updateUserIsLoading } =
-  //   useUpdateCandidate();
-
-  const { mutateAsync, isPending } = useCreateJobRequests();
+  const { mutateAsync, isPending } = useInitiateRequestPayment();
 
   const isLoading = isPending;
 
@@ -29,39 +25,20 @@ const PaymentPortal = ({
   const [skill, setSkill] = useState(null);
   const [agreed, setAgreed] = useState(false);
 
-  const purchaseRequest = async () => {
+  const router = useRouter();
+
+  const initiatePurchaseRequest = async () => {
     try {
-      let paymentId = null;
-
       const res = await mutateAsync({
-        request: {
-          skill_id: skill.id,
-          package_id: packageId,
-        },
-        candidate: {
-          id: currentUser.id,
-        },
+        candidateId: currentUser.id,
+        packageId: packageId,
+        skillId: skill.id,
       });
-
-      console.log(res);
-
-      // if (!currentUser?.free_requested) {
-      //   if (res.data) {
-      //     const updatedUser = await updateUserAsync({
-      //       ...currentUser,
-      //       free_requested: true,
-      //     });
-      //     setCurrentUser(updatedUser.data);
-      //   }
-      // }
-
-      setShowSuccess(true);
+      router.replace(res.redirectUrl);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const router = useRouter();
 
   return (
     <div className={styles.PaymentPortal}>
@@ -113,10 +90,14 @@ const PaymentPortal = ({
               <h5>Skill</h5>
 
               <CustomSelect
-                options={currentUser.skills.map((s) => s.name)}
+                options={
+                  currentUser.Skills
+                    ? currentUser.Skills.map((s) => s.name)
+                    : []
+                }
                 value={skill?.name}
                 onChange={(e, v) => {
-                  setSkill(currentUser.skills.find((s) => s.name === v));
+                  setSkill(currentUser.Skills.find((s) => s.name === v));
                 }}
               />
             </div>
@@ -150,12 +131,14 @@ const PaymentPortal = ({
               />
               <p>Agree to terms and conditions</p>
             </div>
+            <br />
           </div>
           <br />
           <hr />
           <br />
+
           <CustomButton
-            onClick={purchaseRequest}
+            onClick={initiatePurchaseRequest}
             isLoading={isLoading}
             disabled={!skill || !agreed}
           >
