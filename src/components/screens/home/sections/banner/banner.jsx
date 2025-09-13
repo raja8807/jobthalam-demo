@@ -5,6 +5,7 @@ import { Col, Image, Row } from "react-bootstrap";
 import CustomButton from "@/components/ui/custom_button/custom_button";
 
 import * as Icons from "react-bootstrap-icons";
+import { InternshipResgiterButton } from "@/components/ui/internship_form/internship_form";
 
 const BCard = ({ data }) => {
   const getIcon = (name) => {
@@ -54,10 +55,8 @@ const BannerSection = ({ bannerData, setShowLogin, session }) => {
               >
                 Get Started
               </CustomButton>
-              &nbsp; &nbsp; &nbsp; &nbsp;
-              <CustomButton variant={2} href={"/about"}>
-                Know More
-              </CustomButton>
+              &nbsp; &nbsp;
+              <InternshipResgiterButton setShowLogin={setShowLogin} />
             </div>
           </div>
 

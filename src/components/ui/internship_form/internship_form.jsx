@@ -20,7 +20,6 @@ const InternShipFormModal = ({ show, setShow, jobId, setShowLogin }) => {
       className={styles.enqModal}
       size="lg"
     >
-
       <Modal.Header>
         <div className={styles.head}>
           <b>Get Started</b>
@@ -51,6 +50,29 @@ const InternShipFormModal = ({ show, setShow, jobId, setShowLogin }) => {
         </div>
       </Modal.Body>
     </Modal>
+  );
+};
+
+export const InternshipResgiterButton = ({ setShowLogin }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <CustomButton
+        onClick={() => {
+          setShowModal(true);
+        }}
+        variant={5}
+      >
+        Register For Internships
+      </CustomButton>
+
+      <InternShipFormModal
+        show={showModal}
+        setShow={setShowModal}
+        setShowLogin={setShowLogin}
+      />
+    </>
   );
 };
 

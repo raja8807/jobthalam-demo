@@ -11,7 +11,6 @@ import OtpVerify from "./main_header/otp_verify/otp_verify";
 import { List, PersonCircle } from "react-bootstrap-icons";
 import HeaderDrawer from "./top_header/header_drawer/header_drawer";
 import { auth } from "@/libs/firebase/firebase";
-import InternShipFormModal from "@/components/ui/internship_form/internship_form";
 
 const LogoutButton = ({ session, currentUser }) => {
   return (
@@ -34,16 +33,11 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
   const router = useRouter();
 
   const [showHeader, setShowHeader] = useState(false);
-  const [showForm, setShowForm] = useState(false);
 
   return (
     <header className={`${styles.header} `}>
       <OtpVerify showLogin={showLogin} setShowLogin={setShowLogin} />
-      <InternShipFormModal
-        show={showForm}
-        setShow={setShowForm}
-        setShowLogin={setShowLogin}
-      />
+
       <CustomContainer>
         <div className={styles.wrap}>
           <div className={styles.logo}>
@@ -72,15 +66,16 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
               <ul>
                 {PAGES.map((p) => {
                   if (p.hidden) {
-                    return null
+                    return null;
                   }
                   if (p.isPortal) {
                     if (session) {
                       return (
                         <li
                           key={"portal"}
-                          className={`${styles.item} ${router.pathname === p.href ? styles.active : ""
-                            }`}
+                          className={`${styles.item} ${
+                            router.pathname === p.href ? styles.active : ""
+                          }`}
                         >
                           <Link href={"/candidate"}>Candidate</Link>
                         </li>
@@ -90,8 +85,9 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
                     return (
                       <li
                         key={p.name}
-                        className={`${styles.item} ${router.pathname === p.href ? styles.active : ""
-                          }`}
+                        className={`${styles.item} ${
+                          router.pathname === p.href ? styles.active : ""
+                        }`}
                       >
                         <Link href={p.href}>{p.name}</Link>
                       </li>
@@ -105,7 +101,18 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
             {!currentUser && !session && (
               <>
                 <div className={styles.btns}>
-
+                  <CustomButton
+                    onClick={() => {
+                      setShowLogin(true);
+                    }}
+                    variant={3}
+                  >
+                    <p className={styles.login}>
+                      <PersonCircle />
+                      Employer Login
+                    </p>
+                  </CustomButton>
+                  &nbsp; &nbsp;
                   <CustomButton
                     onClick={() => {
                       setShowLogin(true);
@@ -115,16 +122,6 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
                       <PersonCircle />
                       Candidate Login
                     </p>
-                  </CustomButton>
-                  &nbsp; &nbsp;
-                  <CustomButton
-                    onClick={() => {
-                      setShowForm(true);
-                    }}
-                    variant={5}
-                  >
-                    {/* <div className={styles.badge}>New</div> */}
-                    <p className={styles.login}>Register For Internships</p>
                   </CustomButton>
                 </div>
               </>

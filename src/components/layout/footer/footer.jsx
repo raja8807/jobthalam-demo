@@ -15,7 +15,12 @@ const Footer = ({ session, setShowLogin }) => {
       href: "#",
       isCandidate: true,
     },
-    
+    {
+      id: "MANGO",
+      name: "Post a Job",
+      href: "https://employer.jobthalam.com/",
+    },
+
     {
       id: "dv",
       name: "Refund Policy",
@@ -72,7 +77,6 @@ const Footer = ({ session, setShowLogin }) => {
                 <p key={p.name} className={styles.links}>
                   <Link
                     href={p.href}
-                    
                     onClick={() => {
                       if (p.isCandidate) {
                         if (!session) {
