@@ -1,13 +1,9 @@
 import CustomButton from "@/components/ui/custom_button/custom_button";
 import MainFrame from "@/components/ui/main_frame/main_frame";
 import React, { useState } from "react";
-import { Col, Row } from "react-bootstrap";
 import styles from "./buy_request.module.scss";
-import { CheckCircleFill } from "react-bootstrap-icons";
 import PaymentPortal from "./payment/payment";
-import { useFetchJobRequests } from "@/api_hooks/request_hooks/request.hooks";
 import { useFetchPackages } from "@/api_hooks/package_hooks/package.hooks";
-import { useRouter } from "next/router";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const Package = ({ pkg, setShowPaymentFor, setCurrentTabIndex }) => {

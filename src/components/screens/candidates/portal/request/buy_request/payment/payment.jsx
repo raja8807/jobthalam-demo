@@ -9,6 +9,7 @@ import ConfirmPopup from "@/components/ui/popups/confirm_popup/confirm_popup";
 import { useRouter } from "next/router";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { useInitiateRequestPayment } from "@/api_hooks/request_hooks/request.hooks";
+import SkillSelector from "@/components/skill_selector/skill_selector";
 
 const PaymentPortal = ({
   currentUser,
@@ -32,7 +33,7 @@ const PaymentPortal = ({
       const res = await mutateAsync({
         candidateId: currentUser.id,
         packageId: packageId,
-        skillId: skill.id,
+        skillId: "4d98015b-3f6d-4a76-85ee-331485ee92dd",
       });
       router.replace(res.redirectUrl);
     } catch (error) {
@@ -71,25 +72,32 @@ const PaymentPortal = ({
           Complete Payment
         </h1>
 
-        <Row>
-          <Col xs={12}>
-            <div className={styles.info}>
-              <h5>Profile</h5>
-              <div>
-                <CustomInput value={currentUser.first_name} disabled />
-                <CustomInput value={currentUser.last_name} disabled />
-              </div>
-              <CustomInput value={currentUser.email} disabled />
-              <CustomInput value={currentUser.phone_number} disabled />
+        <div className={styles.info}>
+          <h5>Profile</h5>
+          <div className={styles.row}>
+            <CustomInput value={currentUser.first_name} disabled />
+            <CustomInput value={currentUser.last_name} disabled />
+          </div>
+          <CustomInput value={currentUser.email} disabled />
+          <CustomInput value={currentUser.phone_number} disabled />
+        </div>
+        <br />
+
+        <div className={styles.info}>
+          <h5>Skill</h5>
+
+          <div>
+            <div>
+              <SkillSelector
+                max={1}
+                onChanage={(sk) => {
+                  setSkill(sk?.[0]);
+                }}
+              />
             </div>
-            <br />
-          </Col>
+          </div>
 
-          <Col xs={12}>
-            <div className={styles.info}>
-              <h5>Skill</h5>
-
-              <CustomSelect
+          {/* <CustomSelect
                 options={
                   currentUser.Skills
                     ? currentUser.Skills.map((s) => s.name)
@@ -99,30 +107,26 @@ const PaymentPortal = ({
                 onChange={(e, v) => {
                   setSkill(currentUser.Skills.find((s) => s.name === v));
                 }}
-              />
-            </div>
-            <br />
-          </Col>
+              /> */}
+        </div>
+        <br />
 
-          <Col xs={12}>
-            <div className={styles.info}>
-              <h5>Package</h5>
+        <div className={styles.info}>
+          <h5>Package</h5>
 
-              <h4>Name : {name}</h4>
-              <h4>
-                Price &nbsp;&nbsp;: <span>&#8377; {price}/mo</span>
-              </h4>
-              <h4>Jobs &nbsp;&nbsp;: {count} Job Alerts</h4>
-            </div>
-            <br />
-          </Col>
-        </Row>
+          <h4>Name : {name}</h4>
+          <h4>
+            Price &nbsp;&nbsp;: <span>&#8377; {price}/mo</span>
+          </h4>
+          <h4>Jobs &nbsp;&nbsp;: {count} Job Alerts</h4>
+        </div>
+        <br />
 
         <div className={styles.info}>
           <h5>Confirm Purchase</h5>
 
           <div>
-            <div>
+            <div className={styles.row}>
               <Form.Check
                 checked={agreed}
                 onChange={(e) => {
