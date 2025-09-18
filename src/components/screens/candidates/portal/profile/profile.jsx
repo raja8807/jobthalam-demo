@@ -32,9 +32,18 @@ const ProfileTab = ({ currentUser, setCurrentUser }) => {
   const { mutateAsync: deleteResumeAsync, isPending: deleteIsLoading } =
     useDeletedResume();
 
+  const [skills, setSkills] = useState(currentUser?.Skills);
+
+  // console.log(skills);
+
   const updateProfile = async (data) => {
+    console.log(data);
+
     try {
-      await mutateAsync(data);
+      await mutateAsync({
+        ...data,
+        skill_ids: skills.map((s) => s.id),
+      });
       router.reload();
     } catch (error) {
       console.log("error", error);
@@ -159,7 +168,10 @@ const ProfileTab = ({ currentUser, setCurrentUser }) => {
 
             <div className={styles.skills}>
               <br />
-              <SkillSelector initialSkills={currentUser.Skills} disabled />
+              <SkillSelector
+                initialSkills={currentUser.Skills}
+                onChanage={setSkills}
+              />
             </div>
           </div>
 
