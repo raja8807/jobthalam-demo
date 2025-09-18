@@ -171,6 +171,7 @@ const ProfileTab = ({ currentUser, setCurrentUser }) => {
               <SkillSelector
                 initialSkills={currentUser.Skills}
                 onChanage={setSkills}
+                max={5}
               />
             </div>
           </div>
