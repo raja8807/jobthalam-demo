@@ -8,13 +8,15 @@ import React, { useEffect } from "react";
 const Candidates = ({ currentUser, session, setCurrentUser }) => {
   const router = useRouter();
 
+  console.log(session);
+
   useEffect(() => {
-    setTimeout(() => {
+    if (session !== undefined) {
       if (!auth.currentUser) {
         router.push("/");
       }
-    }, 1000);
-  }, [auth.currentUser]);
+    }
+  }, [auth.currentUser, session]);
 
   if (session) {
     return (
@@ -25,7 +27,7 @@ const Candidates = ({ currentUser, session, setCurrentUser }) => {
       />
     );
   }
-  return <LoadingScreen/>;
+  return <LoadingScreen />;
 };
 
 export default Candidates;

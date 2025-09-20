@@ -60,7 +60,7 @@ const SkillSelector = ({
           {selectedSkills.length} / {max}
         </small>
       </div>
-      {!disabled && (
+      {!disabled && selectedSkills.length < max && (
         <div className={styles.text}>
           <CustomInput
             placeHolder="Skill"

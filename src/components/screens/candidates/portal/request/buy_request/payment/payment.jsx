@@ -28,12 +28,14 @@ const PaymentPortal = ({
 
   const router = useRouter();
 
+  // console.log();
+
   const initiatePurchaseRequest = async () => {
     try {
       const res = await mutateAsync({
         candidateId: currentUser.id,
         packageId: packageId,
-        skillId: "4d98015b-3f6d-4a76-85ee-331485ee92dd",
+        skillId: skill.id,
       });
       router.replace(res.redirectUrl);
     } catch (error) {

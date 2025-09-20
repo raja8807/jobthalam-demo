@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState();
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
