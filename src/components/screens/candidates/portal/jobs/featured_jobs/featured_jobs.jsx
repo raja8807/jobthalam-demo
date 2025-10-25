@@ -24,9 +24,9 @@ const FeaturedJobs = ({ allJobs, currentUser }) => {
     const worksheetData = [
       [
         "Company Name",
-        "Industry",
         "Title",
         "Role",
+        "Salary",
         "Type",
         "HR Name",
         "Phone Number",
@@ -34,39 +34,29 @@ const FeaturedJobs = ({ allJobs, currentUser }) => {
         "Website",
         "Experience",
         "Education",
+        "Location",
+        "Description",
       ],
     ];
 
-    allJobs.forEach((job) => {
-      if (!job.employerJob) {
-        worksheetData.push([
-          job?.adminjob?.company_name,
-          "",
-          job?.adminjob?.title,
-          job?.adminjob?.role,
-          job?.adminjob?.type,
-          job?.adminjob?.company_spoc_name,
-          job?.adminjob?.company_phone_number,
-          job?.adminjob?.company_email,
-          job?.adminjob?.company_website,
-          job?.adminjob?.experience,
-          job?.adminjob?.education,
-        ]);
-      } else {
-        worksheetData.push([
-          job?.employer?.company_name,
-          job?.employer?.company_type,
-          job?.job?.title,
-          job?.job?.role,
-          job?.job?.type,
-          `${job?.employer?.first_name} ${job?.employer?.first_name}`,
-          job?.employer?.phone_number,
-          job?.employer?.email,
-          job?.employer?.website_url,
-          job?.job?.experience,
-          job?.job?.education,
-        ]);
-      }
+    const jobsToCreate = [...adminJobs, ...employerJobs];
+
+    jobsToCreate.forEach((job) => {
+      worksheetData.push([
+        job.companyName,
+        job.title,
+        job.role,
+        job.salary,
+        job.type,
+        job.companyHrName,
+        job.companyPhone,
+        job.companyEmail,
+        job.companyWebsite,
+        job.experience,
+        job.education,
+        job.location,
+        job.description,
+      ]);
     });
 
     // Create a new workbook and worksheet
