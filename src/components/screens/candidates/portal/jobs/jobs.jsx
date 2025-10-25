@@ -13,19 +13,19 @@ const Jobs = ({ currentUser, allJobs = [], isLoading, setCurrentTabIndex }) => {
     return <LoadingScreen />;
   }
 
-  if (allJobs?.[0]) {
-    return (
-      <MainFrame
-        head={`Hello, ${currentUser.first_name} ${currentUser.last_name}`}
-        caption={
-          allJobs?.[0] &&
-          "Welcome to Jobthalam, Here are the jobs that suits for you!"
-        }
-      >
-        <FeaturedJobs allJobs={allJobs} currentUser={currentUser} />
-      </MainFrame>
-    );
-  }
+  // if (allJobs?.[0]) {
+  return (
+    <MainFrame
+      head={`Hello, ${currentUser.first_name} ${currentUser.last_name}`}
+      caption={
+        allJobs?.[0] &&
+        "Welcome to Jobthalam, Here are the jobs that suits for you!"
+      }
+    >
+      <FeaturedJobs allJobs={allJobs} currentUser={currentUser} />
+    </MainFrame>
+  );
+  // }
 
   return (
     <>

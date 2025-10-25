@@ -8,8 +8,8 @@ import {
   ClockHistory,
   EnvelopeAt,
   GeoAlt,
+  Globe,
   Person,
-  Phone,
   Telephone,
   X,
 } from "react-bootstrap-icons";
@@ -19,11 +19,8 @@ const JobDetails = ({
   job,
   setJob,
   actionButton,
-  isAdminJob,
-  employer,
   isHidden,
   onDetailButtonClick,
-  employerData,
 }) => {
   const close = () => {
     setJob(null);
@@ -105,7 +102,7 @@ const JobDetails = ({
                       <div>
                         <CalendarDate />
                         <p>DURATION:</p>
-                        <span>{job?.duration} Month(s)</span>
+                        <span>{job?.createdAt} Month(s)</span>
                       </div>
                     ) : (
                       <div>
@@ -132,7 +129,7 @@ const JobDetails = ({
                     <div>
                       <Person /> &nbsp;
                       <strong>
-                        {isHidden ? "Mr. John Doe" : employerData.companyHrName}
+                        {isHidden ? "Mr. John Doe" : job.companyHrName}
                       </strong>
                     </div>
                     <div>
@@ -140,17 +137,30 @@ const JobDetails = ({
                       <small>
                         {isHidden
                           ? "rishiagarwal@gmail.com"
-                          : employerData?.companyEmail}
+                          : job?.companyEmail}
                       </small>
                     </div>
                     <div>
-                      <Telephone /> &nbsp;
+                      <Globe /> &nbsp;
                       <small>
-                        {isHidden
-                          ? "+91 98765 43210"
-                          : employerData?.companyPhone}
+                        {isHidden ? "wwww.mycopany.com" : job?.companyWebsite}
                       </small>
                     </div>
+
+                    {isHidden ? (
+                      <div>
+                        <Telephone /> &nbsp;
+                        <small>{"+91 98765 43210"}</small>
+                      </div>
+                    ) : (
+                      job.companyPhone && (
+                        <div>
+                          <Telephone /> &nbsp;
+                          <small>{job?.companyPhone}</small>
+                        </div>
+                      )
+                    )}
+
                     <br />
                     <hr />
                     {isHidden && (
@@ -170,13 +180,20 @@ const JobDetails = ({
                   <h6>About Company</h6>
                   {isHidden ? (
                     <p className={styles.hidden}>
-                      Founded with a vision to simplify technology, we specialize in delivering custom software development, mobile & web applications, cloud solutions, and enterprise grade IT services tailored to our clients unique needs.
-<br/>
-<br/>
-Our team of passionate developers, designers, and tech strategists works hand-in-hand with businesses across industries from startups to global enterprises to transform ideas into scalable, secure, and user friendly products.
+                      Founded with a vision to simplify technology, we
+                      specialize in delivering custom software development,
+                      mobile & web applications, cloud solutions, and enterprise
+                      grade IT services tailored to our clients unique needs.
+                      <br />
+                      <br />
+                      Our team of passionate developers, designers, and tech
+                      strategists works hand-in-hand with businesses across
+                      industries from startups to global enterprises to
+                      transform ideas into scalable, secure, and user friendly
+                      products.
                     </p>
                   ) : (
-                    <p>{isAdminJob ? job?.about_company : employer?.about}</p>
+                    <p>{job?.about_company}</p>
                   )}
                 </div>
               </div>

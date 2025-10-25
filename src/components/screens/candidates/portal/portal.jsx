@@ -53,7 +53,9 @@ const PortalScreen = ({ currentUser, setCurrentUser }) => {
         <ApplicationsTab
           currentUser={currentUser}
           appliedJobs={
-            featuredJobs ? featuredJobs.filter((f) => !!f.application) : []
+            featuredJobs
+              ? featuredJobs.employerJobs.filter((f) => !!f.application)
+              : []
           }
         />
       ),

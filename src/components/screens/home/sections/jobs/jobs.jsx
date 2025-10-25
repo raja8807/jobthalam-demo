@@ -22,13 +22,8 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
-import { useFetchHomePageJobs } from "@/hooks/home_page/home_page";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import CustomInput from "@/components/ui/cuatom_input/cuatom_input";
-import CustomSelect from "@/components/ui/select/custom_select/custom_select";
-import CustomButton from "@/components/ui/custom_button/custom_button";
-import { useCreateSubmission } from "@/hooks/form_hooks/form_hooks";
 import JobDetails from "@/components/jobs/job_details/job_details";
 import InternShipFormModal from "@/components/ui/internship_form/internship_form";
 import { useFetchHighlightedJobs } from "@/api_hooks/home/home.hooks";

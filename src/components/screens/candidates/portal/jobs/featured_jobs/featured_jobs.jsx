@@ -16,11 +16,8 @@ import {
 import * as XLSX from "xlsx";
 
 const FeaturedJobs = ({ allJobs, currentUser }) => {
-  const adminJobs = allJobs ? allJobs.filter((j) => !!j.admin_job_id) : [];
-
-  const employerJobs = allJobs
-    ? allJobs.filter((j) => !!j.employer_job_id)
-    : [];
+  const adminJobs = allJobs.adminJobs;
+  const employerJobs = allJobs.employerJobs;
 
   const downloadExcel = () => {
     // Data to be written to the Excel file
@@ -137,7 +134,7 @@ const FeaturedJobs = ({ allJobs, currentUser }) => {
               return (
                 <JobCard
                   key={job.id}
-                  jobData={job.employerJob}
+                  jobData={job}
                   featuredJob={job}
                   actionButton={
                     job.application ? (
@@ -174,7 +171,7 @@ const FeaturedJobs = ({ allJobs, currentUser }) => {
               return (
                 <JobCard
                   key={job.id}
-                  jobData={job.adminJob}
+                  jobData={job}
                   isAdminJob
                   featuredJob={job}
                 />
