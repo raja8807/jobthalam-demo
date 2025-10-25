@@ -98,13 +98,13 @@ const FaqSection = ({ faqs = [] }) => {
           </Col>
           <Col xs={12} md={5}>
             <div className={styles.right}>
-              <Image src="/logo/logo_s.png" width={100} />
+              <Image src="/logo/logo_s.png" width={100} alt="logo" />
               <h3>Do you have more questions?</h3>
               <p>
                 If you have any questions about our jobthalam portal, don&apos;t
                 hesitate to contact us.
               </p>
-              <CustomButton>Contact Us</CustomButton>
+              <CustomButton href={"/contact"}>Contact Us</CustomButton>
             </div>
           </Col>
         </Row>

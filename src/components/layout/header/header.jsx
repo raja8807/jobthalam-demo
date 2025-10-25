@@ -37,11 +37,12 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
   return (
     <header className={`${styles.header} `}>
       <OtpVerify showLogin={showLogin} setShowLogin={setShowLogin} />
-
       <CustomContainer>
         <div className={styles.wrap}>
           <div className={styles.logo}>
-            <Image src="/logo/logo_f_v.png" width={200} alt="logo" />
+            <Link href={"/"}>
+              <Image src="/logo/logo_f_v.png" width={200} alt="logo" />
+            </Link>
             <div className={styles.menu}>
               <HeaderDrawer
                 router={router}

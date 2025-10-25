@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./footer.module.scss";
 import CustomContainer from "@/components/ui/custom_container/custom_container";
 import { Col, Image, Row } from "react-bootstrap";
 import Link from "next/link";
 import PAGES from "@/constants/pages";
-import { ArrowRight } from "react-bootstrap-icons";
+import { ArrowRight, ArrowUp } from "react-bootstrap-icons";
 import { useRouter } from "next/router";
 
 const Footer = ({ session, setShowLogin }) => {
@@ -30,8 +30,28 @@ const Footer = ({ session, setShowLogin }) => {
 
   const router = useRouter();
 
+  const [showDiv, setShowDiv] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowDiv(true);
+      } else {
+        setShowDiv(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <footer className={styles.footer}>
+      {showDiv && (
+        <Link href={"#"} className={styles.topBtn}>
+          <ArrowUp />
+        </Link>
+      )}
       <CustomContainer>
         <Row>
           <Col xs={12} md={6} lg={5}>
@@ -42,12 +62,6 @@ const Footer = ({ session, setShowLogin }) => {
                 width={250}
                 className={styles.logo}
               />
-              {/* <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
-                ad quos ratione asperiores qui molestiae itaque amet et
-                reiciendis magni vel incidunt dolor libero, inventore,
-                voluptatibus deserunt doloribus optio sit?
-              </p> */}
             </div>
           </Col>
           <Col xs={6} md={6} lg={2}>
