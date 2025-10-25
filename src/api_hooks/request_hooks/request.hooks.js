@@ -50,10 +50,13 @@ const checkPaymentStatusAndSendJob = async (paymentId) => {
 };
 
 // Custom hook accepts category ID
-export const useCheckPaymentStatusAndSendJob = () => {
+export const useCheckPaymentStatusAndSendJob = (candidateId) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: checkPaymentStatusAndSendJob,
     retry: 0,
-    gcTime: 0,
+    onSuccess: () => {
+      queryClient.invalidateQueries([`CANDIDATE_FEATURED_JOBS`, candidateId]);
+    },
   });
 };

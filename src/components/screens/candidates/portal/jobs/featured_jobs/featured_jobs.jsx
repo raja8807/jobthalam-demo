@@ -113,8 +113,6 @@ const FeaturedJobs = ({ allJobs, currentUser }) => {
         featured_job_id: featuredJob.id,
         employer_job_id: featuredJob.employer_job_id,
       });
-
-      console.log(res);
     } catch (error) {
       console.log(error);
     }

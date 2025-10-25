@@ -8,8 +8,6 @@ import React, { useEffect } from "react";
 const Candidates = ({ currentUser, session, setCurrentUser }) => {
   const router = useRouter();
 
-  console.log(session);
-
   useEffect(() => {
     if (session !== undefined) {
       if (!auth.currentUser) {

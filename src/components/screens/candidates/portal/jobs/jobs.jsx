@@ -9,7 +9,7 @@ import FeaturedJobs from "./featured_jobs/featured_jobs";
 import LoadingScreen from "@/components/ui/loading_screen/loading_screen";
 
 const Jobs = ({ currentUser, allJobs = [], isLoading, setCurrentTabIndex }) => {
-  if (isLoading) {
+  if (isLoading || !currentUser) {
     return <LoadingScreen />;
   }
 

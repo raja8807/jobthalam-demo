@@ -26,6 +26,7 @@ const JobRequests = ({
         orderId={router.query.o}
         router={router}
         setCurrentTabIndex={setCurrentTabIndex}
+        currentUser={currentUser}
       />
     );
   }
