@@ -19,7 +19,13 @@ const SkillSelector = ({
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (e.target.className !== "skill" && e.target.id !== "skill_input") {
+      console.log();
+
+      if (
+        e.target.className !== "skill" &&
+        e.target.id !== "skill_input" &&
+        e?.target?.nodeName !== "path"
+      ) {
         setShowOptions(false);
       }
     };
@@ -35,8 +41,32 @@ const SkillSelector = ({
     onChanage(selectedSkills);
   }, [selectedSkills]);
 
+  const [dropDownStyle, setDropDownStyles] = useState({
+    height: "100px",
+  });
+
+  useEffect(() => {
+    const element = document.getElementById("skillSelector");
+    const windowHeight = window.innerHeight;
+
+    let dropDownHeight = 300;
+
+    const wHeight = windowHeight - element.offsetTop - 100;
+
+    if (wHeight > 300) {
+      dropDownHeight = wHeight;
+    }
+
+    setDropDownStyles((prev) => ({
+      ...prev,
+      height: `${dropDownHeight}px`,
+    }));
+
+    // console.log(element.offsetTop);
+  }, []);
+
   return (
-    <div className={styles.SkillSelector}>
+    <div className={styles.SkillSelector} id="skillSelector">
       <div className={styles.bubbles}>
         <div>
           {selectedSkills.map((skill) => {
@@ -45,6 +75,7 @@ const SkillSelector = ({
                 {skill.name} &nbsp;
                 {!disabled && (
                   <XCircleFill
+                    className="remove"
                     onClick={() => {
                       setSelectedSkills((prev) => {
                         return prev.filter((s) => s.id !== skill.id);
@@ -80,8 +111,21 @@ const SkillSelector = ({
         </div>
       )}
       {!disabled && showOptions && selectedSkills.length < max && (
-        <div className={styles.options}>
+        <div
+          className={styles.options}
+          style={{
+            height: dropDownStyle.height,
+          }}
+        >
           {categories.map((cat) => {
+            const isEmpty = cat.Skills.every((s) =>
+              selectedSkills.some((ss) => ss.id == s.id)
+            );
+
+            if (isEmpty) {
+              return null;
+            }
+
             return (
               <div key={cat.id} className={styles.category}>
                 <h4>{cat.name}</h4>
@@ -89,7 +133,6 @@ const SkillSelector = ({
                   if (selectedSkills.some((ss) => ss.id === s.id)) {
                     return false;
                   }
-
                   return s.name
                     .toLowerCase()
                     .includes(queryvalue.toLowerCase());
