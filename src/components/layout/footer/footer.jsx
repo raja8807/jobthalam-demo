@@ -116,13 +116,8 @@ const Footer = ({ session, setShowLogin }) => {
         <div className={styles.legal}>
           <p>All rights reserved © 2025 Arvicomm Technologies.</p>
           <div>
-            <Link hr href={"/terms-and-conditions"}>
-              Terms & Conditions
-            </Link>
-            |
-            <Link hr href={"/Privacy-Policy"}>
-              Privacy policy
-            </Link>
+            <Link href={"/terms-and-conditions"}>Terms & Conditions</Link>|
+            <Link href={"/Privacy-Policy"}>Privacy policy</Link>
           </div>
         </div>
       </CustomContainer>

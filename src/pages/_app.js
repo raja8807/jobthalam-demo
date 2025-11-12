@@ -41,19 +41,29 @@ export default function App({ Component, pageProps }) {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user?.uid) {
         try {
           const loggedInUser = await getCurrentCandidateUser();
           setCurrentUser(loggedInUser);
         } catch (err) {
-          console.log("logged in user error-->", err);
+          console.error("Error fetching current user:", err);
+          if (err?.response?.status !== 404) {
+            alert("Something went wrong, please contact support.");
+            // sign out user to reset session
+            await auth.signOut();
+            setCurrentUser(null);
+            setSession(null);
+          }
         }
       } else {
         setCurrentUser(null);
       }
       setSession(user);
     });
+
+    // cleanup listener when component unmounts
+    return () => unsubscribe();
   }, []);
 
   const [showLogin, setShowLogin] = useState(false);

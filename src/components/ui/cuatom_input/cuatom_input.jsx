@@ -23,8 +23,6 @@ const CustomInput = ({
   //     onblur="(this.type='text')"
   //     id="date" />
 
-  
-
   const [dateType, setDateType] = useState("text");
 
   return (
@@ -42,18 +40,23 @@ const CustomInput = ({
           }}
           value={value}
           placeholder={placeHolder}
-          type={type === "date" ? dateType : type}
+          type={type}
           required={required}
-          onFocus={() => {
-            if (type === "date") {
-              setDateType("date");
-            }
-          }}
-          onBlur={() => {
-            if (type === "date") {
-              setDateType("text");
-            }
-          }}
+          // onFocus={() => {
+          //   if (type === "date") {
+          //     setDateType("date");
+          //   }
+          // }}
+          // onClick={() => {
+          //   if (type === "date") {
+          //     setDateType("date");
+          //   }
+          // }}
+          // onBlur={() => {
+          //   if (type === "date") {
+          //     setDateType("text");
+          //   }
+          // }}
           {...props}
         />
         {rightElement && rightElement}

@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import CustomSelect from "@/components/ui/select/custom_select/custom_select";
 import { useInitiateRequestPayment } from "@/api_hooks/request_hooks/request.hooks";
 import SkillSelector from "@/components/skill_selector/skill_selector";
+import { LOCATIONS } from "@/constants/job";
 
 const PaymentPortal = ({
   currentUser,
@@ -26,9 +27,9 @@ const PaymentPortal = ({
   const [skill, setSkill] = useState(null);
   const [agreed, setAgreed] = useState(false);
 
-  const router = useRouter();
+  const [location, setLocation] = useState("Any");
 
-  // console.log();
+  const router = useRouter();
 
   const initiatePurchaseRequest = async () => {
     try {
@@ -36,6 +37,7 @@ const PaymentPortal = ({
         candidateId: currentUser.id,
         packageId: packageId,
         skillId: skill.id,
+        location,
       });
       router.replace(res.redirectUrl);
     } catch (error) {
@@ -99,17 +101,16 @@ const PaymentPortal = ({
             </div>
           </div>
 
-          {/* <CustomSelect
-                options={
-                  currentUser.Skills
-                    ? currentUser.Skills.map((s) => s.name)
-                    : []
-                }
-                value={skill?.name}
-                onChange={(e, v) => {
-                  setSkill(currentUser.Skills.find((s) => s.name === v));
-                }}
-              /> */}
+          <div>
+            <CustomSelect
+              label={"Preferred Location"}
+              options={["Any", ...LOCATIONS]}
+              value={location}
+              onChange={(e, v) => {
+                setLocation(v);
+              }}
+            />
+          </div>
         </div>
         <br />
 

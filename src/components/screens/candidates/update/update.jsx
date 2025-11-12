@@ -54,6 +54,7 @@ const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
       <div className={styles.name}>
         <CustomSelect
           options={["Male", "Female"]}
+          label={"Gender*"}
           value={values.gender}
           onChange={(e, value) => {
             setValues((prev) => ({ ...prev, gender: value }));
@@ -63,6 +64,7 @@ const Form1 = ({ setValues, values, session, setCurrentFormIndex }) => {
         />
         <CustomInput
           placeHolder="DOB"
+          label={"DOB"}
           type="date"
           required
           onChange={(e, value) => {

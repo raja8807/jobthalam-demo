@@ -3,7 +3,14 @@ import CustomButton from "@/components/ui/custom_button/custom_button";
 import React, { useEffect, useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 import styles from "./otp_verify.module.scss";
-import { Pencil, X, Phone, Shield, ArrowLeft, Clock } from "react-bootstrap-icons";
+import {
+  Pencil,
+  X,
+  Phone,
+  Shield,
+  ArrowLeft,
+  Clock,
+} from "react-bootstrap-icons";
 import axios from "axios";
 import { auth } from "@/libs/firebase/firebase";
 import { signInWithCustomToken } from "firebase/auth";
@@ -49,6 +56,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
       setOtpSent(true);
       setResendTimer(30); // 30 seconds cooldown
     } catch (error) {
+      alert(error);
       console.log(error?.response?.data);
     }
     setIsLoading(false);
@@ -90,7 +98,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
 
   const getDisabled = () => {
     if (otpSent) {
-      if (otp.some(digit => digit === "")) {
+      if (otp.some((digit) => digit === "")) {
         return true;
       }
     }
@@ -108,10 +116,12 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
-      
+
       // Auto-focus next input
       if (value && index < 5) {
-        const nextInput = document.querySelector(`input[data-index="${index + 1}"]`);
+        const nextInput = document.querySelector(
+          `input[data-index="${index + 1}"]`
+        );
         if (nextInput) nextInput.focus();
       }
     }
@@ -119,7 +129,9 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
 
   const handleKeyDown = (index, e) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
-      const prevInput = document.querySelector(`input[data-index="${index - 1}"]`);
+      const prevInput = document.querySelector(
+        `input[data-index="${index - 1}"]`
+      );
       if (prevInput) prevInput.focus();
     }
   };
@@ -142,26 +154,26 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
           }}
           className={styles.x}
         />
-        
+
         <div className={styles.body}>
           {/* Header Section */}
           <div className={styles.header}>
             <div className={styles.iconWrapper}>
-              {otpSent ? <Shield className={styles.headerIcon} /> : <Phone className={styles.headerIcon} />}
+              {otpSent ? (
+                <Shield className={styles.headerIcon} />
+              ) : (
+                <Phone className={styles.headerIcon} />
+              )}
             </div>
-            <h4 className={styles.title}>
-              {otpSent ? "Enter OTP" : "Login"}
-            </h4>
+            <h4 className={styles.title}>{otpSent ? "Enter OTP" : "Login"}</h4>
             <p className={styles.subtitle}>
-              {otpSent 
+              {otpSent
                 ? "Enter the 6-digit code sent to your mobile"
-                : "Enter your mobile number to continue"
-              }
+                : "Enter your mobile number to continue"}
             </p>
           </div>
 
           {/* Back Button for OTP Screen */}
-      
 
           {/* Mobile Number Input */}
           {!otpSent ? (
@@ -192,7 +204,9 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
                   {isTestMode && (
                     <div className={styles.testModeInfo}>
                       <span className={styles.testBadge}>TEST</span>
-                      <p>OTP: <strong>123456</strong></p>
+                      <p>
+                        OTP: <strong>123456</strong>
+                      </p>
                     </div>
                   )}
                 </div>
@@ -203,7 +217,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
             <div className={styles.otpSection}>
               <div className={styles.mobileDisplay}>
                 <span>+91 {mobile}</span>
-                <button 
+                <button
                   className={styles.editButton}
                   onClick={() => setOtpSent(false)}
                 >
@@ -236,7 +250,7 @@ const OtpVerify = ({ showLogin, setShowLogin }) => {
                     <span>Resend in {resendTimer}s</span>
                   </div>
                 ) : (
-                  <button 
+                  <button
                     className={styles.resendButton}
                     onClick={handleResend}
                   >

@@ -11,8 +11,18 @@ export const EDUCATIONS = [
 
 export const EXPERIENCES = ["Fresher", "Experienced"];
 
-export const LOCATIONS = ["Chennai", "Coimbatore"];
+export const LOCATIONS = [
+  "Bangalore",
+  "Chennai",
+  "Cochin",
+  "Coimbatore",
+  "Delhi",
+  "Hydrabad",
+  "Madurai",
+  "Mumbai",
+  "Pondicherry",
+  "Pune",
+  "Trichy",
+];
 
 export const JOB_TYPES = ["Full time", "Part time"];
-
-
