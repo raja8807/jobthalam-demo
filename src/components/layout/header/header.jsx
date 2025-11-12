@@ -103,10 +103,9 @@ const Header = ({ currentUser, session, showLogin, setShowLogin }) => {
               <>
                 <div className={styles.btns}>
                   <CustomButton
-                    onClick={() => {
-                      setShowLogin(true);
-                    }}
+                    href="https://employer.jobthalam.com/"
                     variant={3}
+                    target="_blank"
                   >
                     <p className={styles.login}>
                       <PersonCircle />
